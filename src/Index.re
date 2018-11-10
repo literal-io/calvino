@@ -1,3 +1,6 @@
-ReactDOMRe.renderToElementWithId(<Component1 message="Hello!" />, "index1");
+[@bs.val] external require : string => unit = "require";
 
-ReactDOMRe.renderToElementWithId(<Component2 greeting="Hello!" />, "index2");
+require("./static/app.css");
+require("typeface-roboto");
+require("tachyons/css/tachyons.css");
+

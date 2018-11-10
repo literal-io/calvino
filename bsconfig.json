@@ -19,7 +19,9 @@
   "namespace": true,
   "bs-dependencies": [
     "reason-react",
-    "bs-storybook"
+    "bs-storybook",
+    "re-classnames",
+    "@jsiebern/bs-material-ui"
   ],
   "refmt": 3
 }

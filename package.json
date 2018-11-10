@@ -9,6 +9,7 @@
     "webpack": "webpack -w",
     "webpack:production": "NODE_ENV=production webpack",
     "storybook": "start-storybook -p 9001 -c .storybook",
+    "start:storybook": "concurrently -k -n \"bsb,storybook\" \"npm run storybook\"  \"npm run start\"",
     "server": "webpack-dev-server"
   },
   "keywords": [
@@ -17,6 +18,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@jsiebern/bs-material-ui": "^0.4.2",
+    "@material-ui/core": "^3.4.0",
+    "@material-ui/icons": "^3.0.1",
+    "re-classnames": "^3.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "reason-react": ">=0.4.0"
@@ -27,7 +32,10 @@
     "babel-loader": "^8.0.4",
     "bs-platform": "^4.0.7",
     "bs-storybook": "^0.3.0",
+    "concurrently": "^4.0.1",
     "html-webpack-plugin": "^3.2.0",
+    "tachyons": "^4.11.1",
+    "typeface-roboto": "0.0.54",
     "webpack": "^4.0.1",
     "webpack-cli": "^3.1.1",
     "webpack-dev-server": "^3.1.8"
