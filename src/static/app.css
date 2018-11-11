@@ -10,7 +10,7 @@
 
   /* sizes */
   --extension-popup-width: 390px;
-  --extension-popup-height: 540px;
+  --extension-popup-height: 545px;
 
   /* tachyons variables */
   --spacing-medium: 1rem;
@@ -29,6 +29,8 @@
 
 .pl { color: var(--primary-light); }
 .sl { color: var(--secondary-light); }
+.f-pl { color: var(--primary-light); }
+.f-sl { color: var(--secondary-light); }
 
 .pa3_5 { padding: calc(var(--spacing-medium) + var(--spacing-small)); }
 

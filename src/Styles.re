@@ -15,4 +15,5 @@ module Color = {
 
 let bgWhite = make(~backgroundColor="white", ());
 let pl = make(~color=Color.primaryLight, ());
+let f_pl = make(~fill=Color.primaryLight, ());
 let square = size => make(~width=px(size), ~height=px(size), ());

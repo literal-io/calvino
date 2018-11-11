@@ -14,11 +14,13 @@ module AppFrame = {
 };
 
 storiesOf("Components", _module)
-->(add("MaterialIcon", () => 
-    <AppFrame>
-      <MaterialIcon.CloudOutline style={pl +++ square(36)} />
-    </AppFrame>
-  ))
+->(
+    add("MaterialIcon", () =>
+      <AppFrame>
+        <MaterialIcon.CloudOutline style={pl +++ square(36)} />
+      </AppFrame>
+    )
+  )
 ->(
     add("IconListItem", () =>
       <AppFrame>

@@ -1,5 +1,5 @@
 open Styles;
-let component = ReasonReact.statelessComponent("RegistrationCTAScreen");
+let component = ReasonReact.statelessComponent("RegistrationCTAScreenRe");
 
 type featureSection = {
   icon: ReasonReact.reactElement,
@@ -30,6 +30,12 @@ let sections = [|
   },
 |];
 
+[@bs.deriving abstract]
+type jsProps = {
+  onSignIn: ReactEvent.Mouse.t => unit,
+  onSignUp: ReactEvent.Mouse.t => unit,
+};
+
 let make = (~onSignIn, ~onSignUp, _children) => {
   ...component,
   render: _self =>
@@ -54,7 +60,11 @@ let make = (~onSignIn, ~onSignUp, _children) => {
              sections
              |> Array.mapi((idx, {icon, title, description}) =>
                   <>
-                    <IconListItem icon title description />
+                    <IconListItem
+                      icon={<div className={cn(["pl"])}> icon </div>}
+                      title
+                      description
+                    />
                     {
                       idx < Array.length(sections) - 1 ?
                         <div className={cn(["mb3"])} /> : ReasonReact.null
@@ -104,3 +114,8 @@ let make = (~onSignIn, ~onSignUp, _children) => {
       </div>
     </div>,
 };
+
+let default =
+  ReasonReact.wrapReasonForJs(~component, jsProps =>
+    make(~onSignIn=jsProps->onSignInGet, ~onSignUp=jsProps->onSignUpGet, [||])
+  );

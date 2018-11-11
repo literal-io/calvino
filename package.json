@@ -1,12 +1,13 @@
 {
-  "name": "calvino",
+  "name": "@javamonn/calvino",
   "version": "0.1.0",
   "scripts": {
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
     "clean": "bsb -clean-world",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack -w",
+    "webpack": "webpack",
+    "webpack:watch": "webpack -w",
     "webpack:production": "NODE_ENV=production webpack",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "start:storybook": "concurrently -k -n \"bsb,storybook\" \"npm run storybook\"  \"npm run start\"",
