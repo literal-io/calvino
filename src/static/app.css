@@ -34,8 +34,8 @@
 
 .pa3_5 { padding: calc(var(--spacing-medium) + var(--spacing-small)); }
 
-.ep-h { width: var(--extension-popup-width); }
-.ep-w { height: var(--extension-popup-height); }
+.ep-w { width: var(--extension-popup-width); }
+.ep-mh { min-height: var(--extension-popup-height); }
 
 .h42 { height: 42px; }
 .h42-i { height: 42px !important; }
