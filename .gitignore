@@ -7,4 +7,5 @@ npm-debug.log
 *.bs.js
 .cache
 yarn-error.log
+build/
 

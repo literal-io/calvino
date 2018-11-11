@@ -1,6 +1,7 @@
 {
   "name": "@javamonn/calvino",
-  "version": "1.0.3",
+  "main": "build/Index.js",
+  "version": "1.0.4",
   "scripts": {
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
@@ -12,7 +13,7 @@
     "storybook": "start-storybook -p 9001 -c .storybook",
     "start:storybook": "concurrently -k -n \"bsb,storybook\" \"npm run storybook\"  \"npm run start\"",
     "server": "webpack-dev-server",
-    "prepublishOnly": "npm run clean && npm run build"
+    "prepublishOnly": "npm run clean && npm run build && npm run webpack:production"
   },
   "keywords": [
     "BuckleScript"
@@ -35,6 +36,7 @@
     "bs-platform": "^4.0.7",
     "bs-storybook": "^0.3.0",
     "concurrently": "^4.0.1",
+    "css-loader": "^1.0.1",
     "html-webpack-plugin": "^3.2.0",
     "tachyons": "^4.11.1",
     "typeface-roboto": "0.0.54",
