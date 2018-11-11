@@ -1,35 +1,16 @@
 # calvino
 
-## Run Project
+> Contemplating these essential landscapes, Kublai reflected on the invisible order that sustains cities, on the rules that decreed how they rise, take shape and prosper, adapting themselves to the seasons, and then how they sadden and fall in ruins. At times he thought he was on the verge of discovering a coherent, harmonious system underlying the infinite deformities and discords, but no model could stand up to the game of chess. Perphaps, instead of racking one's brain to suggest with the ivory pieces' scant help visions which were anyway destined to oblivion, it would suffice to play a game according to the rules, and to consider each successive state of the board as one of the countless forms that the system of forms assembles and destroys. 
+> - _Invisible Cities, Italo Calvino_
+
+Calvino is a library of React components consumed by various Literal projects. Written in ReasonML with [`reason-react`](https://github.com/reasonml/reason-react), it also serves as an example of integrating ReasonML into existing JavasScript applications.
+
+## Run Project for Development
+
+We use [Storybooks](https://github.com/storybooks/storybook) for an interactive development environment.
 
 ```sh
 npm install
-npm start
-# in another tab
-npm run webpack
+npm start:storybook
 ```
 
-After you see the webpack compilation succeed (the `npm run webpack` step), open up `build/index.html` (**no server needed!**). Then modify whichever `.re` file in `src` and refresh the page to see the changes.
-
-**For more elaborate ReasonReact examples**, please see https://github.com/reasonml-community/reason-react-example
-
-## Run Project with Server
-
-To run with the webpack development server run `npm run server` and view in the browser at http://localhost:8000. Running in this environment provides hot reloading and support for routing; just edit and save the file and the browser will automatically refresh.
-
-Note that any hot reload on a route will fall back to the root (`/`), so `ReasonReact.Router.dangerouslyGetInitialUrl` will likely be needed alongside the `ReasonReact.Router.watchUrl` logic to handle routing correctly on hot reload refreshes or simply opening the app at a URL that is not the root.
-
-To use a port other than 8000 set the `PORT` environment variable (`PORT=8080 npm run server`).
-
-## Build for Production
-
-```sh
-npm run build
-npm run webpack:production
-```
-
-This will replace the development artifact `build/Index.js` for an optimized version as well as copy `src/index.html` into `build/`. You can then deploy the contents of the `build` directory (`index.html` and `Index.js`).
-
-If you make use of routing (via `ReasonReact.Router` or similar logic) ensure that server-side routing handles your routes or that 404's are directed back to `index.html` (which is how the dev server is set up).
-
-**To enable dead code elimination**, change `bsconfig.json`'s `package-specs` `module` from `"commonjs"` to `"es6"`. Then re-run the above 2 commands. This will allow Webpack to remove unused code.
