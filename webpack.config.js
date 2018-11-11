@@ -5,11 +5,14 @@ const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
   entry: './src/Index.bs.js',
+  devtool: 'hidden-source-map',
   mode: isProd ? 'production' : 'development',
   output: {
     path: outputDir,
     publicPath: outputDir,
     filename: 'Index.js',
+    libraryTarget: 'umd',
+    library: 'calvino'
   },
   devServer: {
     compress: true,
@@ -21,7 +24,7 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: [ 'css-loader' ]
+        use: [ 'style-loader', 'css-loader' ]
       }
     ]
   }
