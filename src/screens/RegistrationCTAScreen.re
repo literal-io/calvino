@@ -7,35 +7,6 @@ type featureSection = {
   description: string,
 };
 
-let sections = [|
-  {
-    icon: <MaterialIcon.LibraryBooks style={pl +++ square(36)} />,
-    title: "Digital Librarian",
-    description: "Automatically archive PDFs you open",
-  },
-  {
-    icon: <MaterialIcon.Highlight style={pl +++ square(36)} />,
-    title: "Highlights",
-    description: "Save and share your favorite pieces of text",
-  },
-  {
-    icon: <MaterialIcon.CloudOutline style={pl +++ square(36)} />,
-    title: "Cloud Connected",
-    description: "Connect Literal to your Google Drive and Dropbox",
-  },
-  {
-    icon: <MaterialIcon.TextFields style={pl +++ square(36)} />,
-    title: "Optical Character Recognition",
-    description: "Make scanned documents searchable",
-  },
-|];
-
-[@bs.deriving abstract]
-type jsProps = {
-  onSignIn: ReactEvent.Mouse.t => unit,
-  onSignUp: ReactEvent.Mouse.t => unit,
-};
-
 let make = (~onSignIn, ~onSignUp, _children) => {
   ...component,
   render: _self =>
@@ -55,24 +26,14 @@ let make = (~onSignIn, ~onSignUp, _children) => {
           }
         </span>
       </div>
-      <div className={cn(["pa3_5", "pv3", "flex", "flex-column"])}>
-        ...{
-             sections
-             |> Array.mapi((idx, {icon, title, description}) =>
-                  <>
-                    <IconListItem
-                      icon={<div className={cn(["pl"])}> icon </div>}
-                      title
-                      description
-                    />
-                    {
-                      idx < Array.length(sections) - 1 ?
-                        <div className={cn(["mb3"])} /> : ReasonReact.null
-                    }
-                  </>
-                )
-           }
-      </div>
+      <RegistrationIconList
+        className={cn(["pa3_5", "pv3"])}
+        iconStyle={pl +++ square(36)}
+        iconClassName={cn(["pl", "sq36"])}
+        titleClassName={cn(["f7", "pl", "b", "mb1"])}
+        descriptionClassName={cn(["f7", "sl"])}
+        renderSeparator={() => <div className={cn(["mb3"])} />}
+      />
       <div
         className={
           cn([
@@ -113,6 +74,11 @@ let make = (~onSignIn, ~onSignUp, _children) => {
         )
       </div>
     </div>,
+};
+[@bs.deriving abstract]
+type jsProps = {
+  onSignIn: ReactEvent.Mouse.t => unit,
+  onSignUp: ReactEvent.Mouse.t => unit,
 };
 
 let default =

@@ -1,6 +1,8 @@
 :root {
   /* colors */
   --brand-color: #546E7A;
+  --brand-secondary: rgba(84,110,122, 0.72);
+
   --accent-color: rgb(0, 188, 212);
   --accent-color-100: #b2ebf2;
   --accent-color-100-o60: rgba(178,235,242, 0.60);
@@ -29,6 +31,8 @@
 
 .pl { color: var(--primary-light); }
 .sl { color: var(--secondary-light); }
+.bpl { color: var(--brand-color); }
+.bsl { color: var(--brand-secondary); }
 .f-pl { color: var(--primary-light); }
 .f-sl { color: var(--secondary-light); }
 
@@ -39,3 +43,6 @@
 
 .h42 { height: 42px; }
 .h42-i { height: 42px !important; }
+.sq36 { width: 36px; height: 36px; }
+
+.flex-1 { flex: 1; }

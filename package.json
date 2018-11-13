@@ -11,7 +11,7 @@
     "webpack:watch": "webpack -w",
     "webpack:production": "NODE_ENV=production webpack",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "start:storybook": "concurrently -k -n \"bsb,storybook\" \"npm run storybook\"  \"npm run start\"",
+    "start:storybook": "concurrently -k -n \"storybook,bsb\" \"npm run storybook\"  \"npm run start\"",
     "server": "webpack-dev-server",
     "prepublishOnly": "npm run clean && npm run build && npm run webpack:production"
   },
