@@ -3,14 +3,10 @@ let make = ReactDOMRe.Style.make;
 let px = num => string_of_int(num) ++ "px";
 let cn = Cn.make;
 
-let getCSSVariable: string => string = [%raw
-  "function getCSSVariable(cssVar) { return getComputedStyle(document.body).getPropertyValue(cssVar) }"
-];
-
 module Color = {
-  let brandColor = getCSSVariable("--brand-color");
-  let accentColor = getCSSVariable("--accent-color");
-  let primaryLight = getCSSVariable("--primary-light");
+  let brandColor = "#546E7A";
+  let accentColor = "rgb(0, 188, 212)";
+  let primaryLight = "rgba(255, 255, 255, 0.92)";
 };
 
 let bgWhite = make(~backgroundColor="white", ());
