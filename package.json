@@ -24,9 +24,12 @@
     "@jsiebern/bs-material-ui": "^0.4.2",
     "@material-ui/core": "^3.4.0",
     "@material-ui/icons": "^3.0.1",
+    "bs-webapi": "^0.13.1",
+    "jss": "^9.8.7",
     "re-classnames": "^3.0.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-jss": "^8.6.1",
     "reason-react": ">=0.4.0"
   },
   "devDependencies": {
