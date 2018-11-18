@@ -24,23 +24,23 @@ let appStyleSheet =
 [@bs.val] [@bs.module "@material-ui/core/styles"]
 external createMuiTheme: Js.t({.}) => Js.t({.}) = "";
 
-let defaultTheme = `ObjectGeneric(createMuiTheme(Js.Obj.empty()));
+let defaultTheme = createMuiTheme(Js.Obj.empty());
 
 /**
  * On the client, we only need a subset of context values. This function is called through
  * by JS as part of client-side app initialization and passed through to Provider.
  */
-let makeClientContext = theme => {
+let makeClientContext = () => {
   "generateClassName": ReactJss.GenerateClassName.make(),
-  "theme": theme,
+  "theme": defaultTheme,
 };
 
-let makeServerContext = theme => {
+let makeServerContext = () => {
   "generateClassName": ReactJss.GenerateClassName.make(),
   "sheetsRegistry": ReactJss.SheetsRegistry.make(),
   "sheetsManager": ReactJss.SheetsManager.make(),
   "jssStyleID": jssStyleID,
-  "theme": theme,
+  "theme": defaultTheme,
 };
 
 module Client = {
@@ -132,9 +132,9 @@ module Provider = {
       },
     render: _self =>
       canUseDOM ?
-        <Client generateClassName theme=defaultTheme> children </Client> :
+        <Client generateClassName theme> children </Client> :
         <Server
-          sheetsRegistry generateClassName theme=defaultTheme sheetsManager>
+          sheetsRegistry generateClassName theme sheetsManager>
           children
         </Server>,
   };
