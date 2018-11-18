@@ -8,3 +8,4 @@ let signUpScreen = SignUpScreen.default;
 
 let makeClientContext = ContextProvider.makeClientContext;
 let makeServerContext = ContextProvider.makeServerContext;
+let contextProvider = ContextProvider.default;

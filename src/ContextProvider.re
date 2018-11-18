@@ -1,14 +1,6 @@
 let jssStyleID = "jss-server-side";
 
-module Window = {
-  type t;
-
-  [@bs.val] external window: Js.Nullable.t(t) = "";
-
-  /* let exists = window |> Js.Nullable.toOption |> Js.Option.isSome; */
-
-  let exists = false;
-};
+[@bs.module] external canUseDOM: bool = "can-use-dom";
 
 let tachyonsStyleSheet =
   Utils.requireJSS("tachyons/css/tachyons.css")
@@ -20,105 +12,10 @@ let appStyleSheet =
   |> ReactJss.StyleSheet.make
   |> ReactJss.StyleSheet.attach;
 
-module Client = {
-  let component = ReasonReact.statelessComponent("ClientProvider");
+[@bs.val] [@bs.module "@material-ui/core/styles"]
+external createMuiTheme: Js.t({.}) => Js.t({.}) = "";
 
-  let make = (~generateClassName, ~theme=?, children) => {
-    ...component,
-    render: _self => {
-      let sheetsRegistry =
-        Utils.(
-          ReactJss.SheetsRegistry.make()
-          *> ReactJss.SheetsRegistry.add(tachyonsStyleSheet)
-          *> ReactJss.SheetsRegistry.add(appStyleSheet)
-        );
-      switch (theme) {
-      | Some(theme) =>
-        <ReactJss.JssProvider generateClassName registry=sheetsRegistry>
-          <MaterialUi.MuiThemeProvider theme>
-            children
-          </MaterialUi.MuiThemeProvider>
-        </ReactJss.JssProvider>
-      | None =>
-        <ReactJss.JssProvider generateClassName registry=sheetsRegistry>
-          ...children
-        </ReactJss.JssProvider>
-      };
-    },
-  };
-};
-
-/**
- * Currently we assume that Calvino screens are the only material-ui components in the Render
- * tree, and wrap directly with the required component (JssProvider, MuiThemeProvider). In
- * the future, one should be able to opt out of this in favor of material-ui Providers at the
- * root level.
- */
-module Provider = {
-  let component = ReasonReact.statelessComponent("Provider");
-
-  let renderServerSide =
-      (~sheetsRegistry, ~generateClassName, ~theme, ~sheetsManager, children) => {
-    let _ =
-      Utils.(
-        sheetsRegistry
-        *> ReactJss.SheetsRegistry.add(tachyonsStyleSheet)
-        *> ReactJss.SheetsRegistry.add(appStyleSheet)
-      );
-
-    <ReactJss.JssProvider registry=sheetsRegistry generateClassName>
-      <MaterialUi.MuiThemeProvider theme sheetsManager>
-        children
-      </MaterialUi.MuiThemeProvider>
-    </ReactJss.JssProvider>;
-  };
-
-  let renderClientSide = (~generateClassName, ~theme, children) => {
-    let sheetsRegistry =
-      Utils.(
-        ReactJss.SheetsRegistry.make()
-        *> ReactJss.SheetsRegistry.add(tachyonsStyleSheet)
-        *> ReactJss.SheetsRegistry.add(appStyleSheet)
-      );
-
-    <ReactJss.JssProvider generateClassName registry=sheetsRegistry>
-      <MaterialUi.MuiThemeProvider theme>
-        children
-      </MaterialUi.MuiThemeProvider>
-    </ReactJss.JssProvider>;
-  };
-
-  let make =
-      (~sheetsRegistry, ~generateClassName, ~theme, ~sheetsManager, children) => {
-    ...component,
-    didMount: _self =>
-      if (Window.exists) {
-        let _ =
-          Webapi.Dom.(
-            document
-            |> Document.getElementById(jssStyleID)
-            |> Js.Option.andThen((. node) =>
-                 node
-                 |> Element.parentNode
-                 |> Js.Option.map((. parent) =>
-                      Node.removeChild(node, parent)
-                    )
-               )
-          );
-        ();
-      },
-    render: _self =>
-      Window.exists ?
-        <Client generateClassName theme> children </Client> :
-        renderServerSide(
-          ~sheetsRegistry,
-          ~generateClassName,
-          ~theme,
-          ~sheetsManager,
-          children,
-        ),
-  };
-};
+let defaultTheme = `ObjectGeneric(createMuiTheme(Js.Obj.empty()));
 
 /**
  * On the client, we only need a subset of context values. This function is called through
@@ -136,3 +33,120 @@ let makeServerContext = theme => {
   "jssStyleID": jssStyleID,
   "theme": theme,
 };
+
+module Client = {
+  let component = ReasonReact.statelessComponent("ClientProvider");
+
+  let make = (~generateClassName, ~theme=?, children) => {
+    ...component,
+    render: _self => {
+      if (!canUseDOM) {
+        ReasonReact.null
+      } else {
+        let sheetsRegistry =
+          Utils.(
+            ReactJss.SheetsRegistry.make()
+            *> ReactJss.SheetsRegistry.add(tachyonsStyleSheet)
+            *> ReactJss.SheetsRegistry.add(appStyleSheet)
+          );
+        switch (theme) {
+        | Some(theme) =>
+          <ReactJss.JssProvider generateClassName registry=sheetsRegistry>
+            <MaterialUi.MuiThemeProvider theme>
+              children
+            </MaterialUi.MuiThemeProvider>
+          </ReactJss.JssProvider>
+        | None =>
+          <ReactJss.JssProvider generateClassName registry=sheetsRegistry>
+            ...children
+          </ReactJss.JssProvider>
+        }
+      };
+    },
+  };
+};
+
+module Server = {
+  let component = ReasonReact.statelessComponent("ServerProvider");
+
+  let make =
+      (~sheetsRegistry, ~generateClassName, ~theme, ~sheetsManager, children) => {
+    ...component,
+    render: _self => {
+      if (canUseDOM) {
+        ReasonReact.null
+      } else {
+        let _ =
+          Utils.(
+            sheetsRegistry
+            *> ReactJss.SheetsRegistry.add(tachyonsStyleSheet)
+            *> ReactJss.SheetsRegistry.add(appStyleSheet)
+          );
+
+        <ReactJss.JssProvider registry=sheetsRegistry generateClassName>
+          <MaterialUi.MuiThemeProvider theme sheetsManager>
+            children
+          </MaterialUi.MuiThemeProvider>
+        </ReactJss.JssProvider>;
+      }
+    },
+  };
+};
+
+/**
+ * Currently we assume that Calvino screens are the only material-ui components in the Render
+ * tree, and wrap directly with the required component (JssProvider, MuiThemeProvider). In
+ * the future, one should be able to opt out of this in favor of material-ui Providers at the
+ * root level.
+ */
+module Provider = {
+  let component = ReasonReact.statelessComponent("Provider");
+
+  let make =
+      (~sheetsRegistry, ~generateClassName, ~theme, ~sheetsManager, children) => {
+    ...component,
+    didMount: _self =>
+      if (canUseDOM) {
+        let _ =
+          Webapi.Dom.(
+            document
+            |> Document.getElementById(jssStyleID)
+            |> Js.Option.andThen((. node) =>
+                 node
+                 |> Element.parentNode
+                 |> Js.Option.map((. parent) =>
+                      Node.removeChild(node, parent)
+                    )
+               )
+          );
+        ();
+      },
+    render: _self =>
+      canUseDOM ?
+        <Client generateClassName theme=defaultTheme> children </Client> :
+        <Server
+          sheetsRegistry generateClassName theme=defaultTheme sheetsManager>
+          children
+        </Server>,
+  };
+};
+
+[@bs.deriving abstract]
+type jsProps('a, 'b) = {
+  generateClassName: ReactJss.GenerateClassName.t,
+  theme: Js.t('a),
+  sheetsRegistry: ReactJss.SheetsRegistry.t,
+  sheetsManager: Js.t('b),
+  children: ReasonReact.reactElement,
+};
+
+let default =
+  ReasonReact.wrapReasonForJs(~component=Provider.component, jsProps =>
+    Provider.make(
+      ~generateClassName=jsProps->generateClassNameGet,
+      ~sheetsRegistry=jsProps->sheetsRegistryGet,
+      ~sheetsManager=jsProps->sheetsManagerGet,
+      ~theme=`ObjectGeneric(jsProps->themeGet),
+      jsProps->childrenGet,
+    )
+  );
