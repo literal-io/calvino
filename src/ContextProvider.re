@@ -3,12 +3,21 @@ let jssStyleID = "jss-server-side";
 [@bs.module] external canUseDOM: bool = "can-use-dom";
 
 let tachyonsStyleSheet =
-  Utils.requireJSS("tachyons/css/tachyons.css")
+  Utils.requireJSS(
+    "!../scripts/jss-loader!extract-loader!css-loader!tachyons/css/tachyons.css",
+  )
+  |> ReactJss.StyleSheet.make
+  |> ReactJss.StyleSheet.attach;
+  
+let variablesStyleSheet =
+  Utils.requireJSS("./static/variables.json")
   |> ReactJss.StyleSheet.make
   |> ReactJss.StyleSheet.attach;
 
 let appStyleSheet =
-  Utils.requireJSS("./static/app.css")
+  Utils.requireJSS(
+    "!../scripts/jss-loader!extract-loader!css-loader!./static/app.css",
+  )
   |> ReactJss.StyleSheet.make
   |> ReactJss.StyleSheet.attach;
 
@@ -39,14 +48,15 @@ module Client = {
 
   let make = (~generateClassName, ~theme=?, children) => {
     ...component,
-    render: _self => {
+    render: _self =>
       if (!canUseDOM) {
-        ReasonReact.null
+        ReasonReact.null;
       } else {
         let sheetsRegistry =
           Utils.(
             ReactJss.SheetsRegistry.make()
             *> ReactJss.SheetsRegistry.add(tachyonsStyleSheet)
+            *> ReactJss.SheetsRegistry.add(variablesStyleSheet)
             *> ReactJss.SheetsRegistry.add(appStyleSheet)
           );
         switch (theme) {
@@ -60,9 +70,8 @@ module Client = {
           <ReactJss.JssProvider generateClassName registry=sheetsRegistry>
             ...children
           </ReactJss.JssProvider>
-        }
-      };
-    },
+        };
+      },
   };
 };
 
@@ -72,14 +81,15 @@ module Server = {
   let make =
       (~sheetsRegistry, ~generateClassName, ~theme, ~sheetsManager, children) => {
     ...component,
-    render: _self => {
+    render: _self =>
       if (canUseDOM) {
-        ReasonReact.null
+        ReasonReact.null;
       } else {
         let _ =
           Utils.(
             sheetsRegistry
             *> ReactJss.SheetsRegistry.add(tachyonsStyleSheet)
+            *> ReactJss.SheetsRegistry.add(variablesStyleSheet)
             *> ReactJss.SheetsRegistry.add(appStyleSheet)
           );
 
@@ -88,8 +98,7 @@ module Server = {
             children
           </MaterialUi.MuiThemeProvider>
         </ReactJss.JssProvider>;
-      }
-    },
+      },
   };
 };
 

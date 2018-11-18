@@ -7,5 +7,6 @@ const { cssToJss } = require('jss-cli')
 module.exports = function (source) {
   this.value = source
   const jss = cssToJss({ code: source })
+
   return `module.exports = ${JSON.stringify(jss)}`
 }
