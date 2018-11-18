@@ -10,9 +10,19 @@ module GenerateClassName = {
   external make: unit => t = "createGenerateClassName";
 };
 
+module StyleSheet = {
+  type t;
+  [@bs.scope "default"] [@bs.module "react-jss/lib/jss"]
+  external make: Js.Json.t => t = "createStyleSheet";
+
+  [@bs.send] external attach: t => t = "";
+};
+
 module SheetsRegistry = {
   type t;
-  [@bs.new] [@bs.module "jss"] external make: unit => t = "SheetsRegistry";
+  [@bs.new] [@bs.module "react-jss/lib/jss"] external make: unit => t = "SheetsRegistry";
+
+  [@bs.send.pipe: t] external add: StyleSheet.t => unit = "";
 };
 
 module JssProvider = {

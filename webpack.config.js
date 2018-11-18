@@ -24,7 +24,11 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
+        use: [
+          require.resolve('./scripts/jss-loader'),
+          'extract-loader',
+          'css-loader'
+        ]
       }
     ]
   }

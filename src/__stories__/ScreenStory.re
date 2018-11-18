@@ -8,23 +8,30 @@ module ScreenFrame = {
   let make = children => {
     ...component,
     render: _self =>
-      <div className={cn(["absolute", "absolute--fill", "flex"])}> ...children </div>
+      <div className={cn(["absolute", "absolute--fill", "flex"])}>
+        ...children
+      </div>,
   };
-}
-
+};
 
 storiesOf("Screens", _module)
 ->(
     add("RegistrationCTA", () =>
-      <RegistrationCTAScreen onSignIn={_ev => ()} onSignUp={_ev => ()} />
+      <ContextProvider.Client
+        generateClassName={ReactJss.GenerateClassName.make()}>
+        <RegistrationCTAScreen onSignIn={_ev => ()} onSignUp={_ev => ()} />
+      </ContextProvider.Client>
     )
   )
 ->(
     add("SignUpScreen", () =>
-      <ScreenFrame>
-        <SignUpScreen
-          renderSignUp={() => <div className={cn(["bg-brand"])} />}
-        />
-      </ScreenFrame>
+      <ContextProvider.Client
+        generateClassName={ReactJss.GenerateClassName.make()}>
+        <ScreenFrame>
+          <SignUpScreen
+            renderSignUp={() => <div className={cn(["bg-brand"])} />}
+          />
+        </ScreenFrame>
+      </ContextProvider.Client>
     )
   );
