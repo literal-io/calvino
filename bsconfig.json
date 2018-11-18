@@ -21,6 +21,7 @@
     "reason-react",
     "bs-storybook",
     "re-classnames",
+    "bs-webapi",
     "@jsiebern/bs-material-ui"
   ],
   "refmt": 3
