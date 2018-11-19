@@ -10,6 +10,9 @@
 
 .pl { color: var(--primary-light); }
 .sl { color: var(--secondary-light); }
+.pd { color: var(--primary-dark); }
+.sd { color: var(--secondary-dar); }
+
 .bpl { color: var(--brand-color); }
 .bsl { color: var(--brand-secondary); }
 .f-pl { color: var(--primary-light); }

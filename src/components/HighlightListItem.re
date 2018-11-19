@@ -1,19 +1,28 @@
 open Styles;
 let component = ReasonReact.statelessComponent("HighlightListItem");
 
-let make =
-  (
-    ~text,
-    ~title,
-    ~author,
-    _children
-  ) =>
-  MaterialUi.(
-    <Card>
-      <CardContent>
-        <HighlightText text />
-        <div className={cn(["flex", "flex-column"])}>
+let make = (~text, ~title, ~author, _children) => {
+  ...component,
+  render: _self =>
+    MaterialUi.(
+      <Card>
+        <CardContent> <HighlightText text /> </CardContent>
+        <div
+          className={
+            cn(["flex", "flex-row", "justify-between", "items-center"])
+          }>
+          <div className={cn(["flex", "flex-column", "ml3"])}>
+            <span className={cn(["b", "f6", "pd"])}>
+              {ReasonReact.string(title)}
+            </span>
+            <span className={cn(["f6", "sd"])}>
+              {ReasonReact.string(author)}
+            </span>
+          </div>
+          <CardActions>
+            <IconButton> <MaterialIcon.Share /> </IconButton>
+          </CardActions>
         </div>
-      </CardContent>
-    </Card>
-  )
+      </Card>
+    ),
+};

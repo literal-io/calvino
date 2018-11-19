@@ -1,6 +1,7 @@
 let (+++) = ReactDOMRe.Style.combine;
 let make = ReactDOMRe.Style.make;
 let px = num => string_of_int(num) ++ "px";
+let rem = num => string_of_float(num) ++ "rem";
 let cn = Cn.make;
 
 module Color = {
@@ -13,4 +14,6 @@ let bgWhite = make(~backgroundColor="white", ());
 let pl = make(~color=Color.primaryLight, ());
 let bpl = make(~color=Color.brandColor, ());
 let f_pl = make(~fill=Color.primaryLight, ());
+let bgaAccent = alpha => make(~backgroundColor={j|rgba(0, 188, 212, $alpha)|j}, ());
+let lineHeight = lh => make(~lineHeight=lh, ());
 let square = size => make(~width=px(size), ~height=px(size), ());

@@ -9,7 +9,10 @@ module AppFrame = {
   let make = children => {
     ...component,
     render: _self =>
-      <div className={cn(["ff-r", "bg-brand", "pa4"])}> ...children </div>,
+      <ContextProvider.Client
+        generateClassName={ReactJss.GenerateClassName.make()}>
+        <div className={cn(["ff-r", "bg-brand", "pa4"])}> ...children </div>
+      </ContextProvider.Client>,
   };
 };
 
@@ -53,3 +56,30 @@ storiesOf("Components", _module)
     )
   )
 ->(add("RegistrationCTA", () => <AppFrame> <RegistrationCTA /> </AppFrame>));
+
+let highlightText = "Contemplating these essential landscapes, Kublai reflected on the invisible order that sustains cities, on the rules that decreed how they rise, take shape and prosper, adapting themselves to the seasons, and then how they sadden and fall in ruins.";
+storiesOf("Components/HighlightListItem", _module)
+->(
+    add("Unconstrained", () =>
+      <AppFrame>
+        <HighlightListItem
+          title="Invisible Cities"
+          author="Italo Calvino"
+          text=highlightText
+        />
+      </AppFrame>
+    )
+  )
+->(
+    add("Constrained Width", () =>
+      <AppFrame>
+        <div style={make(~width=px(350), ())}>
+          <HighlightListItem
+            title="Invisible Cities"
+            author="Italo Calvino"
+            text=highlightText
+          />
+        </div>
+      </AppFrame>
+    )
+  );

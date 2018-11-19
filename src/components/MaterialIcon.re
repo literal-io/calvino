@@ -34,3 +34,8 @@ module TextFields =
   })
 
 
+module Share =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/Share"]
+      external reactClass: ReasonReact.reactClass = "default";
+  })
