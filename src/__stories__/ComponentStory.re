@@ -16,6 +16,8 @@ module AppFrame = {
   };
 };
 
+let highlightText = "Contemplating these essential landscapes, Kublai reflected on the invisible order that sustains cities, on the rules that decreed how they rise, take shape and prosper, adapting themselves to the seasons, and then how they sadden and fall in ruins.";
+
 storiesOf("Components", _module)
 ->(
     add("MaterialIcon", () =>
@@ -55,9 +57,33 @@ storiesOf("Components", _module)
       </AppFrame>
     )
   )
-->(add("RegistrationCTA", () => <AppFrame> <RegistrationCTA /> </AppFrame>));
+->(add("RegistrationCTA", () => <AppFrame> <RegistrationCTA /> </AppFrame>))
+->(
+    add("CardList", () =>
+      <AppFrame>
+        <div
+          style={make(~width=px(400), ~height=px(600), ~display="flex", ())}>
+          <CardList
+            data={
+              Array.init(20, _idx =>
+                ("Invisible Cities", "Italo Calvino", highlightText)
+              )
+            }
+            renderCard={
+              ((title, author, text)) =>
+                <div className={cn(["mh3"])}>
+                  <HighlightListItem title author text />
+                </div>
+            }
+            renderSeparator={() => <div className={cn(["mv3"])} />}
+            endThreshold=0.60
+            onEndReached={() => Js.log("nearing end of list")}
+          />
+        </div>
+      </AppFrame>
+    )
+  );
 
-let highlightText = "Contemplating these essential landscapes, Kublai reflected on the invisible order that sustains cities, on the rules that decreed how they rise, take shape and prosper, adapting themselves to the seasons, and then how they sadden and fall in ruins.";
 storiesOf("Components/HighlightListItem", _module)
 ->(
     add("Unconstrained", () =>

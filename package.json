@@ -26,6 +26,7 @@
     "@material-ui/icons": "^3.0.1",
     "bs-webapi": "^0.13.1",
     "can-use-dom": "^0.1.0",
+    "lodash-es": "^4.17.11",
     "re-classnames": "^3.0.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
