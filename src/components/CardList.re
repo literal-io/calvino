@@ -44,9 +44,7 @@ let make =
     <div
       ref={self.handle(handleListRef)}
       onScroll={_ev => self.state.handleScroll(. self.state.listRef^)}
-      className={
-        cn(["overflow-y-scroll", "flex-column", "h-100"])
-      }>
+      className={cn(["overflow-y-scroll", "flex-column", "h-100"])}>
       ...{
            data
            |> Js.Array.mapi((card, idx) =>
@@ -61,3 +59,24 @@ let make =
          }
     </div>,
 };
+
+[@bs.deriving abstract]
+type jsProps('a) = {
+  renderCard: 'a => ReasonReact.reactElement,
+  data: Js.Array.t('a),
+  renderSeparator: unit => ReasonReact.reactElement,
+  onEndReached: unit => unit,
+  endThreshold: float
+};
+
+let default =
+  ReasonReact.wrapReasonForJs(~component, jsProps =>
+    make(
+      ~renderCard=jsProps->renderCardGet,
+      ~onEndReached=jsProps->onEndReachedGet,
+      ~endThreshold=jsProps->endThresholdGet,
+      ~data=jsProps->dataGet,
+      ~renderSeparator=jsProps->renderSeparatorGet,
+      [||],
+    )
+  );

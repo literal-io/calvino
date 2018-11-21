@@ -3,8 +3,13 @@
 require("./static/app.css");
 require("tachyons/css/tachyons.css");
 
+/** Screens */
 let registrationCTAScreen = RegistrationCTAScreen.default;
 let signUpScreen = SignUpScreen.default;
+
+/** Components */
+let cardList = CardList.default;
+let highlightListItem = HighlightListItem.default;
 
 let makeClientContext = ContextProvider.makeClientContext;
 let makeServerContext = ContextProvider.makeServerContext;

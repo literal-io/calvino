@@ -26,3 +26,20 @@ let make = (~text, ~title, ~author, _children) => {
       </Card>
     ),
 };
+
+[@bs.deriving abstract]
+type jsProps = {
+  text: string,
+  title: string,
+  author: string
+};
+
+let default =
+  ReasonReact.wrapReasonForJs(~component, jsProps =>
+    make(
+      ~text=jsProps->textGet,
+      ~title=jsProps->titleGet,
+      ~author=jsProps->authorGet,
+      [||],
+    )
+  );
