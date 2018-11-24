@@ -1,7 +1,7 @@
 open Styles;
 let component = ReasonReact.statelessComponent("HighlightListItem");
 
-let make = (~text, ~title, ~author, _children) => {
+let make = (~text, ~title, ~author, ~onShareClicked, _children) => {
   ...component,
   render: _self =>
     MaterialUi.(
@@ -20,7 +20,9 @@ let make = (~text, ~title, ~author, _children) => {
             </span>
           </div>
           <CardActions>
-            <IconButton> <MaterialIcon.Share /> </IconButton>
+            <IconButton onClick={_ev => onShareClicked()}>
+              <MaterialIcon.Share />
+            </IconButton>
           </CardActions>
         </div>
       </Card>
@@ -31,7 +33,8 @@ let make = (~text, ~title, ~author, _children) => {
 type jsProps = {
   text: string,
   title: string,
-  author: string
+  author: string,
+  onShareClicked: (. unit) => unit,
 };
 
 let default =
@@ -40,6 +43,7 @@ let default =
       ~text=jsProps->textGet,
       ~title=jsProps->titleGet,
       ~author=jsProps->authorGet,
+      ~onShareClicked=() => jsProps->onShareClickedGet(.),
       [||],
     )
   );

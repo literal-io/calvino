@@ -8,7 +8,7 @@ let registrationCTAScreen = RegistrationCTAScreen.default;
 let signUpScreen = SignUpScreen.default;
 
 /** Components */
-let cardList = CardList.default;
+let infiniteList = InfiniteList.default;
 let highlightListItem = HighlightListItem.default;
 
 let makeClientContext = ContextProvider.makeClientContext;
