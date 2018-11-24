@@ -1,5 +1,3 @@
-let _module = [%bs.raw "module"];
-
 module AppFrame = {
   let component = ReasonReact.statelessComponent("AppFrame");
 

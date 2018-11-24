@@ -10,7 +10,8 @@ let make =
       ~data,
       ~renderSectionHeader,
       ~renderItem,
-      ~renderSectionSeparator,
+      ~renderSeparator,
+      ~renderInnerContainer=?,
       ~onEndReached,
       ~endThreshold,
       ~className=?,
@@ -23,9 +24,45 @@ let make =
       renderItem={
         item => <> {renderSectionHeader(item)} {renderItem(item)} </>
       }
-      renderSeparator=renderSectionSeparator
+      ?renderInnerContainer
+      renderSeparator
       onEndReached
       endThreshold
       data
     />,
 };
+
+[@bs.deriving abstract]
+type jsProps('a) = {
+  renderItem: (. 'a) => ReasonReact.reactElement,
+  renderInnerContainer:
+    Js.Nullable.t(
+      (. array(ReasonReact.reactElement)) => ReasonReact.reactElement,
+    ),
+  data: Js.Array.t('a),
+  renderSectionHeader: (. 'a) => ReasonReact.reactElement,
+  renderSeparator: (. unit) => ReasonReact.reactElement,
+  onEndReached: (. unit) => Js.Nullable.t(Js.Promise.t(unit)),
+  className: Js.Nullable.t(string),
+  endThreshold: float,
+};
+
+let default =
+  ReasonReact.wrapReasonForJs(~component, jsProps =>
+    make(
+      ~className=?jsProps->classNameGet->Js.Nullable.toOption,
+      ~renderItem=item => jsProps->renderItemGet(. item),
+      ~renderSectionHeader=item => jsProps->renderSectionHeaderGet(. item),
+      ~renderSeparator=() => jsProps->renderSeparatorGet(.),
+      ~renderInnerContainer=?
+        jsProps->renderInnerContainerGet->Js.Nullable.toOption
+        |> Js.Option.map((. renderInnerContainer) => {
+             let fn = children => renderInnerContainer(. children);
+             fn;
+           }),
+      ~endThreshold=jsProps->endThresholdGet,
+      ~onEndReached=() => jsProps->onEndReachedGet(.),
+      ~data=jsProps->dataGet,
+      [||],
+    )
+  );

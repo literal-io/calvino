@@ -131,9 +131,7 @@ storiesOf("Components/Lists", _module)
                   onEndReached=onPaginate
                   endThreshold=3.0
                   className={cn(["ph3"])}
-                  renderSectionSeparator={
-                    () => <div className={cn(["mv3"])} />
-                  }
+                  renderSeparator={() => <div className={cn(["mv3"])} />}
                   renderSectionHeader={
                     ({header}) =>
                       <div className={cn(["f3", "mt5", "mb4", "pl", "b"])}>

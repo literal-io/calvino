@@ -51,6 +51,7 @@ let make =
       ~onEndReached,
       ~endThreshold,
       ~className=?,
+      ~renderInnerContainer=?,
       _children,
     ) => {
   ...component,
@@ -66,30 +67,47 @@ let make =
         Utils.wrapBs(handleScroll(~onEndReached, ~endThreshold, ~self)),
         200,
       );
-    <div
-      ref={self.handle(handleListRef)}
-      onScroll={_ev => onScroll(. self.state.listRef^)}
-      className={
-        cn([
-          "overflow-y-scroll",
-          "absolute",
-          "absolute--fill",
-          className->Cn.unpack,
-        ])
-      }>
-      ...{
-           data
-           |> Js.Array.mapi((item, idx) =>
-                <>
-                  {renderItem(item)}
-                  {
-                    idx < Js.Array.length(data) - 1 ?
-                      renderSeparator() : ReasonReact.null
-                  }
-                </>
-              )
-         }
-    </div>;
+    let items =
+      data
+      |> Js.Array.mapi((item, idx) =>
+           <>
+             {renderItem(item)}
+             {
+               idx < Js.Array.length(data) - 1 ?
+                 renderSeparator() : ReasonReact.null
+             }
+           </>
+         );
+    switch (renderInnerContainer) {
+    | Some(renderInnerContainer) =>
+      <div
+        ref={self.handle(handleListRef)}
+        onScroll=(_ev => onScroll(. self.state.listRef^))
+        className={
+          cn([
+            "overflow-y-scroll",
+            "absolute",
+            "absolute--fill",
+            className->Cn.unpack,
+          ])
+        }>
+        {renderInnerContainer(items)}
+      </div>
+    | None =>
+      <div
+        ref={self.handle(handleListRef)}
+        onScroll=(_ev => onScroll(. self.state.listRef^))
+        className={
+          cn([
+            "overflow-y-scroll",
+            "absolute",
+            "absolute--fill",
+            className->Cn.unpack,
+          ])
+        }>
+        ...items
+      </div>
+    };
   },
 };
 

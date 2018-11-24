@@ -10,6 +10,7 @@ let signUpScreen = SignUpScreen.default;
 /** Components */
 let infiniteList = InfiniteList.default;
 let highlightListItem = HighlightListItem.default;
+let sectionList = SectionList.default;
 
 let makeClientContext = ContextProvider.makeClientContext;
 let makeServerContext = ContextProvider.makeServerContext;
