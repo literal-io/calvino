@@ -21,9 +21,11 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@javamonn/bs-librarian": "^1.2.1",
     "@jsiebern/bs-material-ui": "^0.4.2",
     "@material-ui/core": "^3.4.0",
     "@material-ui/icons": "^3.0.1",
+    "bricks.js": "^1.8.0",
     "bs-webapi": "^0.13.1",
     "can-use-dom": "^0.1.0",
     "lodash-es": "^4.17.11",

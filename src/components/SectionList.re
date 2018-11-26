@@ -5,6 +5,16 @@
 
 let component = ReasonReact.statelessComponent("SectionList");
 
+module TitledSection {
+  [@bs.deriving abstract]
+  type t('a) = {
+    title: string,
+    data: array('a),
+  };
+
+  let make = t;
+};
+
 let make =
     (
       ~data,

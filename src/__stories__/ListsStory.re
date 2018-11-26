@@ -170,4 +170,26 @@ storiesOf("Components/Lists", _module)
 
       <ListPaginator />;
     })
+  )
+->(
+    add("MasonryGrid", () =>
+      <MasonryGrid
+        columns=3
+        gutter=32
+        data={Array.init(40, _idx => ())}
+        renderItem={
+          () =>
+            <div
+              className={cn(["bg-accent"])}
+              style={
+                make(
+                  ~width=px(200),
+                  ~height=px(Js.Math.random_int(100, 200)),
+                  (),
+                )
+              }
+            />
+        }
+      />
+    )
   );
