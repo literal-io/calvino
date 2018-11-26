@@ -39,7 +39,27 @@ let make =
           section =>
             <MasonryGrid
               data={section->SectionList.TitledSection.dataGet}
-              renderItem={document => <DocumentTile />}
+              renderItem={
+                document =>
+                  <DocumentTile
+                    title={JavamonnBsLibrarian.DocumentModel.title(document)}
+                    author={
+                      JavamonnBsLibrarian.DocumentModel.author(document)
+                    }
+                    imageURL={
+                      JavamonnBsLibrarian.DocumentModel.(
+                        document
+                        |> imageURL
+                        |> Js.Option.map((. imageURL) => 
+                            switch (imageURL) {
+                              | ImageURL.Source(source) => source
+                              | ImageURL.Processed({ w200 }) => w200
+                            }
+                          )
+                      )
+                    }
+                  />
+              }
               columns=3
               gutter=32
             />
@@ -74,7 +94,7 @@ let make =
                      highlight |> JoinedDocumentAnnotation.decode;
                    <>
                      <HighlightListItem
-                       onShareClicked={() => ()}
+                       onShareClicked
                        title={
                          documentAnnotation
                          |> Js.Option.map((. highlight) =>

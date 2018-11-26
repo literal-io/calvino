@@ -73,3 +73,46 @@ storiesOf("Components/HighlightListItem", _module)
       </AppFrame>
     )
   );
+
+storiesOf("Components/DocumentTile", _module)
+->(
+    add("With Unprocessed Image", () =>
+      <AppFrame>
+        <DocumentTile
+          title="Invisible Cities"
+          author="Italo Calvino"
+          imageURL={
+            Some(
+              "https://storage.googleapis.com/literal-images/000da7f0-6254-11e8-b634-240dbf38c455",
+            )
+          }
+        />
+      </AppFrame>
+    )
+  )
+->(
+    add("With Processed Image", () =>
+      <AppFrame>
+        <DocumentTile
+          title="Invisible Cities"
+          author="Italo Calvino"
+          imageURL={
+            Some(
+              "https://storage.googleapis.com/literal-images/000d0c10-d07b-11e8-9dfc-91637d54bf9b",
+            )
+          }
+        />
+      </AppFrame>
+    )
+  )
+->(
+    add("Without Image", () =>
+      <AppFrame>
+        <DocumentTile
+          title="Invisible Cities"
+          author="Italo Calvino"
+          imageURL=None
+        />
+      </AppFrame>
+    )
+  );
