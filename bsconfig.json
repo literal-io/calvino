@@ -25,8 +25,7 @@
     "bs-faker",
     "@glennsl/bs-json",
     "@jsiebern/bs-material-ui",
-    "@javamonn/bs-librarian",
-    "@wokalski/vow"
+    "@javamonn/bs-librarian"
   ],
   "refmt": 3
 }

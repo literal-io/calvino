@@ -29,14 +29,12 @@ let document = () =>
   );
 
 let documentAnnotation = () =>
-  JavamonnBsLibrarian.DocumentAnnotationModel.(
-    make(
-      ~documentId=BsFaker.Random.uuid(),
-      ~userProfileId=BsFaker.Random.uuid(),
-      ~descriptors=[||],
-      ~text=BsFaker.Lorem.sentence(),
-      (),
-    )
+  JavamonnBsLibrarian.DocumentAnnotationModel.make(
+    ~documentId=BsFaker.Random.uuid(),
+    ~userProfileId=BsFaker.Random.uuid(),
+    ~descriptors=[||],
+    ~text=BsFaker.Lorem.sentence(~wordCount=Js.Math.random_int(8, 20), ()),
+    (),
   );
 
 module Js = {
