@@ -21,11 +21,13 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@glennsl/bs-json": "^3.0.0",
     "@javamonn/bs-librarian": "^1.2.1",
     "@jsiebern/bs-material-ui": "^0.4.2",
     "@material-ui/core": "^3.4.0",
     "@material-ui/icons": "^3.0.1",
     "bricks.js": "^1.8.0",
+    "bs-faker": "^1.1.0",
     "bs-webapi": "^0.13.1",
     "can-use-dom": "^0.1.0",
     "lodash-es": "^4.17.11",
@@ -37,7 +39,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.1.5",
+    "@javamonn/librarian": "^1.4.0",
     "@storybook/react": "^4.0.4",
+    "@wokalski/vow": "git+https://github.com/literal-io/vow.git#2ecfcd0dbb7082ae",
     "babel-loader": "^8.0.4",
     "bs-platform": "^4.0.7",
     "bs-storybook": "^0.3.0",

@@ -7,7 +7,7 @@ let make = (~title, ~author, ~imageURL, _children) => {
   render: _self =>
     <div
       style={make(~width=px(200), ())}
-      className={cn(["flex", "flex-column"])}>
+      className={cn(["flex", "flex-column", "pointer"])}>
       <MaterialUi.Paper
         classes=[MaterialUi.Paper.Classes.Root("overflow-hidden")]>
         {
@@ -17,10 +17,10 @@ let make = (~title, ~author, ~imageURL, _children) => {
           }
         }
         <div className={cn(["flex", "flex-column", "pa2"])}>
-          <span className={cn(["f4", "b", "pd"])}>
+          <span className={cn(["f6", "b", "pd", "mb1"])}>
             {ReasonReact.string(title)}
           </span>
-          <span className={cn(["f4", "b", "sd"])}>
+          <span className={cn(["f7", "sd"])}>
             {ReasonReact.string(author)}
           </span>
         </div>

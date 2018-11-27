@@ -5,6 +5,5 @@ configure(() => {
 
   require('../src/__stories__/ComponentStory.bs.js')
   require('../src/__stories__/ScreenStory.bs.js')
-  require('../src/__stories__/ListsStory.bs.js')
 }, module)
 

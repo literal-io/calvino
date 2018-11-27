@@ -34,4 +34,22 @@ storiesOf("Screens", _module)
         </ScreenFrame>
       </ContextProvider.Client>
     )
-  );
+  )
+->(
+  add("DashboardScreen", () =>  
+    <ContextProvider.Client 
+      generateClassName={ReactJss.GenerateClassName.make()}>
+      <ScreenFrame>
+        <DashboardScreen
+          documents={Array.init(20, (_idx) => Mocks.Js.document())}
+          highlights={Array.init(20, (_idx) => Mocks.Js.documentAnnotation())}
+          onPaginateHighlights={() => Js.Nullable.null}
+          onPaginateDocuments={() => Js.Nullable.null}
+          onShareClicked={() => ()}
+          onHighlightClicked={() => ()}
+          onDocumentClicked={() => ()}
+        />
+      </ScreenFrame>
+    </ContextProvider.Client>
+  )
+);

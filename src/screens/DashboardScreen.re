@@ -40,7 +40,8 @@ let make =
             <MasonryGrid
               data={section->SectionList.TitledSection.dataGet}
               renderItem={
-                document =>
+                documentJson => {
+                  let document = JavamonnBsLibrarian.DocumentModel.decode(documentJson);
                   <DocumentTile
                     title={JavamonnBsLibrarian.DocumentModel.title(document)}
                     author={
@@ -59,6 +60,7 @@ let make =
                       )
                     }
                   />
+                }
               }
               columns=3
               gutter=32
