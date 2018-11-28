@@ -29,16 +29,32 @@ let handleContainerRef =
   | _ => () /* Bricks initialized, noop */
   };
 
+let handleUpdate = bricks =>
+  bricks |> Js.Option.map(Utils.wrapBs(Bricks.update));
+
 let make = (~data, ~renderItem, ~columns, ~gutter, _children) => {
   ...component,
   initialState: () => {containerRef: ref(None), bricks: ref(None)},
   reducer: ((), state) => ReasonReact.NoUpdate,
   didUpdate: ({oldSelf, newSelf}) => {
-    newSelf.state.bricks^ |> Js.Option.map(Utils.wrapBs(Bricks.update));
+    let _ = handleUpdate(newSelf.state.bricks^);
     ();
   },
   render: self =>
     <div ref={self.handle(handleContainerRef(~columns, ~gutter))}>
-      ...{Array.map(item => renderItem(item), data)}
+      ...{
+           Array.map(
+             item =>
+               renderItem(
+                 ~onReady=
+                   () => {
+                     let _ = handleUpdate(self.state.bricks^);
+                     ();
+                   },
+                 item,
+               ),
+             data,
+           )
+         }
     </div>,
 };

@@ -28,15 +28,16 @@ let renderLibrarySection =
         <MasonryGrid
           data={section->SectionList.TitledSection.dataGet}
           renderItem={
-            documentJson => {
+            (~onReady, documentJson) => {
               let document =
                 JavamonnBsLibrarian.DocumentModel.decode(documentJson);
               <DocumentTile
                 title={JavamonnBsLibrarian.DocumentModel.title(document)}
                 author={JavamonnBsLibrarian.DocumentModel.author(document)}
+                onReady={onReady}
                 imageURL=JavamonnBsLibrarian.DocumentModel.(
                   document
-                  |> imageURL
+                  |> documentImageURL
                   |> Js.Option.map((. imageURL) =>
                        switch (imageURL) {
                        | ImageURL.Source(source) => source
