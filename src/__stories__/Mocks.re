@@ -33,7 +33,7 @@ let documentAnnotation = () =>
     ~documentId=BsFaker.Random.uuid(),
     ~userProfileId=BsFaker.Random.uuid(),
     ~descriptors=[||],
-    ~text=BsFaker.Lorem.sentence(~wordCount=Js.Math.random_int(8, 20), ()),
+    ~text=BsFaker.Lorem.sentences(~sentenceCount=Js.Math.random_int(2, 5), ()),
     (),
   );
 

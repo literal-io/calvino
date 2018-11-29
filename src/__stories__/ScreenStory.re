@@ -36,20 +36,29 @@ storiesOf("Screens", _module)
     )
   )
 ->(
-  add("DashboardScreen", () =>  
-    <ContextProvider.Client 
-      generateClassName={ReactJss.GenerateClassName.make()}>
-      <ScreenFrame>
-        <DashboardScreen
-          documents={Array.init(20, (_idx) => Mocks.document())}
-          highlights={Array.init(20, (_idx) => Mocks.Js.documentAnnotation())}
-          onPaginateHighlights={() => Js.Nullable.null}
-          onPaginateDocuments={() => Js.Nullable.null}
-          onShareClicked={() => ()}
-          onHighlightClicked={() => ()}
-          onDocumentClicked={() => ()}
-        />
-      </ScreenFrame>
-    </ContextProvider.Client>
-  )
-);
+    add("DashboardScreen", () =>
+      <ContextProvider.Client
+        generateClassName={ReactJss.GenerateClassName.make()}>
+        <ScreenFrame>
+          <DashboardScreen
+            documents={Array.init(20, _idx => Mocks.document())}
+            highlights={
+              Array.init(20, _idx =>
+                JavamonnBsLibrarian.JoinedModel.DocumentAnnotationToDocument.make(
+                  ~source=Mocks.documentAnnotation(),
+                  ~target=Mocks.document(),
+                  (),
+                )
+                |> Js.Option.some
+              )
+            }
+            onPaginateHighlights={() => Js.Nullable.null}
+            onPaginateDocuments={() => Js.Nullable.null}
+            onShareClicked={() => ()}
+            onHighlightClicked={() => ()}
+            onDocumentClicked={() => ()}
+          />
+        </ScreenFrame>
+      </ContextProvider.Client>
+    )
+  );

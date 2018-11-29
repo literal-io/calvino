@@ -1,15 +1,6 @@
 open Styles;
 let component = ReasonReact.statelessComponent("DashboardScreen");
 
-module JoinedDocumentAnnotation =
-  JavamonnBsLibrarian.JoinedModel.Make(
-    JavamonnBsLibrarian.DocumentAnnotationModel,
-    JavamonnBsLibrarian.DocumentModel,
-    {
-      let joinedOn = "document";
-    },
-  );
-
 let renderLibrarySection =
     (~documents, ~onPaginateDocuments, ~onDocumentClicked, ()) =>
   <SectionList
@@ -62,36 +53,40 @@ let renderHighlightsSection =
         let highlights = section |> SectionList.TitledSection.dataGet;
         let items =
           highlights
-          |> Js.Array.mapi((highlight, idx) => {
-               let documentAnnotation =
-                 highlight |> JoinedDocumentAnnotation.decode;
+          |> Js.Array.mapi((documentAnnotation, idx) => {
                <>
                  <HighlightListItem
                    onShareClicked
                    title={
                      documentAnnotation
                      |> Js.Option.map((. highlight) =>
-                          highlight
-                          |> JoinedDocumentAnnotation.target
-                          |> JavamonnBsLibrarian.DocumentModel.title
+                          JavamonnBsLibrarian.(
+                            highlight
+                            |> JoinedModel.DocumentAnnotationToDocument.target
+                            |> DocumentModel.title
+                          )
                         )
                      |> Js.Option.getWithDefault("Unknown Title")
                    }
                    author={
                      documentAnnotation
                      |> Js.Option.map((. highlight) =>
-                          highlight
-                          |> JoinedDocumentAnnotation.target
-                          |> JavamonnBsLibrarian.DocumentModel.author
+                          JavamonnBsLibrarian.(
+                            highlight
+                            |> JoinedModel.DocumentAnnotationToDocument.target
+                            |> DocumentModel.author
+                          )
                         )
                      |> Js.Option.getWithDefault("Unknown Author")
                    }
                    text={
                      documentAnnotation
                      |> Js.Option.andThen((. highlight) =>
-                          highlight
-                          |> JoinedDocumentAnnotation.source
-                          |> JavamonnBsLibrarian.DocumentAnnotationModel.text
+                          JavamonnBsLibrarian.(
+                            highlight
+                            |> JoinedModel.DocumentAnnotationToDocument.source
+                            |> DocumentAnnotationModel.text
+                          )
                         )
                      |> Js.Option.getWithDefault("")
                    }
