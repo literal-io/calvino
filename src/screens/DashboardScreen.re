@@ -9,7 +9,7 @@ let renderLibrarySection =
     |]
     renderSectionHeader={
       section =>
-        <div className={cn(["mb4", "pd", "b", "f3", "flex", "flex-auto"])}>
+        <div className={cn(["mb5", "pd", "b", "f2", "flex", "flex-auto"])}>
           {section->SectionList.TitledSection.titleGet->ReasonReact.string}
         </div>
     }
@@ -19,7 +19,7 @@ let renderLibrarySection =
         <DocumentTileMasonryGrid
           data={section->SectionList.TitledSection.dataGet}
           columns=3
-          gutter=32
+          gutter=42
         />
     }
     onEndReached=onPaginateDocuments
@@ -48,7 +48,7 @@ let renderHighlightsSection =
     |]
     renderSectionHeader={
       section =>
-        <div className={cn(["mb4", "pl", "b", "f3"])}>
+        <div className={cn(["mb5", "pl", "b", "f2"])}>
           {section->SectionList.TitledSection.titleGet->ReasonReact.string}
         </div>
     }

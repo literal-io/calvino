@@ -100,10 +100,7 @@ storiesOf("Components/DocumentTile", _module)
 ->(
     add("Without Image", () =>
       <AppFrame>
-        <DocumentTile
-          title="Invisible Cities"
-          author="Italo Calvino"
-        />
+        <DocumentTile title="Invisible Cities" author="Italo Calvino" />
       </AppFrame>
     )
   );
