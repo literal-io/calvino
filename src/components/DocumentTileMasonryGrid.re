@@ -10,12 +10,17 @@ type size = {
 };
 
 type image = {
+  src: string,
   element: Webapi.Dom.HtmlImageElement.t,
   size: option(size),
   hasLoaded: bool,
 };
 
-type state = {images: Images.t(image)};
+type state = {
+  images: Images.t(image),
+  containerRef: ref(option(Dom.element)),
+  bricks: ref(option(Bricks.t)),
+};
 
 type actions =
   | LoadImagesBegin(array(JavamonnBsLibrarian.DocumentModel.t))
@@ -32,9 +37,36 @@ let documentImageURL = document =>
     }
   );
 
+let handleUpdate = bricks =>
+  bricks |> Js.Option.map(Utils.wrapBs(Bricks.update));
+
+let handleContainerRef =
+    (~columns, ~gutter, containerRef, {ReasonReact.state}) =>
+  switch (state.containerRef^, Js.Nullable.toOption(containerRef)) {
+  | (None, Some(containerRef)) =>
+    state.containerRef := Some(containerRef);
+    let bricks =
+      Bricks.(
+        Params.make(
+          ~container=containerRef,
+          ~packed="packed",
+          ~sizes=[|Params.makeSize(~columns, ~gutter, ())|],
+        )
+        |> make
+      );
+    let _ = Bricks.pack(bricks);
+    state.bricks := Some(bricks);
+    ();
+  | _ => () /* Bricks initialized, noop */
+  };
+
 let make = (~data, ~columns, ~gutter, _children) => {
   ...component,
-  initialState: () => {images: Images.empty},
+  initialState: () => {
+    images: Images.empty,
+    bricks: ref(None),
+    containerRef: ref(None),
+  },
   reducer: (action, state) =>
     switch (action) {
     | LoadImagesBegin(data) =>
@@ -53,6 +85,7 @@ let make = (~data, ~columns, ~gutter, _children) => {
               Images.add(
                 src,
                 {
+                  src,
                   element: Webapi.Dom.HtmlImageElement.make(),
                   hasLoaded: false,
                   size: None,
@@ -64,7 +97,7 @@ let make = (~data, ~columns, ~gutter, _children) => {
           imageSourcesToLoad,
         );
       ReasonReact.UpdateWithSideEffects(
-        {images: updatedImages},
+        {...state, images: updatedImages},
         (
           self => {
             let _ =
@@ -81,7 +114,9 @@ let make = (~data, ~columns, ~gutter, _children) => {
                               LoadImageComplete((src, {width, height})),
                             );
                           })
-                     )
+                     );
+                     let _ = Webapi.Dom.HtmlImageElement.setSrc(element, src);
+                     ();
                    | exception Not_found => ()
                    }
                  );
@@ -93,6 +128,7 @@ let make = (~data, ~columns, ~gutter, _children) => {
       switch (Images.find(src, state.images)) {
       | image =>
         ReasonReact.Update({
+          ...state,
           images:
             Images.add(
               src,
@@ -111,7 +147,26 @@ let make = (~data, ~columns, ~gutter, _children) => {
     self.send(LoadImagesBegin(data));
     self.state;
   },
+  didUpdate: ({newSelf}) => {
+    let _ = handleUpdate(newSelf.state.bricks^);
+    ();
+  },
   render: self => {
+    let renderDocumentTile = (~image=?, document) =>
+      switch (image) {
+      | Some({src, size: Some({height})}) =>
+        <DocumentTile
+          title={JavamonnBsLibrarian.DocumentModel.title(document)}
+          author={JavamonnBsLibrarian.DocumentModel.author(document)}
+          imageURL=src
+          imageHeight=height
+        />
+      | _ =>
+        <DocumentTile
+          title={JavamonnBsLibrarian.DocumentModel.title(document)}
+          author={JavamonnBsLibrarian.DocumentModel.author(document)}
+        />
+      };
     let shouldContinueRendering = ref(true);
     let documentTiles =
       Js.Array.reduce(
@@ -122,15 +177,23 @@ let make = (~data, ~columns, ~gutter, _children) => {
             switch (documentImageURL(document)) {
             | Some(source) =>
               switch (Images.find(source, self.state.images)) {
-              | image => memo @@ [|renderDocumentTile(~image, document)|]
-              | exception Not_found => memo
+              | image when image.hasLoaded == true =>
+                Array.append(memo, [|renderDocumentTile(~image, document)|])
+              | _ =>
+                shouldContinueRendering := false;
+                memo;
+              | exception Not_found =>
+                shouldContinueRendering := false;
+                memo;
               }
-            | None => memo @@ [|renderDocumentTile(document)|]
+            | None => Array.append(memo, [|renderDocumentTile(document)|])
             };
           },
         [||],
         data,
       );
-    ();
+    <div ref={self.handle(handleContainerRef(~columns, ~gutter))}>
+      ...documentTiles
+    </div>;
   },
 };

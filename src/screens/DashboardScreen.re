@@ -25,29 +25,8 @@ let renderLibrarySection =
     renderSeparator={() => ReasonReact.null}
     renderItem={
       section =>
-        <MasonryGrid
+        <DocumentTileMasonryGrid
           data={section->SectionList.TitledSection.dataGet}
-          renderItem={
-            (~onReady, documentJson) => {
-              let document =
-                JavamonnBsLibrarian.DocumentModel.decode(documentJson);
-              <DocumentTile
-                title={JavamonnBsLibrarian.DocumentModel.title(document)}
-                author={JavamonnBsLibrarian.DocumentModel.author(document)}
-                onReady={onReady}
-                imageURL=JavamonnBsLibrarian.DocumentModel.(
-                  document
-                  |> documentImageURL
-                  |> Js.Option.map((. imageURL) =>
-                       switch (imageURL) {
-                       | ImageURL.Source(source) => source
-                       | ImageURL.Processed({w200}) => w200
-                       }
-                     )
-                )
-              />;
-            }
-          }
           columns=3
           gutter=32
         />

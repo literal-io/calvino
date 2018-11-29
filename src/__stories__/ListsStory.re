@@ -178,7 +178,7 @@ storiesOf("Components/Lists", _module)
         gutter=32
         data={Array.init(40, _idx => ())}
         renderItem={
-          (~onReady, ()) =>
+          () =>
             <div
               className={cn(["bg-accent"])}
               style={

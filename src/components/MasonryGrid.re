@@ -42,19 +42,6 @@ let make = (~data, ~renderItem, ~columns, ~gutter, _children) => {
   },
   render: self =>
     <div ref={self.handle(handleContainerRef(~columns, ~gutter))}>
-      ...{
-           Array.map(
-             item =>
-               renderItem(
-                 ~onReady=
-                   () => {
-                     let _ = handleUpdate(self.state.bricks^);
-                     ();
-                   },
-                 item,
-               ),
-             data,
-           )
-         }
+      ...{Array.map(item => renderItem(item), data)}
     </div>,
 };

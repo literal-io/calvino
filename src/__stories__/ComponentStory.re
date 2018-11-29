@@ -81,12 +81,7 @@ storiesOf("Components/DocumentTile", _module)
         <DocumentTile
           title="Invisible Cities"
           author="Italo Calvino"
-          onReady={() => ()}
-          imageURL={
-            Some(
-              "https://storage.googleapis.com/literal-images/000da7f0-6254-11e8-b634-240dbf38c455",
-            )
-          }
+          imageURL="https://storage.googleapis.com/literal-images/000da7f0-6254-11e8-b634-240dbf38c455"
         />
       </AppFrame>
     )
@@ -97,12 +92,7 @@ storiesOf("Components/DocumentTile", _module)
         <DocumentTile
           title="Invisible Cities"
           author="Italo Calvino"
-          onReady={() => ()}
-          imageURL={
-            Some(
-              "https://storage.googleapis.com/literal-images/000d0c10-d07b-11e8-9dfc-91637d54bf9b",
-            )
-          }
+          imageURL="https://storage.googleapis.com/literal-images/000d0c10-d07b-11e8-9dfc-91637d54bf9b"
         />
       </AppFrame>
     )
@@ -113,8 +103,6 @@ storiesOf("Components/DocumentTile", _module)
         <DocumentTile
           title="Invisible Cities"
           author="Italo Calvino"
-          onReady={() => ()}
-          imageURL=None
         />
       </AppFrame>
     )

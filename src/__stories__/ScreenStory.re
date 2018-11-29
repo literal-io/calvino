@@ -41,7 +41,7 @@ storiesOf("Screens", _module)
       generateClassName={ReactJss.GenerateClassName.make()}>
       <ScreenFrame>
         <DashboardScreen
-          documents={Array.init(20, (_idx) => Mocks.Js.document())}
+          documents={Array.init(20, (_idx) => Mocks.document())}
           highlights={Array.init(20, (_idx) => Mocks.Js.documentAnnotation())}
           onPaginateHighlights={() => Js.Nullable.null}
           onPaginateDocuments={() => Js.Nullable.null}
