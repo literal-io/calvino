@@ -9,7 +9,7 @@ let renderLibrarySection =
     |]
     renderSectionHeader={
       section =>
-        <div className={cn(["mv3", "pd", "b", "f3"])}>
+        <div className={cn(["mb4", "pd", "b", "f3", "flex", "flex-auto"])}>
           {section->SectionList.TitledSection.titleGet->ReasonReact.string}
         </div>
     }
@@ -25,7 +25,12 @@ let renderLibrarySection =
     onEndReached=onPaginateDocuments
     endThreshold=2.0
     renderInnerContainer={
-      children => <div className={cn(["mh4"])}> ...children </div>
+      children =>
+        <div className={cn(["ph4", "pt5", "flex", "items-center", "flex-column"])}>
+          <div>
+            ...children
+          </div>
+        </div>
     }
   />;
 
@@ -43,7 +48,7 @@ let renderHighlightsSection =
     |]
     renderSectionHeader={
       section =>
-        <div className={cn(["mv3", "pl", "b", "f3"])}>
+        <div className={cn(["mb4", "pl", "b", "f3"])}>
           {section->SectionList.TitledSection.titleGet->ReasonReact.string}
         </div>
     }
@@ -53,7 +58,7 @@ let renderHighlightsSection =
         let highlights = section |> SectionList.TitledSection.dataGet;
         let items =
           highlights
-          |> Js.Array.mapi((documentAnnotation, idx) => {
+          |> Js.Array.mapi((documentAnnotation, idx) =>
                <>
                  <HighlightListItem
                    onShareClicked
@@ -95,15 +100,16 @@ let renderHighlightsSection =
                    idx < Js.Array.length(highlights) - 1 ?
                      <div className={cn(["mv2"])} /> : ReasonReact.null
                  }
-               </>;
-             });
+               </>
+             );
         <div className={cn(["flex", "flex-column"])}> ...items </div>;
       }
     }
     onEndReached=onPaginateHighlights
     endThreshold=2.0
     renderInnerContainer={
-      children => <div className={cn(["mh3"])}> ...children </div>
+      children =>
+        <div className={cn(["ph4", "pt5", "bg-brand"])}> ...children </div>
     }
   />;
 
@@ -120,7 +126,7 @@ let make =
     ) => {
   ...component,
   render: _self =>
-    <div className={cn(["flex", "flex-row", "flex-auto"])}>
+    <div className={cn(["flex", "flex-row", "flex-auto", "ff-r"])}>
       <div className={cn(["relative", "flex-2"])}>
         {
           renderLibrarySection(
