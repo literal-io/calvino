@@ -57,6 +57,7 @@ storiesOf("Screens", _module)
             onShareClicked={() => ()}
             onHighlightClicked={() => ()}
             onDocumentClicked={() => ()}
+            onAddDocumentClicked={() => ()}
           />
         </ScreenFrame>
       </ContextProvider.Client>

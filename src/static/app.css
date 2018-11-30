@@ -7,6 +7,7 @@
 .bg-accent-i { background-color: var(--accent-color) !important; }
 .bg-accent-100-o60 { background-color: var(--accent-color-100-o60); }
 .bg-accent-100-o60-i { background-color: var(--accent-color-100-o60) !important; }
+.bg-gray { background-color: var(--background-gray); }
 
 .pl { color: var(--primary-light); }
 .sl { color: var(--secondary-light); }
@@ -30,3 +31,6 @@
 .flex-2 { flex: 2; }
 
 .vis-h { visibility: hidden; }
+
+.f2-r { font-size: 2.0rem; }
+
