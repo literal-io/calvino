@@ -49,14 +49,13 @@ storiesOf("Screens", _module)
                   ~target=Mocks.document(),
                   (),
                 )
-                |> Js.Option.some
               )
             }
             onPaginateHighlights={() => Js.Nullable.null}
             onPaginateDocuments={() => Js.Nullable.null}
-            onShareClicked={() => ()}
-            onHighlightClicked={() => ()}
-            onDocumentClicked={() => ()}
+            onShareClicked={_highlight => ()}
+            onHighlightClicked={_highlight => ()}
+            onDocumentClicked={_document => ()}
             onAddDocumentClicked={() => ()}
           />
         </ScreenFrame>

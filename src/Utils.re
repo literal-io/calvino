@@ -9,3 +9,4 @@ let ( *> ) = (x, f) => {
 let wrapBs = cb => (. a) => cb(a);
 
 let applyBs = cb => () => cb(.);
+let applyBs1 = cb => a => cb(. a);

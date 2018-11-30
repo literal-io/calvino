@@ -93,40 +93,23 @@ let renderHighlightsSection =
           |> Js.Array.mapi((documentAnnotation, idx) =>
                <>
                  <HighlightListItem
-                   onShareClicked
-                   title={
+                   onShareClicked={() => onShareClicked(documentAnnotation)}
+                   title=JavamonnBsLibrarian.(
                      documentAnnotation
-                     |> Js.Option.map((. highlight) =>
-                          JavamonnBsLibrarian.(
-                            highlight
-                            |> JoinedModel.DocumentAnnotationToDocument.target
-                            |> DocumentModel.title
-                          )
-                        )
-                     |> Js.Option.getWithDefault("Unknown Title")
-                   }
-                   author={
+                     |> JoinedModel.DocumentAnnotationToDocument.target
+                     |> DocumentModel.title
+                   )
+                   author=JavamonnBsLibrarian.(
                      documentAnnotation
-                     |> Js.Option.map((. highlight) =>
-                          JavamonnBsLibrarian.(
-                            highlight
-                            |> JoinedModel.DocumentAnnotationToDocument.target
-                            |> DocumentModel.author
-                          )
-                        )
-                     |> Js.Option.getWithDefault("Unknown Author")
-                   }
-                   text={
+                     |> JoinedModel.DocumentAnnotationToDocument.target
+                     |> DocumentModel.author
+                   )
+                   text=JavamonnBsLibrarian.(
                      documentAnnotation
-                     |> Js.Option.andThen((. highlight) =>
-                          JavamonnBsLibrarian.(
-                            highlight
-                            |> JoinedModel.DocumentAnnotationToDocument.source
-                            |> DocumentAnnotationModel.text
-                          )
-                        )
+                     |> JoinedModel.DocumentAnnotationToDocument.source
+                     |> DocumentAnnotationModel.text
                      |> Js.Option.getWithDefault("")
-                   }
+                   )
                  />
                  {
                    idx < Js.Array.length(highlights) - 1 ?
@@ -209,24 +192,26 @@ let default =
         |> highlightsGet
         |> Js.Array.map(
              JavamonnBsLibrarian.JoinedModel.DocumentAnnotationToDocument.decode,
-           ),
+           )
+        |> Js.Array.filter(Js.Option.isSome)
+        |> Js.Array.map(Js.Option.getExn),
       ~onPaginateDocuments=Utils.applyBs(jsProps |> onPaginateDocumentsGet),
       ~onPaginateHighlights=Utils.applyBs(jsProps |> onPaginateHighlightsGet),
       ~onShareClicked=
         joinedDocumentAnnotation =>
           joinedDocumentAnnotation
           |> JavamonnBsLibrarian.JoinedModel.DocumentAnnotationToDocument.encode
-          |> Utils.applyBs(jsProps |> onShareClickedGet),
+          |> Utils.applyBs1(jsProps |> onShareClickedGet),
       ~onDocumentClicked=
         document =>
           document
-          |> JavamonnBsLibrarian.DocumentModel.decode
-          |> Utils.applyBs(jsProps |> onDocumentClickedGet),
+          |> JavamonnBsLibrarian.DocumentModel.encode
+          |> Utils.applyBs1(jsProps |> onDocumentClickedGet),
       ~onHighlightClicked=
         joinedDocumentAnnotation =>
           joinedDocumentAnnotation
           |> JavamonnBsLibrarian.JoinedModel.DocumentAnnotationToDocument.encode
-          |> Utils.applyBs(jsProps |> onHighlightClickedGet),
+          |> Utils.applyBs1(jsProps |> onHighlightClickedGet),
       ~onAddDocumentClicked=Utils.applyBs(jsProps |> onAddDocumentClickedGet),
       [||],
     )
