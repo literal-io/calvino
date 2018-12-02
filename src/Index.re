@@ -10,7 +10,6 @@ let dashboardScreen = DashboardScreen.default;
 
 /** Components */
 let infiniteList = InfiniteList.default;
-let highlightListItem = HighlightListItem.default;
 let sectionList = SectionList.default;
 
 let makeClientContext = ContextProvider.makeClientContext;

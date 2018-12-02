@@ -10,6 +10,7 @@ let documentImageURLs = [|
 let document = () =>
   JavamonnBsLibrarian.DocumentModel.(
     make(
+      ~id=BsFaker.Random.uuid(),
       ~title=BsFaker.Lorem.words(~wordCount=Js.Math.random_int(3, 7), ()),
       ~author=BsFaker.Lorem.words(~wordCount=2, ()),
       ~numPages=string_of_int(Js.Math.random_int(100, 200)),
@@ -30,6 +31,7 @@ let document = () =>
 
 let documentAnnotation = () =>
   JavamonnBsLibrarian.DocumentAnnotationModel.make(
+    ~id=BsFaker.Random.uuid(),
     ~documentId=BsFaker.Random.uuid(),
     ~userProfileId=BsFaker.Random.uuid(),
     ~descriptors=[||],

@@ -3,12 +3,29 @@ open Styles;
 let component = ReasonReact.statelessComponent("DocumentTile");
 
 let make =
-    (~title, ~author, ~imageURL=?, ~imageHeight=?, ~className=?, _children) => {
+    (
+      ~title,
+      ~author,
+      ~imageURL=?,
+      ~imageHeight=?,
+      ~className=?,
+      ~documentURL,
+      _children,
+    ) => {
   ...component,
   render: _self =>
-    <div
+    <a
+      href=documentURL
       style={make(~width=px(200), ())}
-      className={cn(["flex", "flex-column", "pointer", className->Cn.unpack])}>
+      className={
+        cn([
+          "flex",
+          "flex-column",
+          "pointer",
+          "no-underline",
+          className->Cn.unpack,
+        ])
+      }>
       <MaterialUi.Paper
         classes=[MaterialUi.Paper.Classes.Root("overflow-hidden")]>
         {
@@ -33,5 +50,5 @@ let make =
           </span>
         </div>
       </MaterialUi.Paper>
-    </div>,
+    </a>,
 };

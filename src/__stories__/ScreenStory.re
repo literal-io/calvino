@@ -51,12 +51,12 @@ storiesOf("Screens", _module)
                 )
               )
             }
+            readerPath="http://localhost:9001"
+            userProfileId={BsFaker.Random.uuid()}
             onPaginateHighlights={() => Js.Nullable.null}
             onPaginateDocuments={() => Js.Nullable.null}
             onShareClicked={_highlight => ()}
-            onHighlightClicked={_highlight => ()}
-            onDocumentClicked={_document => ()}
-            onAddDocumentClicked={() => ()}
+            onAddDocumentClicked={_sourceType => ()}
           />
         </ScreenFrame>
       </ContextProvider.Client>

@@ -66,7 +66,7 @@ let handleContainerRef =
   | _ => () /* Bricks initialized, noop */
   };
 
-let make = (~data, ~columns, ~gutter, _children) => {
+let make = (~data, ~columns, ~gutter, ~readerPath, _children) => {
   ...component,
   initialState: () => {
     images: Images.empty,
@@ -204,12 +204,14 @@ let make = (~data, ~columns, ~gutter, _children) => {
           author={JavamonnBsLibrarian.DocumentModel.author(document)}
           imageURL=src
           imageHeight=height
+          documentURL={Utils.makeDocumentURL(~readerPath, document)}
         />
       | _ =>
         <DocumentTile
           className={cn(["dn-packed"])}
           title={JavamonnBsLibrarian.DocumentModel.title(document)}
           author={JavamonnBsLibrarian.DocumentModel.author(document)}
+          documentURL={Utils.makeDocumentURL(~readerPath, document)}
         />
       };
     let shouldContinueRendering = ref(true);

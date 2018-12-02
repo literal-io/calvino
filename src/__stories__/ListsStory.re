@@ -72,11 +72,12 @@ storiesOf("Components/Lists", _module)
                   className={cn(["ph3"])}
                   renderItem={
                     ((title, author, text)) =>
-                      <HighlightListItem
+                      <DocumentAnnotationTile
                         onShareClicked={() => ()}
                         title
                         author
                         text
+                        annotationURL="http://localhost:9001"
                       />
                   }
                   renderSeparator={() => <div className={cn(["mv3"])} />}
@@ -144,11 +145,12 @@ storiesOf("Components/Lists", _module)
                         Js.Array.mapi(
                           ((title, author, text), idx) =>
                             <>
-                              <HighlightListItem
+                              <DocumentAnnotationTile
                                 onShareClicked={() => ()}
                                 title
                                 author
                                 text
+                                annotationURL="http://localhost:9001"
                               />
                               {
                                 idx < Js.Array.length(data) - 1 ?

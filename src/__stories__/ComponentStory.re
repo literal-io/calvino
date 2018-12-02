@@ -46,13 +46,14 @@ storiesOf("Components", _module)
   )
 ->(add("RegistrationCTA", () => <AppFrame> <RegistrationCTA /> </AppFrame>));
 
-storiesOf("Components/HighlightListItem", _module)
+storiesOf("Components/DocumentAnnotationTile", _module)
 ->(
     add("Unconstrained", () =>
       <AppFrame>
-        <HighlightListItem
+        <DocumentAnnotationTile
           title="Invisible Cities"
           author="Italo Calvino"
+          annotationURL="http://localhost:5900"
           text=highlightText
           onShareClicked={() => ()}
         />
@@ -63,8 +64,9 @@ storiesOf("Components/HighlightListItem", _module)
     add("Constrained Width", () =>
       <AppFrame>
         <div style={make(~width=px(350), ())}>
-          <HighlightListItem
+          <DocumentAnnotationTile
             title="Invisible Cities"
+            annotationURL="http://localhost:5900"
             author="Italo Calvino"
             text=highlightText
             onShareClicked={() => ()}
@@ -82,6 +84,8 @@ storiesOf("Components/DocumentTile", _module)
           title="Invisible Cities"
           author="Italo Calvino"
           imageURL="https://storage.googleapis.com/literal-images/000da7f0-6254-11e8-b634-240dbf38c455"
+
+          documentURL="http://localhost:9001"
         />
       </AppFrame>
     )
@@ -93,6 +97,7 @@ storiesOf("Components/DocumentTile", _module)
           title="Invisible Cities"
           author="Italo Calvino"
           imageURL="https://storage.googleapis.com/literal-images/000d0c10-d07b-11e8-9dfc-91637d54bf9b"
+          documentURL="http://localhost:9001"
         />
       </AppFrame>
     )
@@ -100,7 +105,11 @@ storiesOf("Components/DocumentTile", _module)
 ->(
     add("Without Image", () =>
       <AppFrame>
-        <DocumentTile title="Invisible Cities" author="Italo Calvino" />
+        <DocumentTile
+          title="Invisible Cities"
+          author="Italo Calvino"
+          documentURL="http://localhost:9001"
+        />
       </AppFrame>
     )
   );
