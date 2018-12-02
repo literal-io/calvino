@@ -25,7 +25,7 @@ let renderLibrarySection =
               "items-center",
             ])
           }>
-          <span className={cn(["pd", "b", "f2-r"])}>
+          <span className={cn(["pd", "b", "f2"])}>
             {section->SectionList.TitledSection.titleGet->ReasonReact.string}
           </span>
           <MaterialUi.IconButton onClick={_ev => onAddDocumentClicked()}>
@@ -80,7 +80,7 @@ let renderHighlightsSection =
     |]
     renderSectionHeader={
       section =>
-        <div className={cn(["mb5", "mh2", "pl", "b", "f2-r"])}>
+        <div className={cn(["mb5", "mh2", "pl", "b", "f2"])}>
           {section->SectionList.TitledSection.titleGet->ReasonReact.string}
         </div>
     }
@@ -113,7 +113,7 @@ let renderHighlightsSection =
                  />
                  {
                    idx < Js.Array.length(highlights) - 1 ?
-                     <div className={cn(["mv2"])} /> : ReasonReact.null
+                     <div className={cn(["mv3"])} /> : ReasonReact.null
                  }
                </>
              );

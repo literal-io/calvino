@@ -2,12 +2,13 @@ open Styles;
 
 let component = ReasonReact.statelessComponent("DocumentTile");
 
-let make = (~title, ~author, ~imageURL=?, ~imageHeight=?, _children) => {
+let make =
+    (~title, ~author, ~imageURL=?, ~imageHeight=?, ~className=?, _children) => {
   ...component,
   render: _self =>
     <div
       style={make(~width=px(200), ())}
-      className={cn(["flex", "flex-column", "pointer"])}>
+      className={cn(["flex", "flex-column", "pointer", className->Cn.unpack])}>
       <MaterialUi.Paper
         classes=[MaterialUi.Paper.Classes.Root("overflow-hidden")]>
         {

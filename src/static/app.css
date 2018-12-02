@@ -34,3 +34,10 @@
 
 .f2-r { font-size: 2.0rem; }
 
+.vh-packed {
+  visibility: hidden;
+}
+
+.dn-packed[data-packed] {
+  visibility: visible;
+}

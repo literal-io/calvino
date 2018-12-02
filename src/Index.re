@@ -6,6 +6,7 @@ require("tachyons/css/tachyons.css");
 /** Screens */
 let registrationCTAScreen = RegistrationCTAScreen.default;
 let signUpScreen = SignUpScreen.default;
+let dashboardScreen = DashboardScreen.default;
 
 /** Components */
 let infiniteList = InfiniteList.default;

@@ -29,6 +29,18 @@ module.exports = {
           'extract-loader',
           'css-loader'
         ]
+      },
+      {
+        test: /@javamonn/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-transform-flow-strip-types']
+            }
+          }
+        ]
       }
     ]
   }
