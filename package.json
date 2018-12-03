@@ -22,7 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "@glennsl/bs-json": "^3.0.0",
-    "@javamonn/bs-librarian": "^1.2.1",
+    "@javamonn/bs-librarian": "^1.3.0",
     "@javamonn/librarian": "^1.4.1",
     "@jsiebern/bs-material-ui": "^0.4.2",
     "@material-ui/core": "^3.4.0",
