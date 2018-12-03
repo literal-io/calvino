@@ -1,17 +1,9 @@
 open BsStorybook.Story;
 open Styles;
+open StoryUtils;
 
 let _module = [%bs.raw "module"];
-
-module AppFrame = {
-  let component = ReasonReact.statelessComponent("AppFrame");
-
-  let make = children => {
-    ...component,
-    render: _self =>
-      <div className={cn(["ff-r", "bg-brand", "pa4"])}> ...children </div>,
-  };
-};
+let highlightText = "Contemplating these essential landscapes, Kublai reflected on the invisible order that sustains cities, on the rules that decreed how they rise, take shape and prosper, adapting themselves to the seasons, and then how they sadden and fall in ruins.";
 
 storiesOf("Components", _module)
 ->(
@@ -53,3 +45,71 @@ storiesOf("Components", _module)
     )
   )
 ->(add("RegistrationCTA", () => <AppFrame> <RegistrationCTA /> </AppFrame>));
+
+storiesOf("Components/DocumentAnnotationTile", _module)
+->(
+    add("Unconstrained", () =>
+      <AppFrame>
+        <DocumentAnnotationTile
+          title="Invisible Cities"
+          author="Italo Calvino"
+          annotationURL="http://localhost:5900"
+          text=highlightText
+          onShareClicked={() => ()}
+        />
+      </AppFrame>
+    )
+  )
+->(
+    add("Constrained Width", () =>
+      <AppFrame>
+        <div style={make(~width=px(350), ())}>
+          <DocumentAnnotationTile
+            title="Invisible Cities"
+            annotationURL="http://localhost:5900"
+            author="Italo Calvino"
+            text=highlightText
+            onShareClicked={() => ()}
+          />
+        </div>
+      </AppFrame>
+    )
+  );
+
+storiesOf("Components/DocumentTile", _module)
+->(
+    add("With Unprocessed Image", () =>
+      <AppFrame>
+        <DocumentTile
+          title="Invisible Cities"
+          author="Italo Calvino"
+          imageURL="https://storage.googleapis.com/literal-images/000da7f0-6254-11e8-b634-240dbf38c455"
+
+          documentURL="http://localhost:9001"
+        />
+      </AppFrame>
+    )
+  )
+->(
+    add("With Processed Image", () =>
+      <AppFrame>
+        <DocumentTile
+          title="Invisible Cities"
+          author="Italo Calvino"
+          imageURL="https://storage.googleapis.com/literal-images/000d0c10-d07b-11e8-9dfc-91637d54bf9b"
+          documentURL="http://localhost:9001"
+        />
+      </AppFrame>
+    )
+  )
+->(
+    add("Without Image", () =>
+      <AppFrame>
+        <DocumentTile
+          title="Invisible Cities"
+          author="Italo Calvino"
+          documentURL="http://localhost:9001"
+        />
+      </AppFrame>
+    )
+  );

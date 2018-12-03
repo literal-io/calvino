@@ -10,12 +10,16 @@
 
       "--primary-light": "rgba(255, 255, 255, 0.92)",
       "--secondary-light": "rgba(255, 255, 255, 0.72)",
+      "--primary-dark": "rgba(0, 0, 0, 0.87)",
+      "--secondary-dark": "rgba(0, 0, 0, 0.60)",
 
       "--extension-popup-width": "390px",
       "--extension-popup-height": "545px",
 
       "--spacing-medium": "1rem",
-      "--spacing-small": "0.5rem"
+      "--spacing-small": "0.5rem",
+
+      "--background-gray": "rgba(236,239,241, 0.72)"
     }
   }
 }

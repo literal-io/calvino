@@ -22,7 +22,11 @@
     "bs-storybook",
     "re-classnames",
     "bs-webapi",
-    "@jsiebern/bs-material-ui"
+    "bs-faker",
+    "@glennsl/bs-json",
+    "@jsiebern/bs-material-ui",
+    "@javamonn/bs-librarian",
+    "@wokalski/vow"
   ],
   "refmt": 3
 }

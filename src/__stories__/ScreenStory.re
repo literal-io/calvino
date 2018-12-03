@@ -34,4 +34,30 @@ storiesOf("Screens", _module)
         </ScreenFrame>
       </ContextProvider.Client>
     )
+  )
+->(
+    add("DashboardScreen", () =>
+      <ContextProvider.Client
+        generateClassName={ReactJss.GenerateClassName.make()}>
+        <ScreenFrame>
+          <DashboardScreen
+            documents={Array.init(20, _idx => Mocks.document())}
+            highlights={
+              Array.init(20, _idx =>
+                JavamonnBsLibrarian.JoinedModel.DocumentAnnotationToDocument.make(
+                  ~source=Mocks.documentAnnotation(),
+                  ~target=Mocks.document(),
+                  (),
+                )
+              )
+            }
+            readerPath="http://localhost:9001"
+            userProfileId={BsFaker.Random.uuid()}
+            onPaginateHighlights={() => Js.Nullable.null}
+            onPaginateDocuments={() => Js.Nullable.null}
+            onAddDocumentClicked={_sourceType => ()}
+          />
+        </ScreenFrame>
+      </ContextProvider.Client>
+    )
   );
