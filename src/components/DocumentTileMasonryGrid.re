@@ -199,7 +199,7 @@ let make = (~data, ~columns, ~gutter, ~readerPath, _children) => {
       switch (image) {
       | Some({src, size: Some({height})}) =>
         <DocumentTile
-          className={cn(["dn-packed"])}
+          className={cn(["vh-packed", "absolute"])}
           title={JavamonnBsLibrarian.DocumentModel.title(document)}
           author={JavamonnBsLibrarian.DocumentModel.author(document)}
           imageURL=src
@@ -208,7 +208,7 @@ let make = (~data, ~columns, ~gutter, ~readerPath, _children) => {
         />
       | _ =>
         <DocumentTile
-          className={cn(["dn-packed"])}
+          className={cn(["vh-packed", "absolute"])}
           title={JavamonnBsLibrarian.DocumentModel.title(document)}
           author={JavamonnBsLibrarian.DocumentModel.author(document)}
           documentURL={Utils.makeDocumentURL(~readerPath, document)}
