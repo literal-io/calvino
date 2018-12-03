@@ -54,7 +54,8 @@ const nodeConfig = {
     ...(baseConfig.plugins || []),
     new webpack.DefinePlugin({
       'process.env': {
-        'BOOKSHELF_ENV': JSON.stringify('internal')
+        'BOOKSHELF_ENV': JSON.stringify('internal'),
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }
     })
   ]
@@ -76,7 +77,8 @@ const webConfig = {
     ...(baseConfig.plugins || []),
     new webpack.DefinePlugin({
       'process.env': {
-        'BOOKSHELF_ENV': JSON.stringify('client')
+        'BOOKSHELF_ENV': JSON.stringify('client'),
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }
     })
   ]
