@@ -7,7 +7,6 @@ let make =
       ~highlights,
       ~onPaginateDocuments,
       ~onPaginateHighlights,
-      ~onShareClicked,
       ~onAddDocumentClicked,
       ~readerPath,
       ~userProfileId,
@@ -28,7 +27,6 @@ let make =
         <HighlightsSection
           highlights
           onPaginateHighlights
-          onShareClicked
           readerPath
           userProfileId
         />
@@ -44,7 +42,6 @@ type jsProps = {
   userProfileId: Js.String.t,
   onPaginateDocuments: (. unit) => Js.Nullable.t(Js.Promise.t(unit)),
   onPaginateHighlights: (. unit) => Js.Nullable.t(Js.Promise.t(unit)),
-  onShareClicked: (. Js.Json.t) => unit,
   onAddDocumentClicked: (. string) => unit,
 };
 
@@ -67,11 +64,6 @@ let default =
       ~userProfileId=jsProps |> userProfileIdGet,
       ~onPaginateDocuments=Utils.applyBs(jsProps |> onPaginateDocumentsGet),
       ~onPaginateHighlights=Utils.applyBs(jsProps |> onPaginateHighlightsGet),
-      ~onShareClicked=
-        joinedDocumentAnnotation =>
-          joinedDocumentAnnotation
-          |> JavamonnBsLibrarian.JoinedModel.DocumentAnnotationToDocument.encode
-          |> Utils.applyBs1(jsProps |> onShareClickedGet),
       ~onAddDocumentClicked=
         Utils.applyBs1(jsProps |> onAddDocumentClickedGet),
       [||],

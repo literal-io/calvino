@@ -41,7 +41,6 @@ let handleShareClicked = (~userProfileId, documentAnnotation) =>
 let make =
     (
       ~highlights,
-      ~onShareClicked,
       ~onPaginateHighlights,
       ~userProfileId,
       ~readerPath,
@@ -119,7 +118,7 @@ let make =
       endThreshold=2.0
       renderInnerContainer={
         children =>
-          <div className={cn(["ph5", "pt5", "bg-brand"])}> ...children </div>
+          <div className={cn(["ph5", "pv5", "bg-brand"])}> ...children </div>
       }
     />,
 };

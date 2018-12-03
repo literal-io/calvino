@@ -63,7 +63,7 @@ let make =
   reducer: ((), _state) => ReasonReact.NoUpdate,
   render: self => {
     let onScroll =
-      Lodash.debounce(
+      Lodash.throttle(
         Utils.wrapBs(handleScroll(~onEndReached, ~endThreshold, ~self)),
         200,
       );

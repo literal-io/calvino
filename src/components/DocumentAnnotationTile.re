@@ -12,7 +12,6 @@ let make =
     switch (state.clipboardInst^, state.shareButtonRef^) {
     | (Some(_clipbordInst), _) => /** Already instantiated, noop */ ()
     | (None, Some(shareButtonRef)) =>
-      Js.log(ReactDOMRe.findDOMNode(shareButtonRef));
       state.clipboardInst :=
         shareButtonRef
         |> ReactDOMRe.findDOMNode

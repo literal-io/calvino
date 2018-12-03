@@ -55,7 +55,6 @@ storiesOf("Screens", _module)
             userProfileId={BsFaker.Random.uuid()}
             onPaginateHighlights={() => Js.Nullable.null}
             onPaginateDocuments={() => Js.Nullable.null}
-            onShareClicked={_highlight => ()}
             onAddDocumentClicked={_sourceType => ()}
           />
         </ScreenFrame>

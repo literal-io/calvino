@@ -46,27 +46,26 @@ let make =
                   />
               }
               renderMenuItems={
-                (~onClick, ()) =>
-                  <>
-                    <MaterialUi.MenuItem
-                      onClick={
-                        _ev => {
-                          onClick();
-                          onAddDocumentClicked("drive");
-                        }
-                      }>
-                      {ReasonReact.string("Open from Google Drive")}
-                    </MaterialUi.MenuItem>
-                    <MaterialUi.MenuItem
-                      onClick={
-                        _ev => {
-                          onClick();
-                          onAddDocumentClicked("dropbox");
-                        }
-                      }>
-                      {ReasonReact.string("Open from Dropbox")}
-                    </MaterialUi.MenuItem>
-                  </>
+                (~onClick, ()) => [|
+                  <MaterialUi.MenuItem
+                    onClick={
+                      _ev => {
+                        onClick();
+                        onAddDocumentClicked("drive");
+                      }
+                    }>
+                    {ReasonReact.string("Open from Google Drive")}
+                  </MaterialUi.MenuItem>,
+                  <MaterialUi.MenuItem
+                    onClick={
+                      _ev => {
+                        onClick();
+                        onAddDocumentClicked("dropbox");
+                      }
+                    }>
+                    {ReasonReact.string("Open from Dropbox")}
+                  </MaterialUi.MenuItem>,
+                |]
               }
             />
           </div>
@@ -89,7 +88,7 @@ let make =
             className={
               cn([
                 "ph4",
-                "pt5",
+                "pv5",
                 "flex",
                 "items-center",
                 "flex-column",
