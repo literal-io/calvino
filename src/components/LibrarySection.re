@@ -93,6 +93,7 @@ let make =
                 "items-center",
                 "flex-column",
                 "bg-gray",
+                "min-vh-100",
               ])
             }>
             <div> ...children </div>

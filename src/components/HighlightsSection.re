@@ -118,7 +118,9 @@ let make =
       endThreshold=2.0
       renderInnerContainer={
         children =>
-          <div className={cn(["ph5", "pv5", "bg-brand"])}> ...children </div>
+          <div className={cn(["ph5", "pv5", "bg-brand", "min-vh-100"])}>
+            ...children
+          </div>
       }
     />,
 };

@@ -38,6 +38,6 @@
   visibility: hidden;
 }
 
-.dn-packed[data-packed] {
+.vh-packed[data-packed] {
   visibility: visible;
 }
