@@ -74,7 +74,7 @@ let make = (~text, _children) => {
         <span
           ref={self.handle(onTextRef)}
           style={lineHeight(rem(1.43)) +++ bgaAccent(0.24)}
-          className={cn(["ff-roboto-slab", "b", "f5", "pd"])}>
+          className={cn(["ff-rs", "f7", "pd", "fw5"])}>
           {
             ReasonReact.string(
               switch (self.state.clampedText) {

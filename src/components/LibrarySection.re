@@ -28,7 +28,7 @@ let make =
                 "items-center",
               ])
             }>
-            <span className={cn(["pd", "b", "f2"])}>
+            <span className={cn(["pd", "b", "f2-r"])}>
               {section->SectionList.TitledSection.titleGet->ReasonReact.string}
             </span>
             <IconMenuButton
@@ -37,9 +37,9 @@ let make =
                   <MaterialIcon.Add
                     style={
                       make(
-                        ~width=px(37),
-                        ~height=px(37),
-                        ~fontSize=px(37),
+                        ~width=px(32),
+                        ~height=px(32),
+                        ~fontSize=px(32),
                         (),
                       )
                     }

@@ -42,7 +42,7 @@ let make =
           }
         }
         <div className={cn(["flex", "flex-column", "pa2"])}>
-          <span className={cn(["f6", "b", "pd", "mb1"])}>
+          <span className={cn(["f7", "pd", "mb1"])}>
             {ReasonReact.string(title)}
           </span>
           <span className={cn(["f7", "sd"])}>

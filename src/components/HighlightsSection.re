@@ -54,7 +54,7 @@ let make =
       |]
       renderSectionHeader={
         section =>
-          <div className={cn(["mb5", "mh2", "pl", "b", "f2"])}>
+          <div className={cn(["mb5", "mh2", "pl", "b", "f2-r"])}>
             {section->SectionList.TitledSection.titleGet->ReasonReact.string}
           </div>
       }
