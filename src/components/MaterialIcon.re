@@ -44,3 +44,9 @@ module Add =
     [@bs.module "@material-ui/icons/Add"]
       external reactClass: ReasonReact.reactClass = "default";
   })
+
+module MailOutline =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/MailOutline"]
+      external reactClass: ReasonReact.reactClass = "default";
+  })

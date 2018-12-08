@@ -26,6 +26,12 @@
 .bg-accent-100-o60-i {
   background-color: var(--accent-color-100-o60) !important;
 }
+.bg-accent-100-o72 {
+  background-color: var(--accent-color-100-o72);
+}
+.bg-accent-100-o72-i {
+  background-color: var(--accent-color-100-o72) !important;
+}
 .bg-gray {
   background-color: var(--background-gray);
 }
@@ -53,6 +59,9 @@
 }
 .f-sl {
   color: var(--secondary-light);
+}
+.brand {
+  color: var(--brand-color);
 }
 
 .pa3_5 {
