@@ -18,35 +18,47 @@ module CloudOutline =
 module Highlight =
   MakeIcon({
     [@bs.module "@material-ui/icons/Highlight"]
-      external reactClass: ReasonReact.reactClass = "default";
-  })
+    external reactClass: ReasonReact.reactClass = "default";
+  });
 
 module LibraryBooks =
   MakeIcon({
     [@bs.module "@material-ui/icons/LibraryBooks"]
-      external reactClass: ReasonReact.reactClass = "default";
-  })
+    external reactClass: ReasonReact.reactClass = "default";
+  });
 
 module TextFields =
   MakeIcon({
     [@bs.module "@material-ui/icons/TextFields"]
-      external reactClass: ReasonReact.reactClass = "default";
-  })
+    external reactClass: ReasonReact.reactClass = "default";
+  });
 
 module Share =
   MakeIcon({
     [@bs.module "@material-ui/icons/Share"]
-      external reactClass: ReasonReact.reactClass = "default";
-  })
+    external reactClass: ReasonReact.reactClass = "default";
+  });
 
 module Add =
   MakeIcon({
     [@bs.module "@material-ui/icons/Add"]
-      external reactClass: ReasonReact.reactClass = "default";
-  })
+    external reactClass: ReasonReact.reactClass = "default";
+  });
 
 module MailOutline =
   MakeIcon({
     [@bs.module "@material-ui/icons/MailOutline"]
-      external reactClass: ReasonReact.reactClass = "default";
-  })
+    external reactClass: ReasonReact.reactClass = "default";
+  });
+
+module Settings =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/Settings"]
+    external reactClass: ReasonReact.reactClass = "default";
+  });
+
+module Subject =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/Subject"]
+    external reactClass: ReasonReact.reactClass = "default";
+  });

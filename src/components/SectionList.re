@@ -9,7 +9,7 @@ module TitledSection {
   [@bs.deriving abstract]
   type t('a) = {
     title: string,
-    data: array('a),
+    data: 'a,
   };
 
   let make = t;

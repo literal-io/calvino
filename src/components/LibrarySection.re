@@ -21,7 +21,7 @@ let make =
           <div
             className={
               cn([
-                "mb5",
+                "mb4",
                 "flex",
                 "flex-auto",
                 "justify-between",
