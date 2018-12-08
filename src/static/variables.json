@@ -7,6 +7,7 @@
       "--accent-color": "rgb(0, 188, 212)",
       "--accent-color-100": "#b2ebf2",
       "--accent-color-100-o60": "rgba(178,235,242, 0.60)",
+      "--accent-color-100-o72": "rgba(178, 235, 242, 0.72)",
 
       "--primary-light": "rgba(255, 255, 255, 0.92)",
       "--secondary-light": "rgba(255, 255, 255, 0.72)",

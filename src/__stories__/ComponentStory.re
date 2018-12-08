@@ -44,7 +44,30 @@ storiesOf("Components", _module)
       </AppFrame>
     )
   )
-->(add("RegistrationCTA", () => <AppFrame> <RegistrationCTA /> </AppFrame>));
+->(add("RegistrationCTA", () => <AppFrame> <RegistrationCTA /> </AppFrame>))
+->(add("AccentMonotoneButton", () =>
+    <AppFrame>
+      <AccentMonotoneButton
+        onClick={() => ()}
+        className={cn(["flex", "flex-row", "justify-center", "items-center", "pa2"])}>
+        <MaterialIcon.MailOutline style={bpl} />
+        <div className={cn(["mh2"])} />
+        <div className={cn(["flex", "flex-column", "justify-start"])}>
+          <div className={cn(["f7", "brand", "tl"])}>
+            {ReasonReact.string("Have feedback?")}
+          </div>
+          <div className={cn(["f7", "brand", "tl"])}>
+            {ReasonReact.string("Send us your thoughts.")}
+          </div>
+        </div>
+      </AccentMonotoneButton>
+    </AppFrame>
+  ))
+->(add("ProfileSection", () => 
+    <AppFrame>
+      <ProfileSection />
+    </AppFrame>
+  ));
 
 storiesOf("Components/DocumentAnnotationTile", _module)
 ->(
