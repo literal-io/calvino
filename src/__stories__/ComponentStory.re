@@ -49,7 +49,6 @@ storiesOf("Components", _module)
     add("AccentMonotoneButton", () =>
       <AppFrame>
         <AccentMonotoneButton
-          onClick={() => ()}
           className={
             cn(["flex", "flex-row", "justify-center", "items-center", "pa2"])
           }>
@@ -74,9 +73,7 @@ storiesOf("Components", _module)
           className={cn(["flex"])}
           style={flex("1") +++ make(~width=px(450), ~height=px(250), ())}>
           <ProfileSection
-            onSettingsClicked={() => ()}
-            onFeedbackClicked={() => ()}
-            onResumeReadingClicked={() => ()}
+            readerPath="http://localhost:9001"
             activity=ProfileSection.{
               documentsCreated: Js.Math.random_int(8, 40),
               highlightsCreated: Js.Math.random_int(8, 4),

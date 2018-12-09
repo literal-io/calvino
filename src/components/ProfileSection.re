@@ -31,8 +31,13 @@ let renderActivityListItem = (~icon, ~count, ~label, ()) =>
 
 let renderActivity = (~activity, ()) =>
   <MaterialUi.Paper classes=[Root(cn(["bg-accent-100-o60", "pa3", "br1"]))]>
-    <div className={cn(["f7", "brand", "tl", "mb3"])}>
-      {ReasonReact.string("Activity This Week")}
+    <div className={cn(["f7", "brand", "tl"])}>
+      {ReasonReact.string("Recent Activity")}
+    </div>
+    <div
+      style={make(~fontSize=rem(0.60), ())}
+      className={cn(["f7", "brand-sl", "tl", "mb3"])}>
+      {ReasonReact.string("Last 7 days")}
     </div>
     {
       renderActivityListItem(
@@ -62,10 +67,10 @@ let renderActivity = (~activity, ()) =>
     }
   </MaterialUi.Paper>;
 
-let renderResumeReading = (~document, ~onResumeReadingClicked, ()) =>
+let renderResumeReading = (~document, ~readerPath, ()) =>
   <AccentMonotoneButton
-    onClick={() => onResumeReadingClicked()}
     className={cn(["flex-auto"])}
+    href={Utils.makeDocumentURL(~readerPath, document)}
     contentClassName={
       cn(["absolute--fill", "absolute", "flex", "flex-column", "pa3"])
     }>
@@ -89,9 +94,9 @@ let renderResumeReading = (~document, ~onResumeReadingClicked, ()) =>
     </div>
   </AccentMonotoneButton>;
 
-let renderSettings = (~onSettingsClicked, ()) =>
+let renderSettings = () =>
   <AccentMonotoneButton
-    onClick={() => onSettingsClicked()}
+    href="/account"
     className={cn(["flex-auto"])}
     contentClassName={
       cn([
@@ -105,10 +110,10 @@ let renderSettings = (~onSettingsClicked, ()) =>
     <MaterialIcon.Settings style={bpl +++ square(28)} />
   </AccentMonotoneButton>;
 
-let renderFeedback = (~onFeedbackClicked, ()) =>
+let renderFeedback = () =>
   <AccentMonotoneButton
-    onClick={() => onFeedbackClicked()}
     className={cn(["flex-auto"])}
+    href="mailto:hello@literal.io"
     contentClassName={
       cn([
         "absolute--fill",
@@ -128,15 +133,7 @@ let renderFeedback = (~onFeedbackClicked, ()) =>
     <MaterialIcon.MailOutline style={bpl +++ square(28)} />
   </AccentMonotoneButton>;
 
-let make =
-    (
-      ~onSettingsClicked,
-      ~onFeedbackClicked,
-      ~onResumeReadingClicked,
-      ~document,
-      ~activity,
-      _children,
-    ) => {
+let make = (~readerPath, ~document, ~activity, _children) => {
   ...component,
   render: _self =>
     <div style={flex("1")} className={cn(["flex", "flex-row"])}>
@@ -146,16 +143,16 @@ let make =
       <div className=spacer />
       <div style={flex("1")} className={cn(["flex", "flex-column"])}>
         <div style={flex("7")} className={cn(["flex"])}>
-          {renderResumeReading(~document, ~onResumeReadingClicked, ())}
+          {renderResumeReading(~document, ~readerPath, ())}
         </div>
         <div className=spacer />
         <div style={flex("3")} className={cn(["flex", "flex-row"])}>
           <div style={flex("3")} className={cn(["flex"])}>
-            {renderSettings(~onSettingsClicked, ())}
+            {renderSettings()}
           </div>
           <div className=spacer />
           <div style={flex("6")} className={cn(["flex"])}>
-            {renderFeedback(~onFeedbackClicked, ())}
+            {renderFeedback()}
           </div>
         </div>
       </div>

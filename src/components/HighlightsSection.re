@@ -20,10 +20,14 @@ let handleShareClicked = (~userProfileId, documentAnnotation) =>
     JavamonnBsLibrarian.(
       FindService.UserReadActivity.findOrCreate(
         ~query=
-          FindService.makeQuery(
-            ~_type=UserReadActivityModel.activityTypeToJs(`DocumentShare),
-            ~documentId,
-            ~owner=LibrarianUtils.sha256(userProfileId),
+          LibrarianFind.makeQ(
+            ~type_=
+              `DocumentShare
+              |> UserReadActivityModel.activityTypeToJs
+              |> Js.Nullable.return,
+            ~documentId=documentId |> Js.Nullable.return,
+            ~owner=
+              userProfileId |> LibrarianUtils.sha256 |> Js.Nullable.return,
             (),
           ),
         ~creator=
@@ -46,11 +50,9 @@ let make =
       ~readerPath,
       _children,
     ) => {
-  let renderProfile = section =>
+  let renderProfile = _section =>
     <ProfileSection
-      onSettingsClicked={() => ()}
-      onFeedbackClicked={() => ()}
-      onResumeReadingClicked={() => ()}
+      readerPath
       document={Mocks.document()}
       activity=ProfileSection.{
         documentsCreated: Js.Math.random_int(8, 40),

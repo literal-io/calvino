@@ -63,6 +63,10 @@
 .brand {
   color: var(--brand-color);
 }
+.brand-sl {
+  color: var(--brand-color);
+  opacity: 0.72;
+}
 
 .pa3_5 {
   padding: calc(var(--spacing-medium) + var(--spacing-small));
