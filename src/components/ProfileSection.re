@@ -3,10 +3,23 @@ let component = ReasonReact.statelessComponent("ProfileSection");
 
 let spacer = cn(["ma1"]);
 
-type activity = {
-  documentsCreated: int,
-  highlightsCreated: int,
-  pagesRead: int,
+module ActivityModel = {
+  [@bs.deriving abstract]
+  type t = {
+    documentsCreated: int,
+    highlightsCreated: int,
+    pagesRead: int,
+  };
+
+  let make = t;
+
+  let decode = json =>
+    make(
+      ~documentsCreated=json |> Json.Decode.(field("documentsCreated", int)),
+      ~highlightsCreated=
+        json |> Json.Decode.(field("highlightsCreated", int)),
+      ~pagesRead=json |> Json.Decode.(field("pagesRead", int)),
+    );
 };
 
 let renderActivityListItem = (~icon, ~count, ~label, ()) =>
@@ -21,7 +34,12 @@ let renderActivityListItem = (~icon, ~count, ~label, ()) =>
     <div className={cn(["mh2"])} />
     <div className={cn(["flex", "flex-column"])}>
       <div className={cn(["f5", "b", "brand", "tl"])}>
-        {count |> string_of_int |> ReasonReact.string}
+        {
+          count
+          |> Js.Option.map(Utils.wrapBs(string_of_int))
+          |> Js.Option.getWithDefault("")
+          |> ReasonReact.string
+        }
       </div>
       <div className={cn(["f7", "brand", "tl"])}>
         {ReasonReact.string(label)}
@@ -30,7 +48,8 @@ let renderActivityListItem = (~icon, ~count, ~label, ()) =>
   </div>;
 
 let renderActivity = (~activity, ()) =>
-  <MaterialUi.Paper classes=[Root(cn(["bg-accent-100-o60", "pa3", "br1"]))]>
+  <MaterialUi.Paper
+    classes=[Root(cn(["bg-accent-100-o60", "pa3", "br1", "flex-auto"]))]>
     <div className={cn(["f7", "brand", "tl"])}>
       {ReasonReact.string("Recent Activity")}
     </div>
@@ -42,7 +61,9 @@ let renderActivity = (~activity, ()) =>
     {
       renderActivityListItem(
         ~icon=<MaterialIcon.LibraryBooks />,
-        ~count=activity.documentsCreated,
+        ~count=
+          activity
+          |> Js.Option.map(Utils.wrapBs(ActivityModel.documentsCreatedGet)),
         ~label="Documents added",
         (),
       )
@@ -51,7 +72,9 @@ let renderActivity = (~activity, ()) =>
     {
       renderActivityListItem(
         ~icon=<MaterialIcon.Highlight />,
-        ~count=activity.highlightsCreated,
+        ~count=
+          activity
+          |> Js.Option.map(Utils.wrapBs(ActivityModel.highlightsCreatedGet)),
         ~label="Highlights created",
         (),
       )
@@ -60,7 +83,8 @@ let renderActivity = (~activity, ()) =>
     {
       renderActivityListItem(
         ~icon=<MaterialIcon.Subject />,
-        ~count=activity.pagesRead,
+        ~count=
+          activity |> Js.Option.map(Utils.wrapBs(ActivityModel.pagesReadGet)),
         ~label="Pages read",
         (),
       )
@@ -70,7 +94,10 @@ let renderActivity = (~activity, ()) =>
 let renderResumeReading = (~document, ~readerPath, ()) =>
   <AccentMonotoneButton
     className={cn(["flex-auto"])}
-    href={Utils.makeDocumentURL(~readerPath, document)}
+    href=?{
+      document
+      |> Js.Option.map(Utils.wrapBs(Utils.makeDocumentURL(~readerPath)))
+    }
     contentClassName={
       cn(["absolute--fill", "absolute", "flex", "flex-column", "pa3"])
     }>
@@ -80,15 +107,22 @@ let renderResumeReading = (~document, ~readerPath, ()) =>
     <div className={cn(["f5", "brand", "b", "i", "tl"])}>
       {
         document
-        |> JavamonnBsLibrarian.DocumentModel.title
-        |> (title => {j|$title,|j})
+        |> Js.Option.map((. document) =>
+             document
+             |> JavamonnBsLibrarian.DocumentModel.title
+             |> (title => {j|$title,|j})
+           )
+        |> Js.Option.getWithDefault("")
         |> ReasonReact.string
       }
     </div>
     <div className={cn(["f5", "brand", "b", "i", "tl"])}>
       {
         document
-        |> JavamonnBsLibrarian.DocumentModel.author
+        |> Js.Option.map(
+             Utils.wrapBs(JavamonnBsLibrarian.DocumentModel.author),
+           )
+        |> Js.Option.getWithDefault("")
         |> ReasonReact.string
       }
     </div>
@@ -138,7 +172,9 @@ let make = (~readerPath, ~document, ~activity, _children) => {
   render: _self =>
     <div style={flex("1")} className={cn(["flex", "flex-row"])}>
       <div style={flex("1")} className={cn(["flex"])}>
-        <div style={flex("1")}> {renderActivity(~activity, ())} </div>
+        <div style={flex("1")} className={cn(["flex"])}>
+          {renderActivity(~activity, ())}
+        </div>
       </div>
       <div className=spacer />
       <div style={flex("1")} className={cn(["flex", "flex-column"])}>

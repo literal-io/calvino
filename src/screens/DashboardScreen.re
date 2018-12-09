@@ -8,6 +8,8 @@ let make =
       ~onPaginateDocuments,
       ~onPaginateHighlights,
       ~onAddDocumentClicked,
+      ~recentDocument,
+      ~recentActivity,
       ~readerPath,
       ~userProfileId,
       _children,
@@ -25,6 +27,8 @@ let make =
       </div>
       <div className={cn(["relative", "flex-1"])}>
         <HighlightsSection
+          recentDocument
+          recentActivity
           highlights
           onPaginateHighlights
           readerPath
@@ -38,6 +42,8 @@ let make =
 type jsProps = {
   documents: Js.Array.t(Js.Json.t),
   highlights: Js.Array.t(Js.Json.t),
+  recentDocument: Js.Json.t,
+  recentActivity: Js.Json.t,
   readerPath: Js.String.t,
   userProfileId: Js.String.t,
   onPaginateDocuments: (. unit) => Js.Nullable.t(Js.Promise.t(unit)),
@@ -60,6 +66,12 @@ let default =
            )
         |> Js.Array.filter(Js.Option.isSome)
         |> Js.Array.map(Js.Option.getExn),
+      ~recentDocument=
+        jsProps
+        |> recentDocumentGet
+        |> JavamonnBsLibrarian.DocumentModel.decode,
+      ~recentActivity=
+        jsProps |> recentActivityGet |> ProfileSection.ActivityModel.decode,
       ~readerPath=jsProps |> readerPathGet,
       ~userProfileId=jsProps |> userProfileIdGet,
       ~onPaginateDocuments=Utils.applyBs(jsProps |> onPaginateDocumentsGet),

@@ -65,21 +65,42 @@ storiesOf("Components", _module)
         </AccentMonotoneButton>
       </AppFrame>
     )
-  )
+  );
+
+storiesOf("Components/ProfileSection", _module)
 ->(
-    add("ProfileSection", () =>
+    add("With Data", () =>
       <AppFrame>
         <div
           className={cn(["flex"])}
           style={flex("1") +++ make(~width=px(450), ~height=px(250), ())}>
           <ProfileSection
             readerPath="http://localhost:9001"
-            activity=ProfileSection.{
-              documentsCreated: Js.Math.random_int(8, 40),
-              highlightsCreated: Js.Math.random_int(8, 4),
-              pagesRead: Js.Math.random_int(20, 120),
+            activity={
+              Some(
+                ProfileSection.ActivityModel.make(
+                  ~documentsCreated=Js.Math.random_int(8, 40),
+                  ~highlightsCreated=Js.Math.random_int(8, 4),
+                  ~pagesRead=Js.Math.random_int(20, 120),
+                ),
+              )
             }
-            document={Mocks.document()}
+            document={Some(Mocks.document())}
+          />
+        </div>
+      </AppFrame>
+    )
+  )
+->(
+    add("Without Data", () =>
+      <AppFrame>
+        <div
+          className={cn(["flex"])}
+          style={flex("1") +++ make(~width=px(450), ~height=px(250), ())}>
+          <ProfileSection
+            readerPath="http://localhost:9001"
+            activity=None
+            document=None
           />
         </div>
       </AppFrame>

@@ -45,6 +45,8 @@ let handleShareClicked = (~userProfileId, documentAnnotation) =>
 let make =
     (
       ~highlights,
+      ~recentDocument,
+      ~recentActivity,
       ~onPaginateHighlights,
       ~userProfileId,
       ~readerPath,
@@ -53,12 +55,8 @@ let make =
   let renderProfile = _section =>
     <ProfileSection
       readerPath
-      document={Mocks.document()}
-      activity=ProfileSection.{
-        documentsCreated: Js.Math.random_int(8, 40),
-        highlightsCreated: Js.Math.random_int(8, 4),
-        pagesRead: Js.Math.random_int(20, 120),
-      }
+      document={Some(recentDocument)}
+      activity={Some(recentActivity)}
     />;
   let renderHighlights = section => {
     let highlights = section |> SectionList.TitledSection.dataGet;
