@@ -55,8 +55,8 @@ let make =
   let renderProfile = _section =>
     <ProfileSection
       readerPath
-      document={Some(recentDocument)}
-      activity={Some(recentActivity)}
+      document={recentDocument}
+      activity={recentActivity}
     />;
   let renderHighlights = section => {
     let highlights = section |> SectionList.TitledSection.dataGet;

@@ -51,12 +51,14 @@ storiesOf("Screens", _module)
                 )
               )
             }
-            recentDocument={Mocks.document()}
+            recentDocument={Some(Mocks.document())}
             recentActivity={
-              ProfileSection.ActivityModel.make(
-                ~documentsCreated=Js.Math.random_int(8, 40),
-                ~highlightsCreated=Js.Math.random_int(8, 4),
-                ~pagesRead=Js.Math.random_int(20, 120),
+              Some(
+                ProfileSection.ActivityModel.make(
+                  ~documentsCreated=Js.Math.random_int(8, 40),
+                  ~highlightsCreated=Js.Math.random_int(8, 4),
+                  ~pagesRead=Js.Math.random_int(20, 120),
+                ),
               )
             }
             readerPath="http://localhost:9001"
