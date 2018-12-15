@@ -41,32 +41,30 @@ let make =
       MaterialUi.(
         <Card>
           <a className={cn(["no-underline"])} href={annotationURL}>
-            <CardContent> <HighlightText text /> </CardContent>
+            <div className={cn(["mh3"])}> <HighlightText text /> </div>
             <div
               className={
-                cn(["flex", "flex-row", "justify-between", "items-center"])
+                cn(["flex", "flex-row", "justify-between", "items-center", "mh3"])
               }>
-              <div className={cn(["flex", "flex-column", "ml3"])}>
-                <span className={cn(["b", "f6", "pd"])}>
+              <div className={cn(["flex", "flex-column"])}>
+                <span className={cn(["f7", "pd"])}>
                   {ReasonReact.string(title)}
                 </span>
-                <span className={cn(["f6", "sd"])}>
+                <span className={cn(["f7", "sd"])}>
                   {ReasonReact.string(author)}
                 </span>
               </div>
-              <CardActions>
-                <IconButton
-                  ref={self.handle(handleShareButtonRef)}
-                  onClick={
-                    ev => {
-                      let _ = onShareClicked();
-                      ReactEvent.Mouse.preventDefault(ev);
-                      ();
-                    }
-                  }>
-                  <MaterialIcon.Share />
-                </IconButton>
-              </CardActions>
+              <IconButton
+                ref={self.handle(handleShareButtonRef)}
+                onClick={
+                  ev => {
+                    let _ = onShareClicked();
+                    ReactEvent.Mouse.preventDefault(ev);
+                    ();
+                  }
+                }>
+                <MaterialIcon.Share style={square(21)} />
+              </IconButton>
             </div>
           </a>
         </Card>

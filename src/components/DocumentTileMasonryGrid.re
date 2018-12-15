@@ -35,7 +35,7 @@ let documentImageURL = document =>
   JavamonnBsLibrarian.DocumentModel.(
     switch (documentImageURL(document)) {
     | Some(ImageURL.Source(src)) => Some(src)
-    | Some(ImageURL.Processed({w200})) => Some(w200)
+    | Some(ImageURL.Processed({w200, source})) => Some(source)
     | None => None
     }
   );

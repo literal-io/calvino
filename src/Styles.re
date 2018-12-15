@@ -12,10 +12,16 @@ module Color = {
 };
 
 let bgWhite = make(~backgroundColor="white", ());
+
 let pl = make(~color=Color.primaryLight, ());
 let sl = make(~color=Color.secondaryLight, ());
 let bpl = make(~color=Color.brandColor, ());
+let bsl = make(~color=Color.brandColor, ~opacity=string_of_float(0.72), ());
+
 let f_pl = make(~fill=Color.primaryLight, ());
-let bgaAccent = alpha => make(~backgroundColor={j|rgba(0, 188, 212, $alpha)|j}, ());
+let bgaAccent = alpha =>
+  make(~backgroundColor={j|rgba(0, 188, 212, $alpha)|j}, ());
+
 let lineHeight = lh => make(~lineHeight=lh, ());
 let square = size => make(~width=px(size), ~height=px(size), ());
+let flex = v => make(~flex=v, ());

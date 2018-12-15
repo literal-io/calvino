@@ -44,7 +44,68 @@ storiesOf("Components", _module)
       </AppFrame>
     )
   )
-->(add("RegistrationCTA", () => <AppFrame> <RegistrationCTA /> </AppFrame>));
+->(add("RegistrationCTA", () => <AppFrame> <RegistrationCTA /> </AppFrame>))
+->(
+    add("AccentMonotoneButton", () =>
+      <AppFrame>
+        <AccentMonotoneButton
+          className={
+            cn(["flex", "flex-row", "justify-center", "items-center", "pa2"])
+          }>
+          <MaterialIcon.MailOutline style=bpl />
+          <div className={cn(["mh2"])} />
+          <div className={cn(["flex", "flex-column", "justify-start"])}>
+            <div className={cn(["f7", "brand", "tl"])}>
+              {ReasonReact.string("Have feedback?")}
+            </div>
+            <div className={cn(["f7", "brand", "tl"])}>
+              {ReasonReact.string("Send us your thoughts.")}
+            </div>
+          </div>
+        </AccentMonotoneButton>
+      </AppFrame>
+    )
+  );
+
+storiesOf("Components/ProfileSection", _module)
+->(
+    add("With Data", () =>
+      <AppFrame>
+        <div
+          className={cn(["flex"])}
+          style={flex("1") +++ make(~width=px(450), ~height=px(250), ())}>
+          <ProfileSection
+            readerPath="http://localhost:9001"
+            activity={
+              Some(
+                ProfileSection.ActivityModel.make(
+                  ~documentsCreated=Js.Math.random_int(8, 40),
+                  ~highlightsCreated=Js.Math.random_int(8, 4),
+                  ~pagesRead=Js.Math.random_int(20, 120),
+                ),
+              )
+            }
+            document={Some(Mocks.document())}
+          />
+        </div>
+      </AppFrame>
+    )
+  )
+->(
+    add("Without Data", () =>
+      <AppFrame>
+        <div
+          className={cn(["flex"])}
+          style={flex("1") +++ make(~width=px(450), ~height=px(250), ())}>
+          <ProfileSection
+            readerPath="http://localhost:9001"
+            activity=None
+            document=None
+          />
+        </div>
+      </AppFrame>
+    )
+  );
 
 storiesOf("Components/DocumentAnnotationTile", _module)
 ->(
@@ -84,7 +145,6 @@ storiesOf("Components/DocumentTile", _module)
           title="Invisible Cities"
           author="Italo Calvino"
           imageURL="https://storage.googleapis.com/literal-images/000da7f0-6254-11e8-b634-240dbf38c455"
-
           documentURL="http://localhost:9001"
         />
       </AppFrame>
