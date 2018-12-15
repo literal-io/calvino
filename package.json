@@ -36,8 +36,7 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-jss": "^8.6.1",
-    "reason-react": ">=0.4.0",
-    "typeface-roboto-slab": "0.0.54"
+    "reason-react": ">=0.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.5",
@@ -52,6 +51,7 @@
     "extract-loader": "^3.0.0",
     "html-webpack-plugin": "^3.2.0",
     "jss-cli": "^5.0.2",
+    "typeface-roboto-slab": "0.0.54",
     "tachyons": "^4.11.1",
     "typeface-roboto": "0.0.54",
     "webpack": "^4.0.1",
