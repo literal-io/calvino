@@ -36,6 +36,17 @@
   background-color: var(--background-gray);
 }
 
+.b-accent-100-o60 {
+  border-color: var(--accent-color-100-o60);
+}
+
+.accent-100-o60 {
+  color: var(--accent-color-100-o60);
+}
+
+.accent-100-o60 {
+  color: var(--accent-color-100-o60) !important;
+}
 .pl {
   color: var(--primary-light);
 }
@@ -88,6 +99,10 @@
 .sq36 {
   width: 36px;
   height: 36px;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;  
 }
 
 .flex-1 {

@@ -2,6 +2,7 @@ let (+++) = ReactDOMRe.Style.combine;
 let make = ReactDOMRe.Style.make;
 let px = num => string_of_int(num) ++ "px";
 let rem = num => string_of_float(num) ++ "rem";
+let vh = num => string_of_int(num) ++ "vh";
 let cn = Cn.make;
 
 module Color = {

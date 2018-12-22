@@ -27,6 +27,7 @@
     "@jsiebern/bs-material-ui": "^0.4.2",
     "@material-ui/core": "^3.4.0",
     "@material-ui/icons": "^3.0.1",
+    "bowser": "^2.0.0-beta.3",
     "bricks.js": "^1.8.0",
     "bs-webapi": "^0.13.1",
     "can-use-dom": "^0.1.0",
