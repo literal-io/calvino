@@ -25,3 +25,4 @@ let bgaAccent = alpha =>
 let lineHeight = lh => make(~lineHeight=lh, ());
 let square = size => make(~width=px(size), ~height=px(size), ());
 let flex = v => make(~flex=v, ());
+let maxWidth = mw => make(~maxWidth=mw, ());
