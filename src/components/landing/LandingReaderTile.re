@@ -1,5 +1,5 @@
 open Styles;
-let component = ReasonReact.statelessComponent("LandingReaderSection");
+let component = ReasonReact.statelessComponent("LandingReaderTile");
 
 let make = (~readerURL, _children) => {
   ...component,

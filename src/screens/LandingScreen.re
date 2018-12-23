@@ -16,22 +16,21 @@ let make = (~readerURL, _children) => {
         ])
       }>
       <div
-        className={cn(["mh5", "flex", "flex-row", "flex-shrink-0", "pa5", "vh-100"])}>
-        <LandingCTA />
-        <LandingReaderSection readerURL />
-      </div>
-      <div
-        style={make(~top=vh(-20), ())}
         className={
-          cn([
-            "flex",
-            "flex-row",
-            "vh-75",
-            "bg-accent-100-o72",
-            "flex-shrink-0",
-            "relative",
-          ])
-        }
-      />
+          cn(["mh5", "flex", "flex-row", "flex-shrink-0", "pa5", "vh-100"])
+        }>
+        <LandingCTA />
+        <LandingReaderTile readerURL />
+      </div>
+      <LandingLibrarySection />
+      <LandingFeaturesSection />
     </div>,
 };
+
+[@bs.deriving abstract]
+type jsProps = {readerURL: Js.String.t};
+
+let default =
+  ReasonReact.wrapReasonForJs(~component, jsProps =>
+    make(~readerURL=jsProps |> readerURLGet, [||])
+  );

@@ -62,3 +62,15 @@ module Subject =
     [@bs.module "@material-ui/icons/Subject"]
     external reactClass: ReasonReact.reactClass = "default";
   });
+
+module ChromeReaderMode =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/ChromeReaderMode"]
+    external reactClass: ReasonReact.reactClass = "default";
+  });
+
+module BarChart =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/BarChart"]
+    external reactClass: ReasonReact.reactClass = "default";
+  });

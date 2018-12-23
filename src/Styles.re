@@ -20,6 +20,11 @@ let bpl = make(~color=Color.brandColor, ());
 let bsl = make(~color=Color.brandColor, ~opacity=string_of_float(0.72), ());
 
 let f_pl = make(~fill=Color.primaryLight, ());
+
+let fillBrandA = alpha => make(~fill={j|rgba(84, 110, 122, $alpha)|j}, ());
+let brandA = alpha => make(~color={j|rgba(84, 110, 122, $alpha)|j}, ());
+let bga = alpha =>
+  make(~backgroundColor={j|rgba(84, 110, 122, $alpha)|j}, ());
 let bgaAccent = alpha =>
   make(~backgroundColor={j|rgba(0, 188, 212, $alpha)|j}, ());
 
