@@ -70,4 +70,16 @@ storiesOf("Screens", _module)
         </ScreenFrame>
       </ContextProvider.Client>
     )
+  )
+->(
+    add("LandingScreen", () =>
+      <ContextProvider.Client
+        generateClassName={ReactJss.GenerateClassName.make()}>
+        <ScreenFrame>
+          <LandingScreen
+            readerURL="https://literal.io/static/borges/index.html#/?type=web&url=https%3A%2F%2Fstorage.googleapis.com%2Fliteral-static%2Fthe-library-of-babel-by-jorge-luis-borges.pdf"
+          />
+        </ScreenFrame>
+      </ContextProvider.Client>
+    )
   );
