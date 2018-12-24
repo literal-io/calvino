@@ -11,6 +11,11 @@ type browser = {
   version: string,
 };
 
+[@bs.deriving jsConverter]
+type browserName = [ | `Firefox | `Chrome];
+
+let getBrowserName = browser => browser |> nameGet |> browserNameFromJs;
+
 [@bs.val] [@bs.module "bowser"] external make: string => t = "getParser";
 
 [@bs.send] external getBrowser: t => browser = "";

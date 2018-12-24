@@ -6,25 +6,24 @@ let make = _children => {
   render: _self =>
     <div
       style={
-        make(~marginTop=vh(-20), ~paddingTop=vh(10), ~paddingBottom=vh(10), ())
+        make(
+          ~marginTop=vh(-20),
+          ~paddingTop=vh(10),
+          ~paddingBottom=vh(10),
+          (),
+        )
       }
       className={
-        cn([
-          "flex",
-          "flex-row",
-          "bg-accent-100-o72",
-          "flex-shrink-0",
-          "ph5",
-        ])
+        cn(["flex", "flex-row", "bg-accent-100-o72", "flex-shrink-0", "ph6"])
       }>
       <div
-        style={make(~maxWidth=px(500), ())}
-        className={cn(["flex", "flex-column", "mh5"])}>
-        <LandingHeaderText className={cn(["brand-sl", "b"])}>
+        style={make(~maxWidth=px(600), ())}
+        className={cn(["flex", "flex-column", "flex-1", "ml6"])}>
+        <LandingHeaderText className={cn(["bpl", "b", "tr"])}>
           "Your Digital Librarian."
         </LandingHeaderText>
         <Spacer size=3 />
-        <div className={cn(["brand-sl", "f4"])}>
+        <div className={cn(["bpl", "f4", "tr"])}>
           {
             ReasonReact.string(
               "Literal is much more than just a reader - a powerful document management system organizes, archives, and enhances your document library.",
@@ -32,7 +31,7 @@ let make = _children => {
           }
         </div>
         <Spacer size=3 />
-        <div className={cn(["brand-sl", "f4"])}>
+        <div className={cn(["bpl", "f4", "tr"])}>
           {
             ReasonReact.string(
               "Highlight, search, and share documents from your library.",
@@ -40,5 +39,6 @@ let make = _children => {
           }
         </div>
       </div>
+      <div className={cn(["flex-1", "mr6"])} />
     </div>,
 };

@@ -1,51 +1,21 @@
 open Styles;
 
-type state = {
-  installText: option(string),
-  installUrl: option(string),
-};
+let component = ReasonReact.statelessComponent("LandingCTA");
 
-type action =
-  | SetInstallData;
-
-let component = ReasonReact.reducerComponent("LandingCTA");
-
-let make = _children => {
+let make = (~browser, _children) => {
   ...component,
-  initialState: () => {installText: None, installUrl: None},
-  didMount: self => self.send(SetInstallData),
-  reducer: (action, _state) =>
-    switch (action) {
-    | SetInstallData =>
-      let browser =
-        Bowser.(
-          Webapi.Dom.window
-          |> Webapi.Dom.Window.navigator
-          |> asNavigator
-          |> userAgentGet
-          |> make
-          |> getBrowser
-          |> nameGet
-        );
-      ReasonReact.Update(
-        browser === "Firefox" ?
-          {
-            installText: Some("Install Firefox Add-On"),
-            installUrl:
-              Some(
-                "https://addons.mozilla.org/en-US/firefox/addon/literal-pdf-reader/",
-              ),
-          } :
-          {
-            installText: Some("Install Chrome Extension"),
-            installUrl:
-              Some(
-                "https://chrome.google.com/webstore/detail/aobcehhaeapnlhliodjobodhgmemimnl",
-              ),
-          },
-      );
-    },
-  render: self =>
+  render: _self => {
+    let (installText, installUrl) =
+      switch (browser) {
+      | `Firefox => (
+          "Install Firefox Add-On",
+          "https://addons.mozilla.org/en-US/firefox/addon/literal-pdf-reader/",
+        )
+      | _ => (
+          "Install Chrome Extension",
+          "https://chrome.google.com/webstore/detail/aobcehhaeapnlhliodjobodhgmemimnl",
+        )
+      };
     <div className={cn(["flex", "flex-column", "flex-1"])}>
       <div
         style={make(~maxWidth=px(500), ~paddingTop="20%", ())}
@@ -76,27 +46,28 @@ let make = _children => {
         <Spacer size=3 />
         <div className={cn(["flex-row", "flex"])}>
           <MaterialUi.Button
-            style={make(~minWidth=px(240), ~padding="12px 16px", ())}
-            href={self.state.installUrl |> Js.Option.getWithDefault("")}
+            style={make(~minWidth=px(240), ~padding="18px 16px", ())}
+            href=installUrl
             classes=[
               MaterialUi.Button.Classes.Root(cn(["bg-accent-100-o60"])),
               MaterialUi.Button.Classes.Label(cn(["white"])),
             ]
             variant=`Raised>
-            {self.state.installText |> Js.Option.getWithDefault("")}
+            installText
           </MaterialUi.Button>
           <Spacer size=3 />
           <MaterialUi.Button
-            style={make(~padding="12px 16px", ())}
+            style={make(~padding="18px 16px", ())}
             href="/faq"
             classes=[
-              MaterialUi.Button.Classes.Root(cn(["b-accent-100-o60"])),
-              MaterialUi.Button.Classes.Label(cn(["accent-100-o60"])),
+              MaterialUi.Button.Classes.Root(cn(["b-pl"])),
+              MaterialUi.Button.Classes.Label(cn(["pl"])),
             ]
             variant=`Outlined>
             {ReasonReact.string("Learn More")}
           </MaterialUi.Button>
         </div>
       </div>
-    </div>,
+    </div>;
+  },
 };

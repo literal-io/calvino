@@ -1,9 +1,15 @@
 open Styles;
 let component = ReasonReact.statelessComponent("LandingScreen");
 
-let make = (~readerURL, _children) => {
+let make = (~readerURL, ~userAgent, _children) => {
   ...component,
-  render: _self =>
+  render: _self => {
+    let browser =
+      userAgent
+      |> Bowser.make
+      |> Bowser.getBrowser
+      |> Bowser.getBrowserName
+      |> Js.Option.getWithDefault(`Chrome);
     <div
       className={
         cn([
@@ -19,18 +25,30 @@ let make = (~readerURL, _children) => {
         className={
           cn(["mh5", "flex", "flex-row", "flex-shrink-0", "pa5", "vh-100"])
         }>
-        <LandingCTA />
+        <LandingCTA browser />
         <LandingReaderTile readerURL />
       </div>
       <LandingLibrarySection />
+      <Spacer size=4 />
       <LandingFeaturesSection />
-    </div>,
+      <Spacer size=4 />
+      <LandingFooterSection browser />
+      <Spacer size=6 />
+    </div>;
+  },
 };
 
 [@bs.deriving abstract]
-type jsProps = {readerURL: Js.String.t};
+type jsProps = {
+  readerURL: Js.String.t,
+  userAgent: Js.String.t,
+};
 
 let default =
   ReasonReact.wrapReasonForJs(~component, jsProps =>
-    make(~readerURL=jsProps |> readerURLGet, [||])
+    make(
+      ~readerURL=jsProps |> readerURLGet,
+      ~userAgent=jsProps |> userAgentGet,
+      [||],
+    )
   );
