@@ -79,6 +79,14 @@
   opacity: 0.72;
 }
 
+.b-pl {
+  border-color: var(--primary-light);
+}
+
+.b-sl {
+  border-color: var(--secondary-light);
+}
+
 .pa3_5 {
   padding: calc(var(--spacing-medium) + var(--spacing-small));
 }
