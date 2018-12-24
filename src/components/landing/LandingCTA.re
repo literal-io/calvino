@@ -20,9 +20,6 @@ let make = (~browser, _children) => {
       <div
         style={make(~maxWidth=px(500), ~paddingTop="20%", ())}
         className={cn(["flex", "flex-column"])}>
-        <div className={cn(["pl", "f4"])}>
-          {ReasonReact.string("Literal.")}
-        </div>
         <Spacer size=1 />
         <LandingHeaderText className={cn(["pl", "b"])}>
           "The PDF Reader of the Web."

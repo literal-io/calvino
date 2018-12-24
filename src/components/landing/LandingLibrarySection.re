@@ -7,7 +7,7 @@ let make = _children => {
     <div
       style={
         make(
-          ~marginTop=vh(-20),
+          ~marginTop=vh(-30),
           ~paddingTop=vh(10),
           ~paddingBottom=vh(10),
           (),
@@ -18,7 +18,7 @@ let make = _children => {
       }>
       <div
         style={make(~maxWidth=px(600), ())}
-        className={cn(["flex", "flex-column", "flex-1", "ml6"])}>
+        className={cn(["flex", "flex-column", "flex-1", "ml6", "mr5"])}>
         <LandingHeaderText className={cn(["bpl", "b", "tr"])}>
           "Your Digital Librarian."
         </LandingHeaderText>
@@ -39,6 +39,7 @@ let make = _children => {
           }
         </div>
       </div>
-      <div className={cn(["flex-1", "mr6"])} />
+      <Spacer size=6 />
+      <div className={cn(["flex-1", "mr6", "flex-shrink-0"])} />
     </div>,
 };

@@ -21,9 +21,10 @@ let make = (~readerURL, ~userAgent, _children) => {
           "flex-column",
         ])
       }>
+      <LandingNavigationBar browser />
       <div
         className={
-          cn(["mh5", "flex", "flex-row", "flex-shrink-0", "pa5", "vh-100"])
+          cn(["mh5", "flex", "flex-row", "flex-shrink-0", "ph5", "vh-100"])
         }>
         <LandingCTA browser />
         <LandingReaderTile readerURL />
@@ -33,7 +34,6 @@ let make = (~readerURL, ~userAgent, _children) => {
       <LandingFeaturesSection />
       <Spacer size=4 />
       <LandingFooterSection browser />
-      <Spacer size=6 />
     </div>;
   },
 };
