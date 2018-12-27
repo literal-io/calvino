@@ -7,12 +7,12 @@ let make = (~browser, _children) => {
     | `Firefox => (
         "Install Firefox Add-On",
         "Install Literal for Firefox to get started.",
-        "https://addons.mozilla.org/en-US/firefox/addon/literal-pdf-reader/",
+        Constants.firefoxExtensionURL,
       )
     | _ => (
         "Install Chrome Extension",
         "Install Literal for Chrome to get started.",
-        "https://chrome.google.com/webstore/detail/aobcehhaeapnlhliodjobodhgmemimnl",
+        Constants.chromeExtensionURL,
       )
     };
   {
@@ -37,13 +37,21 @@ let make = (~browser, _children) => {
                 </div>
               </div>
               <div className={cn(["flex", "justify-center", "items-center"])}>
-                <MaterialUi.Button
+                <AnalyticsButton
                   style={make(~padding="18px 42px", ())}
                   href=installUrl
                   classes=[Root(cn(["bg-brand"])), Label(cn(["white"]))]
+                  eventType=`Event
+                  eventOptions={
+                    GAnalytics.eventOptions(
+                      ~ec="extension",
+                      ~ea="clicked-install-prompt",
+                      (),
+                    )
+                  }
                   variant=`Raised>
                   installLabel
-                </MaterialUi.Button>
+                </AnalyticsButton>
               </div>
             </div>
           </MaterialUi.Paper>
