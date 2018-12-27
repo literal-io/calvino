@@ -1,8 +1,5 @@
 let component = ReasonReact.statelessComponent("AnalyticsButton");
 
-let inst =
-  GAnalytics.make(Constants.googleAnalyticsTrackerId, Js.Nullable.null, true);
-
 let make =
     (
       ~href=?,
@@ -17,7 +14,13 @@ let make =
     if (Constants.isDevelopment) {
       Js.log3("AnalyticsButton event:", eventType, eventOptions);
     } else {
-      let _ = GAnalytics.send(eventType, eventOptions);
+      let _ =
+        GAnalytics.make(
+          Constants.googleAnalyticsTrackerId,
+          Js.Nullable.null,
+          true,
+        )
+        |> GAnalytics.send(eventType, eventOptions);
       ();
     };
     let _ =

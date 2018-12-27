@@ -1,7 +1,5 @@
 let jssStyleID = "jss-server-side";
 
-[@bs.module] external canUseDOM: bool = "can-use-dom";
-
 let tachyonsStyleSheet =
   Utils.requireJSS(
     "!../scripts/jss-loader!extract-loader!css-loader!tachyons/css/tachyons.css",
@@ -49,7 +47,7 @@ module Client = {
   let make = (~generateClassName, ~theme=?, children) => {
     ...component,
     render: _self =>
-      if (!canUseDOM) {
+      if (!Constants.canUseDOM) {
         ReasonReact.null;
       } else {
         let sheetsRegistry =
@@ -82,7 +80,7 @@ module Server = {
       (~sheetsRegistry, ~generateClassName, ~theme, ~sheetsManager, children) => {
     ...component,
     render: _self =>
-      if (canUseDOM) {
+      if (Constants.canUseDOM) {
         ReasonReact.null;
       } else {
         let _ =
@@ -115,7 +113,7 @@ module Provider = {
       (~sheetsRegistry, ~generateClassName, ~theme, ~sheetsManager, children) => {
     ...component,
     didMount: _self =>
-      if (canUseDOM) {
+      if (Constants.canUseDOM) {
         let _ =
           Webapi.Dom.(
             document
@@ -131,7 +129,7 @@ module Provider = {
         ();
       },
     render: _self =>
-      canUseDOM ?
+      Constants.canUseDOM ?
         <Client generateClassName theme=defaultTheme> children </Client> :
         <Server
           sheetsRegistry generateClassName theme=defaultTheme sheetsManager>

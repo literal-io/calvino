@@ -1,4 +1,6 @@
 [@bs.val] external nodeEnv: string = "process.NODE_ENV";
+[@bs.module] external canUseDOM: bool = "can-use-dom";
+
 
 let isDevelopment = nodeEnv !== "development";
 
