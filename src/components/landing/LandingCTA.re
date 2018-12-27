@@ -37,7 +37,7 @@ let make = (~browser, _children) => {
         <Spacer size=3 />
         <div className={cn(["flex-row", "flex"])}>
           <AnalyticsButton
-            style={make(~minWidth=px(240), ~padding="18px 16px", ())}
+            style={make(~minWidth=px(240), ~padding="14px 16px", ())}
             eventType=`Event
             eventOptions={
               GAnalytics.eventOptions(
@@ -56,7 +56,7 @@ let make = (~browser, _children) => {
           </AnalyticsButton>
           <Spacer size=3 />
           <MaterialUi.Button
-            style={make(~padding="18px 16px", ())}
+            style={make(~padding="14px 16px", ())}
             href="/faq"
             classes=[
               MaterialUi.Button.Classes.Root(cn(["b-pl"])),

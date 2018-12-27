@@ -4,11 +4,22 @@ let component = ReasonReact.statelessComponent("LandingNavigationBar");
 let renderButton = (~label, ~href, ()) =>
   <MaterialUi.Button
     href
-    style={make(~padding="18px 16px", ())}
+    style={make(~padding="14px 16px", ())}
     variant=`Flat
     classes=[Label(cn(["sl"]))]>
     label
   </MaterialUi.Button>;
+
+let renderAnalyticsButton = (~label, ~href, ~eventType, ~eventOptions, ()) =>
+  <AnalyticsButton
+    href
+    style={make(~padding="14px 16px", ())}
+    variant=`Flat
+    classes=[Label(cn(["sl"]))]
+    eventType
+    eventOptions>
+    label
+  </AnalyticsButton>;
 
 let make = (~browser, _children) => {
   let installURL =
@@ -24,7 +35,20 @@ let make = (~browser, _children) => {
           {ReasonReact.string("Literal.")}
         </div>
         <Spacer size=4 />
-        {renderButton(~label="Install", ~href=installURL, ())}
+        {
+          renderAnalyticsButton(
+            ~label="Install",
+            ~href=installURL,
+            ~eventType=`Event,
+            ~eventOptions=
+              GAnalytics.eventOptions(
+                ~ec="extension",
+                ~ea="clicked-install-prompt",
+                (),
+              ),
+            (),
+          )
+        }
         <Spacer size=2 />
         {renderButton(~label="Sign Up", ~href="/sign-up", ())}
         <Spacer size=2 />

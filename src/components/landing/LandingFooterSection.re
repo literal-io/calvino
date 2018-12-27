@@ -38,7 +38,7 @@ let make = (~browser, _children) => {
               </div>
               <div className={cn(["flex", "justify-center", "items-center"])}>
                 <AnalyticsButton
-                  style={make(~padding="18px 42px", ())}
+                  style={make(~padding="14px 42px", ())}
                   href=installUrl
                   classes=[Root(cn(["bg-brand"])), Label(cn(["white"]))]
                   eventType=`Event
