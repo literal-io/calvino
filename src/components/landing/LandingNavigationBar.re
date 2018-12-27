@@ -13,8 +13,8 @@ let renderButton = (~label, ~href, ()) =>
 let make = (~browser, _children) => {
   let installURL =
     switch (browser) {
-    | `Firefox => "https://addons.mozilla.org/en-US/firefox/addon/literal-pdf-reader/"
-    | _ => "https://chrome.google.com/webstore/detail/aobcehhaeapnlhliodjobodhgmemimnl"
+    | `Firefox => Constants.firefoxExtensionURL
+    | _ => Constants.chromeExtensionURL
     };
   {
     ...component,

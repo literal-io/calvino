@@ -23,6 +23,7 @@
     "re-classnames",
     "bs-webapi",
     "bs-faker",
+    "bs-ganalytics",
     "@glennsl/bs-json",
     "@jsiebern/bs-material-ui",
     "@javamonn/bs-librarian",

@@ -7,14 +7,8 @@ let make = (~browser, _children) => {
   render: _self => {
     let (installText, installUrl) =
       switch (browser) {
-      | `Firefox => (
-          "Install Firefox Add-On",
-          "https://addons.mozilla.org/en-US/firefox/addon/literal-pdf-reader/",
-        )
-      | _ => (
-          "Install Chrome Extension",
-          "https://chrome.google.com/webstore/detail/aobcehhaeapnlhliodjobodhgmemimnl",
-        )
+      | `Firefox => ("Install Firefox Add-On", Constants.firefoxExtensionURL)
+      | _ => ("Install Chrome Extension", Constants.chromeExtensionURL)
       };
     <div className={cn(["flex", "flex-column", "flex-1"])}>
       <div
@@ -42,8 +36,16 @@ let make = (~browser, _children) => {
         </div>
         <Spacer size=3 />
         <div className={cn(["flex-row", "flex"])}>
-          <MaterialUi.Button
+          <AnalyticsButton
             style={make(~minWidth=px(240), ~padding="18px 16px", ())}
+            eventType=`Event
+            eventOptions={
+              GAnalytics.eventOptions(
+                ~ec="extension",
+                ~ea="clicked-install-prompt",
+                (),
+              )
+            }
             href=installUrl
             classes=[
               MaterialUi.Button.Classes.Root(cn(["bg-accent-100-o60"])),
@@ -51,7 +53,7 @@ let make = (~browser, _children) => {
             ]
             variant=`Raised>
             installText
-          </MaterialUi.Button>
+          </AnalyticsButton>
           <Spacer size=3 />
           <MaterialUi.Button
             style={make(~padding="18px 16px", ())}
