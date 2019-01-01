@@ -37,7 +37,7 @@ let renderActivityListItem = (~icon, ~count, ~label, ()) =>
         {
           count
           |> Js.Option.map(Utils.wrapBs(string_of_int))
-          |> Js.Option.getWithDefault("")
+          |> Js.Option.getWithDefault("0")
           |> ReasonReact.string
         }
       </div>
@@ -93,14 +93,12 @@ let renderActivity = (~activity, ()) =>
 
 let renderResumeReading = (~document, ~readerPath, ()) =>
   <AccentMonotoneButton
-    className={cn(["flex-auto"])}
+    className={cn(["flex-1", "flex", "items-stretch"])}
     href=?{
       document
       |> Js.Option.map(Utils.wrapBs(Utils.makeDocumentURL(~readerPath)))
     }
-    contentClassName={
-      cn(["absolute--fill", "absolute", "flex", "flex-column", "pa3"])
-    }>
+    contentClassName={cn(["flex", "flex-column", "flex-1", "pa3"])}>
     <div className={cn(["f7", "brand", "tl", "mb3"])}>
       {ReasonReact.string("Resume Reading")}
     </div>
@@ -131,32 +129,19 @@ let renderResumeReading = (~document, ~readerPath, ()) =>
 let renderSettings = () =>
   <AccentMonotoneButton
     href="/account"
-    className={cn(["flex-auto"])}
+    className={cn(["flex-1", "flex", "items-stretch"])}
     contentClassName={
-      cn([
-        "absolute--fill",
-        "absolute",
-        "flex",
-        "items-center",
-        "justify-center",
-      ])
+      cn(["flex", "flex-1", "items-center", "justify-center", "pa2"])
     }>
     <MaterialIcon.Settings style={bpl +++ square(28)} />
   </AccentMonotoneButton>;
 
 let renderFeedback = () =>
   <AccentMonotoneButton
-    className={cn(["flex-auto"])}
+    className={cn(["flex-1", "flex", "items-stretch"])}
     href="mailto:hello@literal.io"
     contentClassName={
-      cn([
-        "absolute--fill",
-        "absolute",
-        "flex",
-        "items-center",
-        "justify-center",
-        "pa2",
-      ])
+      cn(["flex", "flex-1", "items-center", "justify-center", "pa2"])
     }>
     <div className={cn(["flex", "flex-column", "justify-start"])}>
       <div className={cn(["f7", "brand", "tl"])}>

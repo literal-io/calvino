@@ -11,7 +11,7 @@ let document = () =>
   JavamonnBsLibrarian.DocumentModel.(
     make(
       ~id=BsFaker.Random.uuid(),
-      ~title=BsFaker.Lorem.words(~wordCount=Js.Math.random_int(3, 7), ()),
+      ~title=BsFaker.Lorem.words(~wordCount=Js.Math.random_int(10, 15), ()),
       ~author=BsFaker.Lorem.words(~wordCount=2, ()),
       ~numPages=string_of_int(Js.Math.random_int(100, 200)),
       ~fingerprint=BsFaker.Internet.mac(),

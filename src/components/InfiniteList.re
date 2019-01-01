@@ -3,15 +3,19 @@ open Styles;
 type state = {
   listRef: ref(option(Dom.element)),
   hasMoreData: ref(bool),
-  isLoadingMoreData: ref(bool),
+  isLoadingMoreData: bool,
 };
+
+type action =
+  | HandleLoadMoreData
+  | HandleLoadedMoreData;
 
 let component = ReasonReact.reducerComponent("InfiniteList");
 
 let handleListRef = (listRef, {ReasonReact.state}) =>
   state.listRef := Js.Nullable.toOption(listRef);
 
-let handleScroll = (~onEndReached, ~self, ~endThreshold, elem) =>
+let handleScroll = (~onEndReached, ~endThreshold, elem) =>
   switch (elem) {
   | Some(elem) =>
     let scrollHeight = float_of_int(Webapi.Dom.Element.scrollHeight(elem));
@@ -19,26 +23,7 @@ let handleScroll = (~onEndReached, ~self, ~endThreshold, elem) =>
     let scrollTop = Webapi.Dom.Element.scrollTop(elem);
     let threshold = endThreshold *. clientHeight;
     if (scrollHeight -. threshold < scrollTop +. clientHeight) {
-      self.ReasonReact.state.isLoadingMoreData := true;
-      switch (Js.Nullable.toOption(onEndReached())) {
-      | Some(promise) =>
-        let _ =
-          Js.Promise.then_(
-            () => {
-              self.handle(
-                ((), {ReasonReact.state}) =>
-                  state.isLoadingMoreData := false,
-                (),
-              );
-              Js.Promise.resolve();
-            },
-            promise,
-          );
-        ();
-      | None =>
-        self.ReasonReact.state.isLoadingMoreData := false;
-        self.ReasonReact.state.hasMoreData := false;
-      };
+      onEndReached();
     };
   | None => ()
   };
@@ -52,19 +37,53 @@ let make =
       ~endThreshold,
       ~className=?,
       ~renderInnerContainer=?,
+      ~renderLoadingIndicator=?,
       _children,
     ) => {
   ...component,
   initialState: () => {
     listRef: ref(None),
     hasMoreData: ref(true),
-    isLoadingMoreData: ref(false),
+    isLoadingMoreData: false,
   },
-  reducer: ((), _state) => ReasonReact.NoUpdate,
+  reducer: (action, state) =>
+    switch (action) {
+    | HandleLoadMoreData =>
+      state.hasMoreData^ ?
+        ReasonReact.UpdateWithSideEffects(
+          {...state, isLoadingMoreData: true},
+          (
+            self =>
+              switch (Js.Nullable.toOption(onEndReached())) {
+              | Some(promise) =>
+                let _ =
+                  Js.Promise.then_(
+                    () => {
+                      self.send(HandleLoadedMoreData);
+                      Js.Promise.resolve();
+                    },
+                    promise,
+                  );
+                ();
+              | None =>
+                self.send(HandleLoadedMoreData);
+                self.state.hasMoreData := false;
+              }
+          ),
+        ) :
+        ReasonReact.NoUpdate
+    | HandleLoadedMoreData =>
+      ReasonReact.Update({...state, isLoadingMoreData: false})
+    },
   render: self => {
     let onScroll =
       Lodash.throttle(
-        Utils.wrapBs(handleScroll(~onEndReached, ~endThreshold, ~self)),
+        Utils.wrapBs(
+          handleScroll(
+            ~onEndReached=() => self.send(HandleLoadMoreData),
+            ~endThreshold,
+          ),
+        ),
         200,
       );
     let items =
@@ -78,6 +97,12 @@ let make =
              }
            </>
          );
+    let loadingIndicator =
+      switch (renderLoadingIndicator) {
+      | Some(renderLoadingIndicator) =>
+        renderLoadingIndicator(self.state.isLoadingMoreData)
+      | _ => ReasonReact.null
+      };
     switch (renderInnerContainer) {
     | Some(renderInnerContainer) =>
       <div
@@ -92,6 +117,7 @@ let make =
           ])
         }>
         {renderInnerContainer(items)}
+        loadingIndicator
       </div>
     | None =>
       <div
@@ -105,7 +131,7 @@ let make =
             className->Cn.unpack,
           ])
         }>
-        ...items
+        ...{Array.append(items, [|loadingIndicator|])}
       </div>
     };
   },
