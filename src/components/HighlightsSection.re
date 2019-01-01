@@ -55,8 +55,8 @@ let make =
   let renderProfile = _section =>
     <ProfileSection
       readerPath
-      document={recentDocument}
-      activity={recentActivity}
+      document=recentDocument
+      activity=recentActivity
     />;
   let renderHighlights = section => {
     let highlights = section |> SectionList.TitledSection.dataGet;
@@ -147,6 +147,33 @@ let make =
           children =>
             <div className={cn(["ph5", "pv5", "bg-brand", "min-vh-100"])}>
               ...children
+            </div>
+        }
+        renderLoadingIndicator={
+          isLoadingMoreData =>
+            <div
+              className={
+                cn([
+                  "flex",
+                  "flex-row",
+                  "justify-center",
+                  "items-center",
+                  "bg-brand",
+                  "pv5",
+                ])
+              }>
+              <MaterialUi.CircularProgress
+                variant=`Indeterminate
+                size={`Int(48)}
+                classes=[
+                  MaterialUi.CircularProgress.Classes.Root(
+                    cn([
+                      "accent-100-o60",
+                      "dn"->Cn.ifTrue(!isLoadingMoreData),
+                    ]),
+                  ),
+                ]
+              />
             </div>
         }
       />,

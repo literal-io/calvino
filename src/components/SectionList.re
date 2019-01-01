@@ -5,7 +5,7 @@
 
 let component = ReasonReact.statelessComponent("SectionList");
 
-module TitledSection {
+module TitledSection = {
   [@bs.deriving abstract]
   type t('a) = {
     title: string,
@@ -22,6 +22,7 @@ let make =
       ~renderItem,
       ~renderSeparator,
       ~renderInnerContainer=?,
+      ~renderLoadingIndicator=?,
       ~onEndReached,
       ~endThreshold,
       ~className=?,
@@ -35,6 +36,7 @@ let make =
         item => <> {renderSectionHeader(item)} {renderItem(item)} </>
       }
       ?renderInnerContainer
+      ?renderLoadingIndicator
       renderSeparator
       onEndReached
       endThreshold

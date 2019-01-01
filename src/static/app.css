@@ -78,6 +78,9 @@
   color: var(--brand-color);
   opacity: 0.72;
 }
+.accent {
+  color: var(--accent-color);
+}
 
 .b-pl {
   border-color: var(--primary-light);

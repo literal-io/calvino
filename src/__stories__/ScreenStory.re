@@ -63,8 +63,20 @@ storiesOf("Screens", _module)
             }
             readerPath="http://localhost:9001"
             userProfileId={BsFaker.Random.uuid()}
-            onPaginateHighlights={() => Js.Nullable.null}
-            onPaginateDocuments={() => Js.Nullable.null}
+            onPaginateHighlights={
+              () =>
+                Js.Promise.make((~resolve as _resolve, ~reject as _reject) =>
+                  ()
+                )
+                |> Js.Nullable.return
+            }
+            onPaginateDocuments={
+              () =>
+                Js.Promise.make((~resolve as _resolve, ~reject as _reject) =>
+                  ()
+                )
+                |> Js.Nullable.return
+            }
             onAddDocumentClicked={_sourceType => ()}
           />
         </ScreenFrame>

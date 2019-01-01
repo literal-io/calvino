@@ -80,6 +80,30 @@ let make =
             gutter=42
           />
       }
+      renderLoadingIndicator={
+        isLoadingMoreData =>
+          <div
+            className={
+              cn([
+                "flex",
+                "flex-row",
+                "justify-center",
+                "items-center",
+                "pv5",
+                "bg-gray",
+              ])
+            }>
+            <MaterialUi.CircularProgress
+              variant=`Indeterminate
+              size={`Int(48)}
+              classes=[
+                MaterialUi.CircularProgress.Classes.Root(
+                  cn(["bsl", "dn"->Cn.ifTrue(!isLoadingMoreData)]),
+                ),
+              ]
+            />
+          </div>
+      }
       onEndReached=onPaginateDocuments
       endThreshold=2.0
       renderInnerContainer={

@@ -40,11 +40,18 @@ let make =
     render: self =>
       MaterialUi.(
         <Card>
-          <a className={cn(["no-underline"])} href={annotationURL}>
+          <a className={cn(["no-underline"])} href=annotationURL>
             <div className={cn(["mh3"])}> <HighlightText text /> </div>
             <div
               className={
-                cn(["flex", "flex-row", "justify-between", "items-center", "mh3"])
+                cn([
+                  "flex",
+                  "flex-row",
+                  "justify-between",
+                  "items-center",
+                  "mh3",
+                  "mv1",
+                ])
               }>
               <div className={cn(["flex", "flex-column"])}>
                 <span className={cn(["f7", "pd"])}>
