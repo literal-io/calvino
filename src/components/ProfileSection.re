@@ -37,7 +37,7 @@ let renderActivityListItem = (~icon, ~count, ~label, ()) =>
         {
           count
           |> Js.Option.map(Utils.wrapBs(string_of_int))
-          |> Js.Option.getWithDefault("")
+          |> Js.Option.getWithDefault("0")
           |> ReasonReact.string
         }
       </div>
