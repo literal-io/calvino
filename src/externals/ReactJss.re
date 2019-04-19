@@ -1,3 +1,5 @@
+[@bs.val] external requireJSS: string => Js.Json.t = "require";
+
 module SheetsManager = {
   /* FIXME: There might be a better way to type this, builtin JS Map(...) type */
   type t;

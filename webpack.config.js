@@ -26,12 +26,19 @@ const baseConfig = {
         ]
       },
       {
-        test: /@javamonn/,
+        test: /(javamonn)|(match-when)|(\.bs\.js$)/,
         use: [
           {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env'],
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    forceAllTransforms: true
+                  }
+                ]
+              ],
               plugins: ['@babel/plugin-transform-flow-strip-types']
             }
           }
