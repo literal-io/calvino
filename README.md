@@ -4,7 +4,7 @@
 >
 >  _Invisible Cities, Italo Calvino_
 
-Calvino is a library of React components consumed by various Literal projects. Written in ReasonML with [`reason-react`](https://github.com/reasonml/reason-react), it also serves as an example of integrating ReasonML into existing JavasScript applications.
+Calvino is a library of React components consumed by various Literal projects. Written in ReasonML with [`reason-react`](https://github.com/reasonml/reason-react), it also serves as an example of integrating ReasonML into existing JavaScript applications.
 
 ## Run Project for Development
 
