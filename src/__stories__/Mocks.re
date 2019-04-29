@@ -16,7 +16,14 @@ let document = () =>
       ~numPages=string_of_int(Js.Math.random_int(100, 200)),
       ~fingerprint=BsFaker.Internet.mac(),
       ~originSource=
-        OriginSource.{type_: `Web, url: None, id: None, httpHeaders: None},
+        OriginSource.{
+          type_: `Web,
+          url: None,
+          id: None,
+          httpHeaders: None,
+          httpRequestBody: None,
+          httpMethod: None,
+        },
       ~source=Source.{type_: `Web, url: BsFaker.Internet.url()},
       ~documentImageURL=
         ImageURL.Source(
@@ -35,7 +42,8 @@ let documentAnnotation = () =>
     ~documentId=BsFaker.Random.uuid(),
     ~userProfileId=BsFaker.Random.uuid(),
     ~descriptors=[||],
-    ~text=BsFaker.Lorem.sentences(~sentenceCount=Js.Math.random_int(2, 5), ()),
+    ~text=
+      BsFaker.Lorem.sentences(~sentenceCount=Js.Math.random_int(2, 5), ()),
     (),
   );
 

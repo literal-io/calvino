@@ -22,11 +22,11 @@
   "license": "MIT",
   "dependencies": {
     "@glennsl/bs-json": "^3.0.0",
-    "@javamonn/bs-librarian": "^1.3.4",
+    "@javamonn/bs-librarian": "^1.3.6",
     "@javamonn/librarian": "^1.4.1",
-    "@jsiebern/bs-material-ui": "^0.4.2",
-    "@material-ui/core": "^3.4.0",
-    "@material-ui/icons": "^3.0.1",
+    "@jsiebern/bs-material-ui": "^1.0.0",
+    "@material-ui/core": "^3.9.1",
+    "@material-ui/icons": "^3.0.2",
     "bowser": "^2.0.0-beta.3",
     "bricks.js": "^1.8.0",
     "bs-ganalytics": "^0.3.0",
@@ -36,10 +36,10 @@
     "ganalytics": "^3.1.1",
     "lodash-es": "^4.17.11",
     "re-classnames": "^3.0.0",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "react-jss": "^8.6.1",
-    "reason-react": ">=0.4.0"
+    "reason-react": "0.5.3"
   },
   "devDependencies": {
     "@babel/core": "^7.1.5",
@@ -47,7 +47,7 @@
     "@wokalski/vow": "git+https://github.com/wokalski/vow.git",
     "babel-loader": "^8.0.4",
     "bs-faker": "github:literal-io/bs-faker#fix-currying",
-    "bs-platform": "^4.0.7",
+    "bs-platform": "^4.0.18",
     "bs-storybook": "^0.3.0",
     "concurrently": "^4.0.1",
     "css-loader": "^1.0.1",
