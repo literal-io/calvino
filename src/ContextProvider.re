@@ -6,7 +6,7 @@ let tachyonsStyleSheet =
   )
   |> ReactJss.StyleSheet.make
   |> ReactJss.StyleSheet.attach;
-  
+
 let variablesStyleSheet =
   Utils.requireJSS("./static/variables.json")
   |> ReactJss.StyleSheet.make
@@ -20,9 +20,9 @@ let appStyleSheet =
   |> ReactJss.StyleSheet.attach;
 
 [@bs.val] [@bs.module "@material-ui/core/styles"]
-external createMuiTheme: Js.t({.}) => Js.t({.}) = "";
+external createMuiTheme: Js.t({.}) => MaterialUi_Theme.Theme.t = "";
 
-let defaultTheme = `ObjectGeneric(createMuiTheme(Js.Obj.empty()));
+let defaultTheme = createMuiTheme(Js.Obj.empty());
 
 /**
  * On the client, we only need a subset of context values. This function is called through
