@@ -1,5 +1,5 @@
 [@bs.val] external requireJSS: string => Js.Json.t = "require";
-[@bs.val] external nodeEnv : string = "process.env.NODE_ENV"
+[@bs.val] external nodeEnv: string = "process.env.NODE_ENV";
 
 let isDevelopment = nodeEnv !== "production";
 
@@ -21,7 +21,9 @@ let documentURLSource = document =>
   | None =>
     document
     |> JavamonnBsLibrarian.DocumentModel.source
-    |> JavamonnBsLibrarian.DocumentModel.UrlSource.makeFromSource
+    |> JavamonnBsLibrarian.DocumentModel.UrlSource.makeFromSource(
+         ~documentId=?JavamonnBsLibrarian.DocumentModel.id(document),
+       )
   };
 
 let makeDocumentURL = (~readerPath, document) =>

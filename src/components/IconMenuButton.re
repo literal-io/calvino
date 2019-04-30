@@ -20,7 +20,10 @@ let make = (~renderMenuItems, ~renderIcon, _children) => {
       |> ReactEvent.Mouse.currentTarget
       |> unsafeAsDomElement
       |> (elem => self.send(SetAnchorElement(Some(elem))));
-    let handleClose = () => self.send(SetAnchorElement(None));
+    let handleClose = () => {
+      self.send(SetAnchorElement(None));
+      ();
+    };
     <>
       <MaterialUi.IconButton onClick=handleClick>
         {renderIcon()}
@@ -28,7 +31,7 @@ let make = (~renderMenuItems, ~renderIcon, _children) => {
       <MaterialUi.Menu
         anchorEl={self.state.anchorElement}
         open_={Js.Option.isSome(self.state.anchorElement)}
-        onClose={_ev => handleClose()}>
+        onClose={(_ev, _cause) => handleClose()}>
         {renderMenuItems(~onClick=handleClose, ())}
       </MaterialUi.Menu>
     </>;
