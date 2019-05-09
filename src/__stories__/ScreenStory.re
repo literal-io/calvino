@@ -24,6 +24,33 @@ storiesOf("Screens", _module)
     )
   )
 ->(
+    add("BrowserActionMenuDashboardLibrary", () =>
+      <ContextProvider.Client
+        generateClassName={ReactJss.GenerateClassName.make()}>
+        <div
+          className={cn([
+            "ep-h",
+            "ep-w",
+            "ov-h",
+            "ff-r",
+            "flex",
+            "items-center",
+          ])}>
+          <BrowserActionMenuDashboardLibrary
+            documents={Array.init(20, _idx => Mocks.document())}
+            readerPath="http://localhost:9001"
+            onPaginateDocuments={() =>
+              Js.Promise.make((~resolve as _resolve, ~reject as _reject) =>
+                ()
+              )
+              |> Js.Nullable.return
+            }
+          />
+        </div>
+      </ContextProvider.Client>
+    )
+  )
+->(
     add("SignUpScreen", () =>
       <ContextProvider.Client
         generateClassName={ReactJss.GenerateClassName.make()}>
@@ -42,15 +69,13 @@ storiesOf("Screens", _module)
         <ScreenFrame>
           <DashboardScreen
             documents={Array.init(20, _idx => Mocks.document())}
-            highlights={
-              Array.init(20, _idx =>
-                JavamonnBsLibrarian.JoinedModel.DocumentAnnotationToDocument.make(
-                  ~source=Mocks.documentAnnotation(),
-                  ~target=Mocks.document(),
-                  (),
-                )
+            highlights={Array.init(20, _idx =>
+              JavamonnBsLibrarian.JoinedModel.DocumentAnnotationToDocument.make(
+                ~source=Mocks.documentAnnotation(),
+                ~target=Mocks.document(),
+                (),
               )
-            }
+            )}
             recentDocument={Some(Mocks.document())}
             recentActivity={
               Some(
@@ -63,19 +88,17 @@ storiesOf("Screens", _module)
             }
             readerPath="http://localhost:9001"
             userProfileId={BsFaker.Random.uuid()}
-            onPaginateHighlights={
-              () =>
-                Js.Promise.make((~resolve as _resolve, ~reject as _reject) =>
-                  ()
-                )
-                |> Js.Nullable.return
+            onPaginateHighlights={() =>
+              Js.Promise.make((~resolve as _resolve, ~reject as _reject) =>
+                ()
+              )
+              |> Js.Nullable.return
             }
-            onPaginateDocuments={
-              () =>
-                Js.Promise.make((~resolve as _resolve, ~reject as _reject) =>
-                  ()
-                )
-                |> Js.Nullable.return
+            onPaginateDocuments={() =>
+              Js.Promise.make((~resolve as _resolve, ~reject as _reject) =>
+                ()
+              )
+              |> Js.Nullable.return
             }
             onAddDocumentClicked={_sourceType => ()}
           />

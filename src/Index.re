@@ -3,8 +3,10 @@
 require("./static/app.css");
 require("tachyons/css/tachyons.css");
 
-/** Screens */
+/** Browser Action Menu */
 let registrationCTAScreen = RegistrationCTAScreen.default;
+let browserActionMenuDashboardLibrary = BrowserActionMenuDashboardLibrary.default;
+
 let signUpScreen = SignUpScreen.default;
 let dashboardScreen = DashboardScreen.default;
 let landingScreen = LandingScreen.default;
