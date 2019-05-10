@@ -11,7 +11,7 @@ let make =
       ~className=?,
       ~onClick=?,
       ~documentURL,
-      _children,
+      _children
     ) => {
   ...component,
   render: _self =>
