@@ -66,7 +66,7 @@ let make =
 type jsProps = {
   documents: Js.Array.t(Js.Json.t),
   onPaginateDocuments: (. unit) => Js.Nullable.t(Js.Promise.t(unit)),
-  onDocumentTileClick: (. Js.Obj.t) => unit,
+  onDocumentTileClick: (. string) => unit,
   readerPath: Js.String.t,
 };
 
@@ -78,6 +78,7 @@ let default =
         |> documentsGet
         |> Js.Array.map(JavamonnBsLibrarian.DocumentModel.decode),
       ~onPaginateDocuments=Utils.applyBs(jsProps |> onPaginateDocumentsGet),
+      ~onDocumentTileClick=Utils.applyBs1(jsProps |> onDocumentTileClickGet),
       ~readerPath=jsProps |> readerPathGet,
       [||],
     )

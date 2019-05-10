@@ -16,7 +16,17 @@ let make =
   ...component,
   render: _self =>
     <a
-      ?onClick
+      onClick=?{
+        switch (onClick) {
+          | Some(onClick) => 
+            let handleClick = (ev) => {
+              ReactEvent.Mouse.preventDefault(ev);
+              onClick(documentURL);
+            };
+            Some(handleClick);
+          | None => None
+        }
+      }
       href=documentURL
       style={make(~width=px(200), ())}
       className={cn([
