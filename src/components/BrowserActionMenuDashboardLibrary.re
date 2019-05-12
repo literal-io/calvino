@@ -1,6 +1,7 @@
 open Styles;
 
-let component = ReasonReact.statelessComponent("BrowserActionMenuDashboardLibrary");
+let component =
+  ReasonReact.statelessComponent("BrowserActionMenuDashboardLibrary");
 
 let make =
     (
@@ -11,7 +12,7 @@ let make =
       _children,
     ) => {
   ...component,
-  render: _self =>
+  render: _self => {
     <InfiniteList
       data=[|documents|]
       renderItem={data =>
@@ -59,7 +60,8 @@ let make =
       renderSeparator={() => ReasonReact.null}
       endThreshold=2.0
       onEndReached=onPaginateDocuments
-    />,
+    />;
+  },
 };
 
 [@bs.deriving abstract]

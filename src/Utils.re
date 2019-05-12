@@ -17,7 +17,10 @@ let applyBs1 = (cb, a) => cb(. a);
 let documentURLSource = document =>
   switch (JavamonnBsLibrarian.DocumentModel.ocrSource(document)) {
   | Some(ocrSource) =>
-    ocrSource |> JavamonnBsLibrarian.DocumentModel.UrlSource.makeFromOcrSource
+    ocrSource 
+    |> JavamonnBsLibrarian.DocumentModel.UrlSource.makeFromOcrSource(
+        ~documentId=?JavamonnBsLibrarian.DocumentModel.id(document)
+       )
   | None =>
     document
     |> JavamonnBsLibrarian.DocumentModel.source
@@ -42,6 +45,7 @@ let makeDocumentAnnotationURL = (~readerPath, ~document, documentAnnotation) => 
   JavamonnBsLibrarian.DocumentModel.UrlSource.{
     ...urlSource,
     annotationId: Some(documentAnnotationId),
+    documentId: JavamonnBsLibrarian.DocumentModel.id(document),
   }
   |> JavamonnBsLibrarian.DocumentModel.UrlSource.encode
   |> Qs.stringify
@@ -87,4 +91,3 @@ let shareDocumentAnnotation = (~userProfileId, documentAnnotation) =>
     )
     |> Vow.Result.map(_result => ());
   };
-
