@@ -42,15 +42,13 @@ storiesOf("Screens", _module)
         <ScreenFrame>
           <DashboardScreen
             documents={Array.init(20, _idx => Mocks.document())}
-            highlights={
-              Array.init(20, _idx =>
-                JavamonnBsLibrarian.JoinedModel.DocumentAnnotationToDocument.make(
-                  ~source=Mocks.documentAnnotation(),
-                  ~target=Mocks.document(),
-                  (),
-                )
+            highlights={Array.init(20, _idx =>
+              JavamonnBsLibrarian.JoinedModel.DocumentAnnotationToDocument.make(
+                ~source=Mocks.documentAnnotation(),
+                ~target=Mocks.document(),
+                (),
               )
-            }
+            )}
             recentDocument={Some(Mocks.document())}
             recentActivity={
               Some(
@@ -63,19 +61,17 @@ storiesOf("Screens", _module)
             }
             readerPath="http://localhost:9001"
             userProfileId={BsFaker.Random.uuid()}
-            onPaginateHighlights={
-              () =>
-                Js.Promise.make((~resolve as _resolve, ~reject as _reject) =>
-                  ()
-                )
-                |> Js.Nullable.return
+            onPaginateHighlights={() =>
+              Js.Promise.make((~resolve as _resolve, ~reject as _reject) =>
+                ()
+              )
+              |> Js.Nullable.return
             }
-            onPaginateDocuments={
-              () =>
-                Js.Promise.make((~resolve as _resolve, ~reject as _reject) =>
-                  ()
-                )
-                |> Js.Nullable.return
+            onPaginateDocuments={() =>
+              Js.Promise.make((~resolve as _resolve, ~reject as _reject) =>
+                ()
+              )
+              |> Js.Nullable.return
             }
             onAddDocumentClicked={_sourceType => ()}
           />

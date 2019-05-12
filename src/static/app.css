@@ -97,6 +97,9 @@
 .ep-w {
   width: var(--extension-popup-width);
 }
+.ep-h {
+  height: var(--extension-popup-height);
+}
 .ep-mh {
   min-height: var(--extension-popup-height);
 }

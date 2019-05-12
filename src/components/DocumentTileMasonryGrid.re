@@ -66,7 +66,8 @@ let handleContainerRef =
   | _ => () /* Bricks initialized, noop */
   };
 
-let make = (~data, ~columns, ~gutter, ~readerPath, _children) => {
+let make =
+    (~data, ~columns, ~gutter, ~readerPath, ~onDocumentTileClick=?, _children) => {
   ...component,
   initialState: () => {
     images: Images.empty,
@@ -108,44 +109,41 @@ let make = (~data, ~columns, ~gutter, ~readerPath, _children) => {
       } else {
         ReasonReact.UpdateWithSideEffects(
           {...state, images: updatedImages},
-          (
-            self => {
-              let _ =
-                imageSourcesToLoad
-                |> Js.Array.forEach(src =>
-                     switch (Images.find(src, self.state.images)) {
-                     | {element} =>
-                       Webapi.Dom.(
-                         element
-                         |> HtmlImageElement.addEventListener("load", _ev => {
-                              let width = HtmlImageElement.width(element);
-                              let height = HtmlImageElement.height(element);
-                              /** Scale the image, preserving aspect ratio, if required */
-                              let renderedHeight =
-                                width > 200 ?
-                                  int_of_float(
-                                    float_of_int(height)
-                                    /. float_of_int(width)
-                                    *. 200.0,
-                                  ) :
-                                  height;
-                              self.send(
-                                LoadImageComplete((
-                                  src,
-                                  {width, height: renderedHeight},
-                                )),
-                              );
-                            })
-                       );
-                       let _ =
-                         Webapi.Dom.HtmlImageElement.setSrc(element, src);
-                       ();
-                     | exception Not_found => ()
-                     }
-                   );
-              ();
-            }
-          ),
+          self => {
+            let _ =
+              imageSourcesToLoad
+              |> Js.Array.forEach(src =>
+                   switch (Images.find(src, self.state.images)) {
+                   | {element} =>
+                     Webapi.Dom.(
+                       element
+                       |> HtmlImageElement.addEventListener("load", _ev => {
+                            let width = HtmlImageElement.width(element);
+                            let height = HtmlImageElement.height(element);
+                            /** Scale the image, preserving aspect ratio, if required */
+                            let renderedHeight =
+                              width > 200 ?
+                                int_of_float(
+                                  float_of_int(height)
+                                  /. float_of_int(width)
+                                  *. 200.0,
+                                ) :
+                                height;
+                            self.send(
+                              LoadImageComplete((
+                                src,
+                                {width, height: renderedHeight},
+                              )),
+                            );
+                          })
+                     );
+                     let _ = Webapi.Dom.HtmlImageElement.setSrc(element, src);
+                     ();
+                   | exception Not_found => ()
+                   }
+                 );
+            ();
+          },
         );
       };
     | LoadImageComplete((src, size)) =>
@@ -204,6 +202,7 @@ let make = (~data, ~columns, ~gutter, ~readerPath, _children) => {
           author={JavamonnBsLibrarian.DocumentModel.author(document)}
           imageURL=src
           imageHeight=height
+          onClick=?onDocumentTileClick
           documentURL={Utils.makeDocumentURL(~readerPath, document)}
         />
       | _ =>
@@ -211,6 +210,7 @@ let make = (~data, ~columns, ~gutter, ~readerPath, _children) => {
           className={cn(["vh-packed", "absolute"])}
           title={JavamonnBsLibrarian.DocumentModel.title(document)}
           author={JavamonnBsLibrarian.DocumentModel.author(document)}
+          onClick=?onDocumentTileClick
           documentURL={Utils.makeDocumentURL(~readerPath, document)}
         />
       };

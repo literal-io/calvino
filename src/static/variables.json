@@ -14,8 +14,8 @@
       "--primary-dark": "rgba(0, 0, 0, 0.87)",
       "--secondary-dark": "rgba(0, 0, 0, 0.60)",
 
-      "--extension-popup-width": "390px",
-      "--extension-popup-height": "545px",
+      "--extension-popup-width": "500px",
+      "--extension-popup-height": "600px",
 
       "--spacing-medium": "1rem",
       "--spacing-small": "0.5rem",

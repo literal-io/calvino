@@ -6,7 +6,7 @@ type state = {
 let component = ReasonReact.reducerComponent("DocumentAnnotationTile");
 
 let make =
-    (~text, ~title, ~author, ~onShareClicked, ~annotationURL, _children) => {
+    (~text, ~title, ~author, ~onShareClicked, ~annotationURL, ~onClick=?, _children) => {
   let handleShareButtonRef = (elem, {ReasonReact.state}) => {
     state.shareButtonRef := Js.Nullable.toOption(elem);
     switch (state.clipboardInst^, state.shareButtonRef^) {
@@ -40,7 +40,20 @@ let make =
     render: self =>
       MaterialUi.(
         <Card>
-          <a className={cn(["no-underline"])} href=annotationURL>
+          <a
+            onClick=?{
+              switch (onClick) {
+                | Some(onClick) =>
+                  let handleClick = (ev) => {
+                    ReactEvent.Mouse.preventDefault(ev);
+                    onClick(annotationURL);
+                  };
+                  Some(handleClick)
+                | None => None
+              }
+            }
+            className={cn(["no-underline"])}
+            href=annotationURL>
             <div className={cn(["mh3"])}> <HighlightText text /> </div>
             <div
               className={
