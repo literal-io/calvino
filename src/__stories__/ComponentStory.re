@@ -116,7 +116,8 @@ storiesOf("Components/DocumentAnnotationTile", _module)
           author="Italo Calvino"
           annotationURL="http://localhost:5900"
           text=highlightText
-          onShareClicked={() => ()}
+          onShareClicked={() => { Js.log("onShareClicked") }}
+          onClick={(_path) => { Js.log("onClick") }}
         />
       </AppFrame>
     )

@@ -46,7 +46,9 @@ let make =
                 | Some(onClick) =>
                   let handleClick = (ev) => {
                     ReactEvent.Mouse.preventDefault(ev);
-                    onClick(annotationURL);
+                    if (! ReactEvent.Mouse.isPropagationStopped(ev)) {
+                      onClick(annotationURL);
+                    }
                   };
                   Some(handleClick)
                 | None => None
@@ -80,6 +82,7 @@ let make =
                   ev => {
                     let _ = onShareClicked();
                     ReactEvent.Mouse.preventDefault(ev);
+                    ReactEvent.Mouse.stopPropagation(ev);
                     ();
                   }
                 }>
