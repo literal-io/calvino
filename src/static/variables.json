@@ -20,7 +20,7 @@
       "--spacing-medium": "1rem",
       "--spacing-small": "0.5rem",
 
-      "--background-gray": "rgba(236,239,241, 0.72)"
+      "--background-gray": "rgb(241, 243, 245)"
     }
   }
 }
