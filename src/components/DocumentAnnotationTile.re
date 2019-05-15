@@ -80,9 +80,9 @@ let make =
                 ref={self.handle(handleShareButtonRef)}
                 onClick={
                   ev => {
-                    let _ = onShareClicked();
                     ReactEvent.Mouse.preventDefault(ev);
                     ReactEvent.Mouse.stopPropagation(ev);
+                    let _ = onShareClicked();
                     ();
                   }
                 }>
