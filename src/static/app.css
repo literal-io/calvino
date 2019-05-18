@@ -104,6 +104,10 @@
   min-height: var(--extension-popup-height);
 }
 
+.d-maxw {
+  max-width: var(--desktop-max-width);
+}
+
 .h42 {
   height: 42px;
 }
