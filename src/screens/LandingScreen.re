@@ -28,6 +28,7 @@ let make = (~readerURL, ~userAgent, _children) => {
           "flex-shrink-0",
           "ph5",
           "vh-100",
+          "maxh-1200",
           "justify-center",
         ])}>
         <div className={cn(["d-maxw", "flex-auto", "flex"])}>

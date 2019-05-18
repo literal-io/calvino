@@ -108,6 +108,10 @@
   max-width: var(--desktop-max-width);
 }
 
+.maxh-1200 {
+  max-height: 1200px;
+}
+
 .h42 {
   height: 42px;
 }
