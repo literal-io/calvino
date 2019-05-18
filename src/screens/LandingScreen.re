@@ -11,23 +11,29 @@ let make = (~readerURL, ~userAgent, _children) => {
       |> Bowser.getBrowserName
       |> Js.Option.getWithDefault(`Chrome);
     <div
-      className={
-        cn([
-          "ff-r",
-          "bg-brand",
-          "flex",
-          "flex-auto",
-          "overflow-auto",
-          "flex-column",
-        ])
-      }>
+      className={cn([
+        "ff-r",
+        "bg-brand",
+        "flex",
+        "flex-auto",
+        "overflow-auto",
+        "flex-column",
+      ])}>
       <LandingNavigationBar browser />
       <div
-        className={
-          cn(["mh5", "flex", "flex-row", "flex-shrink-0", "ph5", "vh-100"])
-        }>
-        <LandingCTA browser />
-        <LandingReaderTile readerURL />
+        className={cn([
+          "mh5",
+          "flex",
+          "flex-row",
+          "flex-shrink-0",
+          "ph5",
+          "vh-100",
+          "justify-center",
+        ])}>
+        <div className={cn(["d-maxw", "flex-auto", "flex"])}>
+          <LandingCTA browser />
+          <LandingReaderTile readerURL />
+        </div>
       </div>
       <LandingLibrarySection />
       <Spacer size=4 />

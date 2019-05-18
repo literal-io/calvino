@@ -85,7 +85,7 @@ storiesOf("Screens", _module)
         generateClassName={ReactJss.GenerateClassName.make()}>
         <ScreenFrame>
           <LandingScreen
-            readerURL="https://literal.io/static/borges/index.html#/?type=web&url=https%3A%2F%2Fstorage.googleapis.com%2Fliteral-static%2Fthe-library-of-babel-by-jorge-luis-borges.pdf"
+            readerURL="http://localhost:5901/#/?type=web&url=https%3A%2F%2Fstorage.googleapis.com%2Fliteral-static%2Fthe-library-of-babel-by-jorge-luis-borges.pdf&scale=1.0"
             userAgent={
               Webapi.Dom.(window |> Window.navigator)
               |> Bowser.asNavigator

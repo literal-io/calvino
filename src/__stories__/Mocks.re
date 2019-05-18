@@ -1,15 +1,11 @@
 let asJson = obj =>
   obj |> Js.Json.stringifyAny |> Js.Option.getExn |> Json.parseOrRaise;
 
-let documentImageURLs = [|"http://localhost:8000/image.png"|];
-
-/**
 let documentImageURLs = [|
   "https://www.googleapis.com/download/storage/v1/b/literal-images/o/1b20f630-c1b0-11e8-b634-240dbf38c455?generation=1537982275119337&alt=media",
   "https://www.googleapis.com/download/storage/v1/b/literal-images/o/ed8c09b0-c1b1-11e8-b634-240dbf38c455?generation=1537983057725228&alt=media",
   "https://www.googleapis.com/download/storage/v1/b/literal-images/o/15e02270-c1b2-11e8-b634-240dbf38c455?generation=1537983125314167&alt=media",
 |];
-*/
 
 let document = () =>
   JavamonnBsLibrarian.DocumentModel.(

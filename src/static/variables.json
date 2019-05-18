@@ -17,6 +17,8 @@
       "--extension-popup-width": "500px",
       "--extension-popup-height": "600px",
 
+      "--desktop-max-width": "2200px",
+
       "--spacing-medium": "1rem",
       "--spacing-small": "0.5rem",
 
