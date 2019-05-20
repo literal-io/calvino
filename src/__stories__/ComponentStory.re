@@ -49,9 +49,13 @@ storiesOf("Components", _module)
     add("AccentMonotoneButton", () =>
       <AppFrame>
         <AccentMonotoneButton
-          className={
-            cn(["flex", "flex-row", "justify-center", "items-center", "pa2"])
-          }>
+          className={cn([
+            "flex",
+            "flex-row",
+            "justify-center",
+            "items-center",
+            "pa2",
+          ])}>
           <MaterialIcon.MailOutline style=bpl />
           <div className={cn(["mh2"])} />
           <div className={cn(["flex", "flex-column", "justify-start"])}>
@@ -116,8 +120,8 @@ storiesOf("Components/DocumentAnnotationTile", _module)
           author="Italo Calvino"
           annotationURL="http://localhost:5900"
           text=highlightText
-          onShareClicked={() => { Js.log("onShareClicked") }}
-          onClick={(_path) => { Js.log("onClick") }}
+          onShareClicked={() => Js.log("onShareClicked")}
+          onClick={_path => Js.log("onClick")}
         />
       </AppFrame>
     )
@@ -136,6 +140,26 @@ storiesOf("Components/DocumentAnnotationTile", _module)
         </div>
       </AppFrame>
     )
+  );
+
+storiesOf("Components/DocumentDetail", _module)
+->(
+    add("DocumentDetailNavBar", () =>
+      <AppFrame style={make(~width=px(400), ())}>
+        <DocumentDetailNavBar onBack={() => ()} onMinimize={() => ()} />
+      </AppFrame>
+    )
+  )
+->(
+    add("DocumentDetailHeader", () => {
+      let document = Mocks.document();
+      <AppFrame style={make(~width=px(500), ())}>
+        <DocumentDetailHeader
+          title={JavamonnBsLibrarian.DocumentModel.title(document)}
+          author={JavamonnBsLibrarian.DocumentModel.author(document)}
+        />
+      </AppFrame>
+    })
   );
 
 storiesOf("Components/DocumentTile", _module)

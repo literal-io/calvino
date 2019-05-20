@@ -35,6 +35,9 @@
 .bg-gray {
   background-color: var(--background-gray);
 }
+.bg-pl {
+  background-color: var(--primary-light);
+}
 
 .b-accent-100-o60 {
   border-color: var(--accent-color-100-o60);
@@ -80,6 +83,9 @@
 }
 .accent {
   color: var(--accent-color);
+}
+.accent-i {
+  color: var(--accent-color) !important;
 }
 
 .b-pl {
@@ -149,3 +155,18 @@
 .vh-packed[data-packed] {
   visibility: visible;
 }
+
+/* component */
+
+/* DocumentDetailHeader */
+.b-accent-after-i:after {
+  border-color: var(--accent-color) !important;
+}
+.b-sl-before-i:before {
+  border-color: rgba(255, 255, 255, 0.32) !important;
+}
+
+.w-o5 {
+  color: rgba(255, 255, 255, 0.5);
+}
+

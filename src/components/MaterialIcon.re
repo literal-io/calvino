@@ -74,3 +74,9 @@ module BarChart =
     [@bs.module "@material-ui/icons/BarChart"]
     external reactClass: ReasonReact.reactClass = "default";
   });
+
+module ArrowBack =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/ArrowBack"]
+    external reactClass: ReasonReact.reactClass = "default";
+  })
