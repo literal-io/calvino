@@ -47,7 +47,7 @@ let make =
       </MaterialUi.Tabs>
       <div className={cn(["flex", "flex-auto", "relative", "items-center"])}>
         {self.state.activeIdx == 0 ?
-           <div /> :
+           <DocumentActivity /> :
            <DocumentAnnotationsList
              documentAnnotations
              onPaginateDocumentAnnotations
