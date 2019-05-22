@@ -79,4 +79,16 @@ module ArrowBack =
   MakeIcon({
     [@bs.module "@material-ui/icons/ArrowBack"]
     external reactClass: ReasonReact.reactClass = "default";
-  })
+  });
+
+module Delete =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/Delete"]
+    external reactClass: ReasonReact.reactClass = "default";
+  });
+
+module Download =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/GetApp"]
+    external reactClass: ReasonReact.reactClass = "default";
+  });

@@ -158,7 +158,49 @@ storiesOf("Components/DocumentDetail", _module)
           title={JavamonnBsLibrarian.DocumentModel.title(document)}
           author={JavamonnBsLibrarian.DocumentModel.author(document)}
         />
-      </AppFrame>
+      </AppFrame>;
+    })
+  )
+->(
+    add("DocumentDetailActionButtons", () => {
+      let document = Mocks.document();
+      <AppFrame style={make(~width=px(500), ())}>
+        <DocumentDetailActionButtons
+          onShare={() => Js.log("onShare")}
+          onSave={() => Js.log("onSave")}
+          onDelete={() => Js.log("onDelete")}
+        />
+      </AppFrame>;
+    })
+  )
+->(
+    add("DocumentDetailTabs", () => {
+      let document = Mocks.document();
+      <AppFrame
+        className={cn(["pa0", "bg-brand"])}
+        style={make(~width=px(500), ~height=px(800), ~display="flex", ())}>
+        <DocumentDetailTabs
+          documentAnnotations={Array.init(20, _idx =>
+            JavamonnBsLibrarian.JoinedModel.DocumentAnnotationToDocument.make(
+              ~source=Mocks.documentAnnotation(),
+              ~target=Mocks.document(),
+              (),
+            )
+          )}
+          onPaginateDocumentAnnotations={() =>
+            Js.Promise.make((~resolve as _resolve, ~reject as _reject) => ())
+            |> Js.Nullable.return
+          }
+          onDocumentAnnotationTileClick={url =>
+            Js.log2("onDocumentAnnotationTileClick", url)
+          }
+          onDocumentAnnotationTileShare={() =>
+            Js.log("onDocumentAnnotationTileShare")
+          }
+          userProfileId={BsFaker.Random.uuid()}
+          readerPath="http://localhost:9001"
+        />
+      </AppFrame>;
     })
   );
 

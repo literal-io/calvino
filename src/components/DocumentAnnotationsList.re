@@ -1,7 +1,6 @@
 open Styles;
 
-let component =
-  ReasonReact.statelessComponent("BrowserActionMenuDashboardHighlights");
+let component = ReasonReact.statelessComponent("DocumentAnnotationsList");
 
 let make =
     (
@@ -11,6 +10,7 @@ let make =
       ~onDocumentAnnotationTileShare,
       ~userProfileId,
       ~readerPath,
+      ~hideDocumentInfo=?,
       _children,
     ) => {
   ...component,
@@ -29,6 +29,7 @@ let make =
             let _ = onDocumentAnnotationTileShare();
             ();
           }}
+          ?hideDocumentInfo
           title=JavamonnBsLibrarian.(
             documentAnnotation
             |> JoinedModel.DocumentAnnotationToDocument.target
@@ -84,7 +85,7 @@ let make =
         <div
           className={cn([
             "flex",
-            "items-center",
+            "items-stretch",
             "flex-column",
             "bg-gray",
             "pt4",

@@ -40,13 +40,16 @@ let make = (~title, ~author, _children) => {
       dirtyAuthor: resetAuthor ? author : self.state.dirtyAuthor,
     };
   },
-  render: _self =>
+  render: self =>
     <div className={cn(["flex", "flex-column"])}>
       <MaterialUi.TextField
-        value={`String(title)}
+        value={`String(self.state.dirtyTitle)}
         label={ReasonReact.string("Title")}
         fullWidth=true
         multiline=true
+        onChange={ev =>
+          self.send(TitleChange(ReactEvent.Form.target(ev)##value))
+        }
         _InputLabelProps={
           "classes": {
             "root": "w-o5",
@@ -62,8 +65,11 @@ let make = (~title, ~author, _children) => {
       />
       <Spacer size=3 />
       <MaterialUi.TextField
-        value={`String(author)}
+        value={`String(self.state.dirtyAuthor)}
         label={ReasonReact.string("Author")}
+        onChange={ev =>
+          self.send(AuthorChange(ReactEvent.Form.target(ev)##value))
+        }
         fullWidth=true
         multiline=true
         _InputLabelProps={

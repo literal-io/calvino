@@ -6,7 +6,8 @@ require("tachyons/css/tachyons.css");
 /** Browser Action Menu */
 let registrationCTAScreen = RegistrationCTAScreen.default;
 let browserActionMenuDashboardLibrary = BrowserActionMenuDashboardLibrary.default;
-let browserActionMenuDashboardHighlights = BrowserActionMenuDashboardHighlights.default;
+
+let documentAnnotationsList = DocumentAnnotationsList.default;
 
 let signUpScreen = SignUpScreen.default;
 let dashboardScreen = DashboardScreen.default;
