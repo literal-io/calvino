@@ -18,7 +18,7 @@ let document = () =>
       ~originSource=
         OriginSource.{
           type_: `Web,
-          url: None,
+          url: Some(BsFaker.Internet.url()),
           id: None,
           httpHeaders: None,
           httpRequestBody: None,
@@ -45,6 +45,14 @@ let documentAnnotation = () =>
     ~text=
       BsFaker.Lorem.sentences(~sentenceCount=Js.Math.random_int(2, 5), ()),
     (),
+  );
+
+let documentOpenUserReadActivity = () =>
+  JavamonnBsLibrarian.UserReadActivityModel.make(
+    ~type_=`DocumentOpen,
+    ~documentId=BsFaker.Random.uuid(),
+    ~userProfileId=BsFaker.Random.uuid(),
+    ()
   );
 
 module Js = {

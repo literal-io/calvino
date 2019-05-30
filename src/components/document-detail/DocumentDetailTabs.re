@@ -9,7 +9,10 @@ let component = ReasonReact.reducerComponent("DocumentDetailTabs");
 
 let make =
     (
+      ~document,
       ~documentAnnotations,
+      ~firstDocumentOpenActivity,
+      ~lastDocumentOpenActivity,
       ~onPaginateDocumentAnnotations,
       ~onDocumentAnnotationTileShare,
       ~onDocumentAnnotationTileClick,
@@ -47,7 +50,11 @@ let make =
       </MaterialUi.Tabs>
       <div className={cn(["flex", "flex-auto", "relative", "items-center"])}>
         {self.state.activeIdx == 0 ?
-           <DocumentActivity /> :
+           <DocumentDetailActivity
+             firstDocumentOpenActivity
+             lastDocumentOpenActivity
+             document
+           /> :
            <DocumentAnnotationsList
              documentAnnotations
              onPaginateDocumentAnnotations

@@ -20,6 +20,7 @@
     "bs-webapi",
     "bs-faker",
     "bs-ganalytics",
+    "bs-date-fns",
     "@glennsl/bs-json",
     "@jsiebern/bs-material-ui",
     "@javamonn/bs-librarian",

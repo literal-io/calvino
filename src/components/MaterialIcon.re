@@ -92,3 +92,21 @@ module Download =
     [@bs.module "@material-ui/icons/GetApp"]
     external reactClass: ReasonReact.reactClass = "default";
   });
+
+module Web =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/Language"]
+    external reactClass: ReasonReact.reactClass = "default";
+  });
+
+module PanoramaFishEye =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/PanoramaFishEye"]
+    external reactClass: ReasonReact.reactClass = "default";
+  });
+
+module Timelapse =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/Timelapse"]
+    external reactClass: ReasonReact.reactClass = "default";
+  });

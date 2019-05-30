@@ -31,6 +31,7 @@
     "bricks.js": "^1.8.0",
     "bs-ganalytics": "^0.3.0",
     "bs-webapi": "^0.13.1",
+    "bs-date-fns": "git+https://github.com/SllyQ/bs-date-fns.git",
     "can-use-dom": "^0.1.0",
     "clipboard": "^2.0.4",
     "ganalytics": "^3.1.1",
