@@ -32,7 +32,10 @@ let make =
         value={self.state.activeIdx}
         onChange={(_ev, idx) => self.send(SetIdx(idx))}
         variant=`FullWidth
-        classes=[MaterialUi.Tabs.Classes.Indicator(cn(["bg-accent"]))]>
+        classes=[
+          Root(cn(["z-1", "mui-shadow-3"])),
+          Indicator(cn(["bg-accent"])),
+        ]>
         <MaterialUi.Tab
           label={
             <span className={cn(["pl"])}>
