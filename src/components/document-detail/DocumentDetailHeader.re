@@ -14,7 +14,7 @@ type action =
 
 let component = ReasonReact.reducerComponent("DocumentDetailHeader");
 
-let make = (~title, ~author, _children) => {
+let make = (~title, ~author, ~onTitleChange, ~onAuthorChange, _children) => {
   ...component,
   initialState: () => {title, author, dirtyAuthor: author, dirtyTitle: title},
   reducer: (action, state) =>
@@ -50,6 +50,12 @@ let make = (~title, ~author, _children) => {
         onChange={ev =>
           self.send(TitleChange(ReactEvent.Form.target(ev)##value))
         }
+        onBlur={_ev => {
+          if (self.state.dirtyTitle !== self.state.title) {
+            let _ = onTitleChange(self.state.dirtyTitle);
+          };
+          ();
+        }}
         _InputLabelProps={
           "classes": {
             "root": "w-o5",
@@ -70,6 +76,12 @@ let make = (~title, ~author, _children) => {
         onChange={ev =>
           self.send(AuthorChange(ReactEvent.Form.target(ev)##value))
         }
+        onBlur={_ev => {
+          if (self.state.dirtyAuthor !==  self.state.author) {
+            let _ = onAuthorChange(self.state.author);
+          };
+          ();
+        }}
         fullWidth=true
         multiline=true
         _InputLabelProps={

@@ -10,6 +10,8 @@ let make =
       ~onDocumentShare,
       ~onDocumentSave,
       ~onDocumentDelete,
+      ~onTitleChange,
+      ~onAuthorChange,
       ~firstDocumentOpenActivity,
       ~lastDocumentOpenActivity,
       ~documentAnnotations,
@@ -31,6 +33,8 @@ let make =
           <DocumentDetailHeader
             title={JavamonnBsLibrarian.DocumentModel.title(document)}
             author={JavamonnBsLibrarian.DocumentModel.author(document)}
+            onTitleChange
+            onAuthorChange
           />
         </div>
         <Spacer size=4 />

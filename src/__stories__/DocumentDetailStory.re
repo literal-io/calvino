@@ -19,6 +19,8 @@ storiesOf("DocumentDetail", _module)
         <DocumentDetailHeader
           title={JavamonnBsLibrarian.DocumentModel.title(document)}
           author={JavamonnBsLibrarian.DocumentModel.author(document)}
+          onTitleChange={(v) => { Js.log2("onTitleChange", v) }}
+          onAuthorChange={(v) => { Js.log2("onAuthorChange", v) }}
         />
       </AppFrame>;
     })
@@ -91,6 +93,8 @@ storiesOf("DocumentDetail", _module)
           onDocumentAnnotationTileShare={() =>
             Js.log("onDocumentAnnotationTileShare")
           }
+          onTitleChange={v => Js.log2("onTitleChange", v) }
+          onAuthorChange={v => Js.log2("onAuthorChange", v) }
           onDocumentShare={() => Js.log("onDocumentShare")}
           onDocumentDelete={() => Js.log("onDocumentDelete")}
           onDocumentSave={() => Js.log("onDocumentSave")}
