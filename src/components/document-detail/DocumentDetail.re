@@ -4,6 +4,7 @@ let component = ReasonReact.statelessComponent("DocumentDetail");
 
 let make =
     (
+      ~userDocument,
       ~document,
       ~onMinimize,
       ~onBack,
@@ -31,8 +32,18 @@ let make =
         <Spacer size=4 />
         <div className={cn(["ph4"])}>
           <DocumentDetailHeader
-            title={JavamonnBsLibrarian.DocumentModel.title(document)}
-            author={JavamonnBsLibrarian.DocumentModel.author(document)}
+            title={
+              userDocument
+              |> Js.Option.map(
+                   Utils.wrapBs(JavamonnBsLibrarian.UserDocumentModel.title),
+                 )
+            }
+            author={
+              userDocument
+              |> Js.Option.map(
+                   Utils.wrapBs(JavamonnBsLibrarian.UserDocumentModel.author),
+                 )
+            }
             onTitleChange
             onAuthorChange
           />
@@ -43,6 +54,13 @@ let make =
             onShare=onDocumentShare
             onSave=onDocumentSave
             onDelete=onDocumentDelete
+            onGetDocumentShareClipboardText={() =>
+              document
+              |> Js.Option.map(
+                   Utils.wrapBs(Utils.makeDocumentURL(~readerPath)),
+                 )
+              |> Js.Option.getWithDefault("")
+            }
           />
         </div>
         <Spacer size=4 />

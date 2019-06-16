@@ -24,39 +24,53 @@ let make =
   ...component,
   render: self => {
     let source =
-      switch (
-        document
-        |> JavamonnBsLibrarian.DocumentModel.originSource
-        |> Js.Option.map(
-             Utils.wrapBs(
-               JavamonnBsLibrarian.DocumentModel.OriginSource.type_,
-             ),
-           )
-      ) {
-      | Some(`Web) =>
-        document
-        |> JavamonnBsLibrarian.DocumentModel.originSource
-        |> Js.Option.andThen(
-             Utils.wrapBs(JavamonnBsLibrarian.DocumentModel.OriginSource.url),
-           )
-        |> Js.Option.map((. url) =>
-             url |> Webapi.Url.make |> Webapi.Url.host
-           )
-        |> Js.Option.getWithDefault("Web")
-      | Some(`GoogleDrive) => "Google Drive"
-      | Some(`Dropbox) => "Dropbox"
-      | None => "Unknown"
+      switch (document) {
+      | Some(document) =>
+        switch (
+          document
+          |> JavamonnBsLibrarian.DocumentModel.originSource
+          |> Js.Option.map(
+               Utils.wrapBs(
+                 JavamonnBsLibrarian.DocumentModel.OriginSource.type_,
+               ),
+             )
+        ) {
+        | Some(`Web) =>
+          document
+          |> JavamonnBsLibrarian.DocumentModel.originSource
+          |> Js.Option.andThen(
+               Utils.wrapBs(
+                 JavamonnBsLibrarian.DocumentModel.OriginSource.url,
+               ),
+             )
+          |> Js.Option.map((. url) =>
+               url |> Webapi.Url.make |> Webapi.Url.host
+             )
+          |> Js.Option.getWithDefault("Web")
+        | Some(`GoogleDrive) => "Google Drive"
+        | Some(`Dropbox) => "Dropbox"
+        | None => "Unknown"
+        }
+      | None => "" /* Document is loading, empty state */
       };
     let firstOpened =
       firstDocumentOpenActivity
-      |> JavamonnBsLibrarian.UserReadActivityModel.createdAt
-      |> DateFns.parseString
-      |> DateFns.format("DD MMM YYYY");
+      |> Js.Option.map((. userReadActivity) =>
+           userReadActivity
+           |> JavamonnBsLibrarian.UserReadActivityModel.createdAt
+           |> DateFns.parseString
+           |> DateFns.format("DD MMM YYYY")
+         )
+      |> Js.Option.getWithDefault(""); /* UserReadActivity is loading, empty state */
     let lastOpened =
       lastDocumentOpenActivity
-      |> JavamonnBsLibrarian.UserReadActivityModel.createdAt
-      |> DateFns.parseString
-      |> DateFns.format("DD MMM YYYY");
+      |> Js.Option.map((. userReadActivity) =>
+           userReadActivity
+           |> JavamonnBsLibrarian.UserReadActivityModel.createdAt
+           |> DateFns.parseString
+           |> DateFns.format("DD MMM YYYY")
+         )
+      |> Js.Option.getWithDefault(""); /* UserReadActivity is loading, empty state */
     <div
       className={cn([
         "flex",

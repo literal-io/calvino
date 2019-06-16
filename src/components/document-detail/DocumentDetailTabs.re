@@ -33,7 +33,7 @@ let make =
         onChange={(_ev, idx) => self.send(SetIdx(idx))}
         variant=`FullWidth
         classes=[
-          Root(cn(["z-1", "mui-shadow-3"])),
+          Root(cn(["z-1", "mui-shadow-3", "bg-brand"])),
           Indicator(cn(["bg-accent"])),
         ]>
         <MaterialUi.Tab
@@ -51,7 +51,7 @@ let make =
           }
         />
       </MaterialUi.Tabs>
-      <div className={cn(["flex", "flex-auto", "relative", "items-center"])}>
+      <div className={cn(["flex", "flex-auto", "relative", "items-center", "bg-gray"])}>
         {self.state.activeIdx == 0 ?
            <DocumentDetailActivity
              firstDocumentOpenActivity

@@ -17,10 +17,18 @@ storiesOf("DocumentDetail", _module)
       let document = Mocks.document();
       <AppFrame style={make(~width=px(500), ())}>
         <DocumentDetailHeader
-          title={JavamonnBsLibrarian.DocumentModel.title(document)}
-          author={JavamonnBsLibrarian.DocumentModel.author(document)}
-          onTitleChange={(v) => { Js.log2("onTitleChange", v) }}
-          onAuthorChange={(v) => { Js.log2("onAuthorChange", v) }}
+          title={
+            document
+            |> JavamonnBsLibrarian.DocumentModel.title
+            |> Js.Option.some
+          }
+          author={
+            document
+            |> JavamonnBsLibrarian.DocumentModel.author
+            |> Js.Option.some
+          }
+          onTitleChange={v => Js.log2("onTitleChange", v)}
+          onAuthorChange={v => Js.log2("onAuthorChange", v)}
         />
       </AppFrame>;
     })
@@ -33,6 +41,9 @@ storiesOf("DocumentDetail", _module)
           onShare={() => Js.log("onShare")}
           onSave={() => Js.log("onSave")}
           onDelete={() => Js.log("onDelete")}
+          onGetDocumentShareClipboardText={() =>
+            "onGetDocumentShareClipboardText"
+          }
         />
       </AppFrame>;
     })
@@ -43,9 +54,13 @@ storiesOf("DocumentDetail", _module)
         className={cn(["pa0", "bg-brand", "ff-r"])}
         style={make(~width=px(500), ~height=px(800), ~display="flex", ())}>
         <DocumentDetailTabs
-          document={Mocks.document()}
-          firstDocumentOpenActivity={Mocks.documentOpenUserReadActivity()}
-          lastDocumentOpenActivity={Mocks.documentOpenUserReadActivity()}
+          document={Some(Mocks.document())}
+          firstDocumentOpenActivity={
+            Some(Mocks.documentOpenUserReadActivity())
+          }
+          lastDocumentOpenActivity={
+            Some(Mocks.documentOpenUserReadActivity())
+          }
           documentAnnotations={Array.init(20, _idx =>
             JavamonnBsLibrarian.JoinedModel.DocumentAnnotationToDocument.make(
               ~source=Mocks.documentAnnotation(),
@@ -75,7 +90,8 @@ storiesOf("DocumentDetail", _module)
         className={cn(["pa0", "bg-brand", "ff-r"])}
         style={make(~width=px(500), ~height=px(800), ~display="flex", ())}>
         <DocumentDetail
-          document={Mocks.document()}
+          document={Some(Mocks.document())}
+          userDocument={Some(Mocks.userDocument())}
           documentAnnotations={Array.init(20, _idx =>
             JavamonnBsLibrarian.JoinedModel.DocumentAnnotationToDocument.make(
               ~source=Mocks.documentAnnotation(),
@@ -93,16 +109,60 @@ storiesOf("DocumentDetail", _module)
           onDocumentAnnotationTileShare={() =>
             Js.log("onDocumentAnnotationTileShare")
           }
-          onTitleChange={v => Js.log2("onTitleChange", v) }
-          onAuthorChange={v => Js.log2("onAuthorChange", v) }
+          onTitleChange={v => Js.log2("onTitleChange", v)}
+          onAuthorChange={v => Js.log2("onAuthorChange", v)}
           onDocumentShare={() => Js.log("onDocumentShare")}
           onDocumentDelete={() => Js.log("onDocumentDelete")}
           onDocumentSave={() => Js.log("onDocumentSave")}
           onMinimize={() => Js.log("onMinimize")}
           onBack={() => Js.log("onBack")}
           userProfileId={BsFaker.Random.uuid()}
-          firstDocumentOpenActivity={Mocks.documentOpenUserReadActivity()}
-          lastDocumentOpenActivity={Mocks.documentOpenUserReadActivity()}
+          firstDocumentOpenActivity={
+            Some(Mocks.documentOpenUserReadActivity())
+          }
+          lastDocumentOpenActivity={
+            Some(Mocks.documentOpenUserReadActivity())
+          }
+          readerPath="http://localhost:9001"
+        />
+      </AppFrame>
+    )
+  )
+->(
+    add("Loading DocumentDetail", () =>
+      <AppFrame
+        className={cn(["pa0", "bg-brand", "ff-r"])}
+        style={make(~width=px(500), ~height=px(800), ~display="flex", ())}>
+        <DocumentDetail
+          document=None
+          userDocument=None
+          documentAnnotations={Array.init(20, _idx =>
+            JavamonnBsLibrarian.JoinedModel.DocumentAnnotationToDocument.make(
+              ~source=Mocks.documentAnnotation(),
+              ~target=Mocks.document(),
+              (),
+            )
+          )}
+          onPaginateDocumentAnnotations={() =>
+            Js.Promise.make((~resolve as _resolve, ~reject as _reject) => ())
+            |> Js.Nullable.return
+          }
+          onDocumentAnnotationTileClick={url =>
+            Js.log2("onDocumentAnnotationTileClick", url)
+          }
+          onDocumentAnnotationTileShare={() =>
+            Js.log("onDocumentAnnotationTileShare")
+          }
+          onTitleChange={v => Js.log2("onTitleChange", v)}
+          onAuthorChange={v => Js.log2("onAuthorChange", v)}
+          onDocumentShare={() => Js.log("onDocumentShare")}
+          onDocumentDelete={() => Js.log("onDocumentDelete")}
+          onDocumentSave={() => Js.log("onDocumentSave")}
+          onMinimize={() => Js.log("onMinimize")}
+          onBack={() => Js.log("onBack")}
+          userProfileId={BsFaker.Random.uuid()}
+          firstDocumentOpenActivity=None
+          lastDocumentOpenActivity=None
           readerPath="http://localhost:9001"
         />
       </AppFrame>

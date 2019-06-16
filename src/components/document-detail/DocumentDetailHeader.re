@@ -1,15 +1,15 @@
 open Styles;
 
 type state = {
-  dirtyTitle: string,
-  dirtyAuthor: string,
-  title: string,
-  author: string,
+  dirtyTitle: option(string),
+  dirtyAuthor: option(string),
+  title: option(string),
+  author: option(string),
 };
 
 type action =
-  | TitleChange(string)
-  | AuthorChange(string)
+  | TitleChange(option(string))
+  | AuthorChange(option(string))
   | Reset;
 
 let component = ReasonReact.reducerComponent("DocumentDetailHeader");
@@ -31,8 +31,10 @@ let make = (~title, ~author, ~onTitleChange, ~onAuthorChange, _children) => {
       })
     },
   willReceiveProps: self => {
-    let resetTitle = title !== self.state.title;
-    let resetAuthor = title !== self.state.author;
+    let resetTitle =
+      !Js.Option.equal((. a, b) => a == b, title, self.state.title);
+    let resetAuthor =
+      !Js.Option.equal((. a, b) => a == b, author, self.state.author);
     {
       title: resetTitle ? title : self.state.title,
       dirtyTitle: resetTitle ? title : self.state.dirtyTitle,
@@ -43,16 +45,17 @@ let make = (~title, ~author, ~onTitleChange, ~onAuthorChange, _children) => {
   render: self =>
     <div className={cn(["flex", "flex-column"])}>
       <MaterialUi.TextField
-        value={`String(self.state.dirtyTitle)}
+        value={`String(Js.Option.getWithDefault("", self.state.dirtyTitle))}
         label={ReasonReact.string("Title")}
         fullWidth=true
         multiline=true
         onChange={ev =>
-          self.send(TitleChange(ReactEvent.Form.target(ev)##value))
+          self.send(TitleChange(Some(ReactEvent.Form.target(ev)##value)))
         }
         onBlur={_ev => {
           if (self.state.dirtyTitle !== self.state.title) {
             let _ = onTitleChange(self.state.dirtyTitle);
+            ();
           };
           ();
         }}
@@ -71,14 +74,15 @@ let make = (~title, ~author, ~onTitleChange, ~onAuthorChange, _children) => {
       />
       <Spacer size=3 />
       <MaterialUi.TextField
-        value={`String(self.state.dirtyAuthor)}
+        value={`String(Js.Option.getWithDefault("", self.state.dirtyAuthor))}
         label={ReasonReact.string("Author")}
         onChange={ev =>
-          self.send(AuthorChange(ReactEvent.Form.target(ev)##value))
+          self.send(AuthorChange(Some(ReactEvent.Form.target(ev)##value)))
         }
         onBlur={_ev => {
-          if (self.state.dirtyAuthor !==  self.state.author) {
-            let _ = onAuthorChange(self.state.author);
+          if (self.state.dirtyAuthor !== self.state.author) {
+            let _ = onAuthorChange(self.state.dirtyAuthor);
+            ();
           };
           ();
         }}

@@ -10,7 +10,11 @@ module.exports = (baseConfig, env, defaultConfig) => {
 
   // Run unbuilt dependencies through babel.
   defaultConfig.module.rules.push({
-    test: /@javamonn/,
+    test: /\.(js|jsx)$/,
+    include: [
+      /\/javamonn\//,
+      /\/librarian\//,
+    ],
     use: [
       {
         loader: 'babel-loader',
@@ -21,6 +25,10 @@ module.exports = (baseConfig, env, defaultConfig) => {
       }
     ]
   })
+
+  defaultConfig.target = 'web'
+  defaultConfig.node = (defaultConfig.node || {})
+  defaultConfig.node.fs = 'empty'
 
   return defaultConfig
 }

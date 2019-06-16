@@ -52,7 +52,17 @@ let documentOpenUserReadActivity = () =>
     ~type_=`DocumentOpen,
     ~documentId=BsFaker.Random.uuid(),
     ~userProfileId=BsFaker.Random.uuid(),
-    ()
+    (),
+  );
+
+let userDocument = () =>
+  JavamonnBsLibrarian.UserDocumentModel.make(
+    ~owner="",
+    ~documentId=BsFaker.Random.uuid(),
+    ~createdAt=Js.Date.make() |> Js.Date.toISOString,
+    ~title=BsFaker.Lorem.words(~wordCount=Js.Math.random_int(10, 15), ()),
+    ~author=BsFaker.Lorem.words(~wordCount=2, ()),
+    (),
   );
 
 module Js = {

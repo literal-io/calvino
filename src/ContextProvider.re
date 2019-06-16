@@ -22,6 +22,8 @@ let appStyleSheet =
 [@bs.val] [@bs.module "@material-ui/core/styles"]
 external createMuiTheme: Js.t({.}) => MaterialUi_Theme.Theme.t = "";
 
+external asJsObj: ReactJss.SheetsManager.t => Js.t('a) = "%identity";
+
 let defaultTheme = createMuiTheme(Js.Obj.empty());
 
 /**
@@ -92,7 +94,8 @@ module Server = {
           );
 
         <ReactJss.JssProvider registry=sheetsRegistry generateClassName>
-          <MaterialUi.MuiThemeProvider theme sheetsManager>
+          <MaterialUi.MuiThemeProvider
+            theme sheetsManager={asJsObj(sheetsManager)}>
             children
           </MaterialUi.MuiThemeProvider>
         </ReactJss.JssProvider>;
@@ -143,7 +146,7 @@ type jsProps('a, 'b) = {
   generateClassName: ReactJss.GenerateClassName.t,
   theme: Js.t('a),
   sheetsRegistry: ReactJss.SheetsRegistry.t,
-  sheetsManager: Js.t('b),
+  sheetsManager: ReactJss.SheetsManager.t,
   children: ReasonReact.reactElement,
 };
 
