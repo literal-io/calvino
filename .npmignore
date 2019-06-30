@@ -1,4 +1,3 @@
-*.re
 lib/
 .merlin
 yarn-error.log
