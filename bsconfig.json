@@ -21,7 +21,7 @@
     "bs-faker",
     "bs-ganalytics",
     "bs-date-fns",
-		"bs-react-jss",
+    "bs-react-jss",
     "@glennsl/bs-json",
     "@jsiebern/bs-material-ui",
     "@javamonn/bs-librarian",
