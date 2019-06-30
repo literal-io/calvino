@@ -19,7 +19,9 @@ let make =
       data=documentAnnotations
       renderItem={documentAnnotation =>
         <DocumentAnnotationTile
-          onClick=onDocumentAnnotationTileClick
+          onClick={annotationUrl =>
+            onDocumentAnnotationTileClick(~annotationUrl, ~documentAnnotation)
+          }
           onShareClicked={() => {
             let _ =
               Utils.shareDocumentAnnotation(
@@ -124,9 +126,13 @@ let default =
       ~onPaginateDocumentAnnotations=
         Utils.applyBs(jsProps |> onPaginateDocumentAnnotationsGet),
       ~onDocumentAnnotationTileShare=
-        Utils.applyBs(jsProps |> onDocumentAnnotationTileShare),
+        Utils.applyBs(jsProps |> onDocumentAnnotationTileShareGet),
       ~onDocumentAnnotationTileClick=
-        Utils.applyBs1(jsProps |> onDocumentAnnotationTileClick),
+        (~annotationUrl, ~documentAnnotation) =>
+          Utils.applyBs1(
+            jsProps |> onDocumentAnnotationTileClickGet,
+            annotationUrl,
+          ),
       ~readerPath=jsProps |> readerPathGet,
       ~userProfileId=jsProps |> userProfileIdGet,
       [||],

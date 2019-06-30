@@ -60,8 +60,11 @@ storiesOf("Extension Browser Action Menu", _module)
               )
               |> Js.Nullable.return
             }
-            onDocumentAnnotationTileClick={url =>
-              Js.log2("onDocumentAnnotationTileClick", url)
+            onDocumentAnnotationTileClick={(
+              ~annotationUrl,
+              ~documentAnnotation,
+            ) =>
+              Js.log2("onDocumentAnnotationTileClick", annotationUrl)
             }
             onDocumentAnnotationTileShare={() =>
               Js.log("onDocumentAnnotationTileShare")

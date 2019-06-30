@@ -72,8 +72,8 @@ storiesOf("DocumentDetail", _module)
             Js.Promise.make((~resolve as _resolve, ~reject as _reject) => ())
             |> Js.Nullable.return
           }
-          onDocumentAnnotationTileClick={url =>
-            Js.log2("onDocumentAnnotationTileClick", url)
+          onDocumentAnnotationTileClick={(~annotationUrl, ~documentAnnotation) =>
+            Js.log2("onDocumentAnnotationTileClick", annotationUrl)
           }
           onDocumentAnnotationTileShare={() =>
             Js.log("onDocumentAnnotationTileShare")
@@ -103,8 +103,8 @@ storiesOf("DocumentDetail", _module)
             Js.Promise.make((~resolve as _resolve, ~reject as _reject) => ())
             |> Js.Nullable.return
           }
-          onDocumentAnnotationTileClick={url =>
-            Js.log2("onDocumentAnnotationTileClick", url)
+          onDocumentAnnotationTileClick={(~annotationUrl, ~documentAnnotation) =>
+            Js.log2("onDocumentAnnotationTileClick", annotationUrl)
           }
           onDocumentAnnotationTileShare={() =>
             Js.log("onDocumentAnnotationTileShare")
@@ -147,8 +147,8 @@ storiesOf("DocumentDetail", _module)
             Js.Promise.make((~resolve as _resolve, ~reject as _reject) => ())
             |> Js.Nullable.return
           }
-          onDocumentAnnotationTileClick={url =>
-            Js.log2("onDocumentAnnotationTileClick", url)
+          onDocumentAnnotationTileClick={(~annotationUrl, ~documentAnnotation) =>
+            Js.log2("onDocumentAnnotationTileClick", annotationUrl)
           }
           onDocumentAnnotationTileShare={() =>
             Js.log("onDocumentAnnotationTileShare")

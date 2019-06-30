@@ -1,7 +1,7 @@
 {
   "name": "@javamonn/calvino",
   "main": "build/Index.js",
-  "version": "1.2.17",
+  "version": "1.2.18",
   "scripts": {
     "bsb:build": "bsb -make-world",
     "bsb:start": "bsb -make-world -w",
@@ -22,8 +22,8 @@
   "license": "MIT",
   "dependencies": {
     "@glennsl/bs-json": "^3.0.0",
-    "@javamonn/bs-librarian": "^1.3.9",
-    "@javamonn/librarian": "^1.4.1",
+    "@javamonn/bs-librarian": "^1.3.10",
+    "@javamonn/librarian": "^1.4.3",
     "@jsiebern/bs-material-ui": "^1.0.0",
     "@material-ui/core": "^3.9.1",
     "@material-ui/icons": "^3.0.2",

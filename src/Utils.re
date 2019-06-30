@@ -17,9 +17,9 @@ let applyBs1 = (cb, a) => cb(. a);
 let documentURLSource = document =>
   switch (JavamonnBsLibrarian.DocumentModel.ocrSource(document)) {
   | Some(ocrSource) =>
-    ocrSource 
+    ocrSource
     |> JavamonnBsLibrarian.DocumentModel.UrlSource.makeFromOcrSource(
-        ~documentId=?JavamonnBsLibrarian.DocumentModel.id(document)
+         ~documentId=?JavamonnBsLibrarian.DocumentModel.id(document),
        )
   | None =>
     document
@@ -67,27 +67,30 @@ let shareDocumentAnnotation = (~userProfileId, documentAnnotation) =>
       |> JavamonnBsLibrarian.DocumentModel.id
       |> Js.Option.getExn;
     /** Asynchronously share the document if it is not already shared. */
-    JavamonnBsLibrarian.(
-      FindService.UserReadActivity.findOrCreate(
-        ~query=
-          LibrarianFind.makeQ(
-            ~type_=
-              `DocumentShare
-              |> UserReadActivityModel.activityTypeToJs
-              |> Js.Nullable.return,
-            ~documentId=documentId |> Js.Nullable.return,
-            ~owner=
-              userProfileId |> LibrarianUtils.sha256 |> Js.Nullable.return,
+    JavamonnBsLibrarian.FindService.UserReadActivity.findOrCreate(
+      ~query=
+        JavamonnBsLibrarian.LibrarianFind.makeQ(
+          ~type_=
+            `DocumentShare
+            |> JavamonnBsLibrarian.UserReadActivityModel.activityTypeToJs
+            |> Js.Nullable.return,
+          ~documentId=documentId |> Js.Nullable.return,
+          ~owner=
+            userProfileId
+            |> JavamonnBsLibrarian.LibrarianUtils.sha256
+            |> Js.Nullable.return,
+          (),
+        ),
+      ~creator=
+        () =>
+          JavamonnBsLibrarian.UserReadActivityModel.make(
+            ~type_=`DocumentShare,
+            ~documentId,
+            ~userProfileId,
             (),
-          ),
-        ~creator=
-          () =>
-            JavamonnBsLibrarian.UserReadActivityModel.(
-              make(~type_=`DocumentShare, ~documentId, ~userProfileId, ())
-            )
-            |> Vow.Result.return,
-        (),
-      )
+          )
+          |> Vow.Result.return,
+      (),
     )
     |> Vow.Result.map(_result => ());
   };
