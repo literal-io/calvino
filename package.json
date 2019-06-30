@@ -1,7 +1,7 @@
 {
   "name": "@javamonn/calvino",
   "main": "build/Index.js",
-  "version": "1.2.19",
+  "version": "1.2.20",
   "scripts": {
     "bsb:build": "bsb -make-world",
     "bsb:start": "bsb -make-world -w",
@@ -41,7 +41,8 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-jss": "^8.6.1",
-    "reason-react": "0.5.3"
+    "reason-react": "0.5.3",
+    "bs-storybook": "^0.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.5",
@@ -50,7 +51,6 @@
     "babel-loader": "^8.0.4",
     "bs-faker": "github:literal-io/bs-faker#fix-currying",
     "bs-platform": "^4.0.18",
-    "bs-storybook": "^0.3.0",
     "concurrently": "^4.0.1",
     "css-loader": "^1.0.1",
     "extract-loader": "^3.0.0",
