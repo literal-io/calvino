@@ -10,12 +10,14 @@ module Color = {
   let accentColor = "rgb(0, 188, 212)";
   let primaryLight = "rgba(255, 255, 255, 0.92)";
   let secondaryLight = "rgba(255, 255, 255, 0.72)";
+  let dividerLight = "rgba(255, 255, 255, 0.12)";
 };
 
 let bgWhite = make(~backgroundColor="white", ());
 
 let pl = make(~color=Color.primaryLight, ());
 let sl = make(~color=Color.secondaryLight, ());
+
 let bpl = make(~color=Color.brandColor, ());
 let bsl = make(~color=Color.brandColor, ~opacity=string_of_float(0.72), ());
 

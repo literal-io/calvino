@@ -33,7 +33,7 @@ storiesOf("Extension Browser Action Menu", _module)
     )
   )
 ->(
-    add("BrowserActionMenuDashboardHighlights", () =>
+    add("DocumentAnnotationsList", () =>
       <ContextProvider.Client
         generateClassName={ReactJss.GenerateClassName.make()}>
         <div
@@ -46,7 +46,7 @@ storiesOf("Extension Browser Action Menu", _module)
             "items-center",
             "relative",
           ])}>
-          <BrowserActionMenuDashboardHighlights
+          <DocumentAnnotationsList
             documentAnnotations={Array.init(20, _idx =>
               JavamonnBsLibrarian.JoinedModel.DocumentAnnotationToDocument.make(
                 ~source=Mocks.documentAnnotation(),
@@ -60,8 +60,11 @@ storiesOf("Extension Browser Action Menu", _module)
               )
               |> Js.Nullable.return
             }
-            onDocumentAnnotationTileClick={url =>
-              Js.log2("onDocumentAnnotationTileClick", url)
+            onDocumentAnnotationTileClick={(
+              ~annotationUrl,
+              ~documentAnnotation,
+            ) =>
+              Js.log2("onDocumentAnnotationTileClick", annotationUrl)
             }
             onDocumentAnnotationTileShare={() =>
               Js.log("onDocumentAnnotationTileShare")

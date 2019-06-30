@@ -7,4 +7,5 @@ configure(() => {
   require('../src/__stories__/ComponentStory.bs.js');
   require('../src/__stories__/ScreenStory.bs.js');
   require('../src/__stories__/ExtensionBrowserActionMenuStory.bs.js');
+  require('../src/__stories__/DocumentDetailStory.bs.js');
 }, module);

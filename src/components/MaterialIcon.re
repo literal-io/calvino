@@ -74,3 +74,39 @@ module BarChart =
     [@bs.module "@material-ui/icons/BarChart"]
     external reactClass: ReasonReact.reactClass = "default";
   });
+
+module ArrowBack =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/ArrowBack"]
+    external reactClass: ReasonReact.reactClass = "default";
+  });
+
+module Delete =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/Delete"]
+    external reactClass: ReasonReact.reactClass = "default";
+  });
+
+module Download =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/GetApp"]
+    external reactClass: ReasonReact.reactClass = "default";
+  });
+
+module Web =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/Language"]
+    external reactClass: ReasonReact.reactClass = "default";
+  });
+
+module PanoramaFishEye =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/PanoramaFishEye"]
+    external reactClass: ReasonReact.reactClass = "default";
+  });
+
+module Timelapse =
+  MakeIcon({
+    [@bs.module "@material-ui/icons/Timelapse"]
+    external reactClass: ReasonReact.reactClass = "default";
+  });

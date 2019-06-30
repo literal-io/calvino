@@ -1,6 +1,5 @@
 type t;
 
-
 [@bs.deriving abstract]
 type options = {
   container: Js.Null_undefined.t(Dom.element),

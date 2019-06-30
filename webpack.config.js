@@ -26,7 +26,7 @@ const baseConfig = {
         ]
       },
       {
-        test: /(javamonn)|(match-when)|(\.bs\.js$)/,
+        test: /(javamonn)|(librarian)|(match-when)|(\.bs\.js$)/,
         use: [
           {
             loader: 'babel-loader',

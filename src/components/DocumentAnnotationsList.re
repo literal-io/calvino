@@ -1,7 +1,6 @@
 open Styles;
 
-let component =
-  ReasonReact.statelessComponent("BrowserActionMenuDashboardHighlights");
+let component = ReasonReact.statelessComponent("DocumentAnnotationsList");
 
 let make =
     (
@@ -11,6 +10,7 @@ let make =
       ~onDocumentAnnotationTileShare,
       ~userProfileId,
       ~readerPath,
+      ~hideDocumentInfo=?,
       _children,
     ) => {
   ...component,
@@ -19,7 +19,9 @@ let make =
       data=documentAnnotations
       renderItem={documentAnnotation =>
         <DocumentAnnotationTile
-          onClick=onDocumentAnnotationTileClick
+          onClick={annotationUrl =>
+            onDocumentAnnotationTileClick(~annotationUrl, ~documentAnnotation)
+          }
           onShareClicked={() => {
             let _ =
               Utils.shareDocumentAnnotation(
@@ -29,6 +31,7 @@ let make =
             let _ = onDocumentAnnotationTileShare();
             ();
           }}
+          ?hideDocumentInfo
           title=JavamonnBsLibrarian.(
             documentAnnotation
             |> JoinedModel.DocumentAnnotationToDocument.target
@@ -84,7 +87,7 @@ let make =
         <div
           className={cn([
             "flex",
-            "items-center",
+            "items-stretch",
             "flex-column",
             "bg-gray",
             "pt4",
@@ -123,9 +126,13 @@ let default =
       ~onPaginateDocumentAnnotations=
         Utils.applyBs(jsProps |> onPaginateDocumentAnnotationsGet),
       ~onDocumentAnnotationTileShare=
-        Utils.applyBs(jsProps |> onDocumentAnnotationTileShare),
+        Utils.applyBs(jsProps |> onDocumentAnnotationTileShareGet),
       ~onDocumentAnnotationTileClick=
-        Utils.applyBs1(jsProps |> onDocumentAnnotationTileClick),
+        (~annotationUrl, ~documentAnnotation) =>
+          Utils.applyBs1(
+            jsProps |> onDocumentAnnotationTileClickGet,
+            annotationUrl,
+          ),
       ~readerPath=jsProps |> readerPathGet,
       ~userProfileId=jsProps |> userProfileIdGet,
       [||],

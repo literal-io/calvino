@@ -1,5 +1,5 @@
 {
-  "name": "react-template",
+  "name": "@javamonn/calvino",
   "reason": {
     "react-jsx": 2
   },
@@ -20,6 +20,8 @@
     "bs-webapi",
     "bs-faker",
     "bs-ganalytics",
+    "bs-date-fns",
+    "bs-react-jss",
     "@glennsl/bs-json",
     "@jsiebern/bs-material-ui",
     "@javamonn/bs-librarian",
