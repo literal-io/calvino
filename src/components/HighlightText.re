@@ -11,7 +11,7 @@ let component = ReasonReact.reducerComponent("HighlightText");
 
 let getElemHeight = (elem) => {
   let rect = Webapi.Dom.Element.getBoundingClientRect(elem);
-  float_of_int(Webapi.Dom.DomRect.(bottom(rect) - top(rect)));
+  Webapi.Dom.DomRect.(bottom(rect) -. top(rect));
 }
 
 

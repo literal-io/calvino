@@ -4,8 +4,8 @@ configure(() => {
   require('typeface-roboto');
   require('typeface-roboto-slab');
 
-  require('../src/__stories__/ComponentStory.bs.js');
-  require('../src/__stories__/ScreenStory.bs.js');
-  require('../src/__stories__/ExtensionBrowserActionMenuStory.bs.js');
-  require('../src/__stories__/DocumentDetailStory.bs.js');
+  require('../__stories__/ComponentStory.bs.js');
+  require('../__stories__/ScreenStory.bs.js');
+  require('../__stories__/ExtensionBrowserActionMenuStory.bs.js');
+  require('../__stories__/DocumentDetailStory.bs.js');
 }, module);
