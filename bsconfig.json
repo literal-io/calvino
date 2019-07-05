@@ -3,22 +3,30 @@
   "reason": {
     "react-jsx": 2
   },
-  "sources": {
-    "dir" : "src",
-    "subdirs" : true
-  },
+  "sources": [
+    {
+      "dir": "__stories__",
+      "type": "dev"
+    },
+    {
+      "dir" : "src",
+      "subdirs" : true
+    }
+  ],
   "package-specs": [{
     "module": "es6",
     "in-source": true
   }],
   "suffix": ".bs.js",
   "namespace": true,
+  "bs-dev-dependencies": [
+    "bs-faker",
+    "bs-storybook"
+  ],
   "bs-dependencies": [
     "reason-react",
-    "bs-storybook",
     "re-classnames",
     "bs-webapi",
-    "bs-faker",
     "bs-ganalytics",
     "bs-date-fns",
     "bs-react-jss",
