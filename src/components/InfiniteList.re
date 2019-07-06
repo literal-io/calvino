@@ -46,30 +46,38 @@ let make =
     hasMoreData: ref(true),
     isLoadingMoreData: false,
   },
+  didUpdate: ({newSelf}) => {
+    let _ =
+      handleScroll(
+        ~onEndReached=
+          newSelf.handle(((), self) => newSelf.send(HandleLoadMoreData)),
+        ~endThreshold,
+        newSelf.state.listRef^,
+      );
+    ();
+  },
   reducer: (action, state) =>
     switch (action) {
     | HandleLoadMoreData =>
-      state.hasMoreData^ ?
+      state.hasMoreData^ && !state.isLoadingMoreData ?
         ReasonReact.UpdateWithSideEffects(
           {...state, isLoadingMoreData: true},
-          (
-            self =>
-              switch (Js.Nullable.toOption(onEndReached())) {
-              | Some(promise) =>
-                let _ =
-                  Js.Promise.then_(
-                    () => {
-                      self.send(HandleLoadedMoreData);
-                      Js.Promise.resolve();
-                    },
-                    promise,
-                  );
-                ();
-              | None =>
-                self.send(HandleLoadedMoreData);
-                self.state.hasMoreData := false;
-              }
-          ),
+          self =>
+            switch (Js.Nullable.toOption(onEndReached())) {
+            | Some(promise) =>
+              let _ =
+                Js.Promise.then_(
+                  () => {
+                    self.send(HandleLoadedMoreData);
+                    Js.Promise.resolve();
+                  },
+                  promise,
+                );
+              ();
+            | None =>
+              self.send(HandleLoadedMoreData);
+              self.state.hasMoreData := false;
+            },
         ) :
         ReasonReact.NoUpdate
     | HandleLoadedMoreData =>
@@ -91,10 +99,8 @@ let make =
       |> Js.Array.mapi((item, idx) =>
            <>
              {renderItem(item)}
-             {
-               idx < Js.Array.length(data) - 1 ?
-                 renderSeparator() : ReasonReact.null
-             }
+             {idx < Js.Array.length(data) - 1 ?
+                renderSeparator() : ReasonReact.null}
            </>
          );
     let loadingIndicator =
@@ -107,30 +113,26 @@ let make =
     | Some(renderInnerContainer) =>
       <div
         ref={self.handle(handleListRef)}
-        onScroll=(_ev => onScroll(. self.state.listRef^))
-        className={
-          cn([
-            "overflow-y-scroll",
-            "absolute",
-            "absolute--fill",
-            className->Cn.unpack,
-          ])
-        }>
+        onScroll={_ev => onScroll(. self.state.listRef^)}
+        className={cn([
+          "overflow-y-scroll",
+          "absolute",
+          "absolute--fill",
+          className->Cn.unpack,
+        ])}>
         {renderInnerContainer(items)}
         loadingIndicator
       </div>
     | None =>
       <div
         ref={self.handle(handleListRef)}
-        onScroll=(_ev => onScroll(. self.state.listRef^))
-        className={
-          cn([
-            "overflow-y-scroll",
-            "absolute",
-            "absolute--fill",
-            className->Cn.unpack,
-          ])
-        }>
+        onScroll={_ev => onScroll(. self.state.listRef^)}
+        className={cn([
+          "overflow-y-scroll",
+          "absolute",
+          "absolute--fill",
+          className->Cn.unpack,
+        ])}>
         ...{Array.append(items, [|loadingIndicator|])}
       </div>
     };
