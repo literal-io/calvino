@@ -50,6 +50,7 @@ let make =
           )
           annotationURL={Utils.makeDocumentAnnotationURL(
             ~readerPath,
+            ~documentDetail=true,
             ~document=
               JavamonnBsLibrarian.JoinedModel.DocumentAnnotationToDocument.target(
                 documentAnnotation,

@@ -203,7 +203,11 @@ let make =
           imageURL=src
           imageHeight=height
           onClick=?onDocumentTileClick
-          documentURL={Utils.makeDocumentURL(~readerPath, document)}
+          documentURL={Utils.makeDocumentURL(
+            ~readerPath,
+            ~documentDetail=true,
+            document,
+          )}
         />
       | _ =>
         <DocumentTile
@@ -211,7 +215,11 @@ let make =
           title={JavamonnBsLibrarian.DocumentModel.title(document)}
           author={JavamonnBsLibrarian.DocumentModel.author(document)}
           onClick=?onDocumentTileClick
-          documentURL={Utils.makeDocumentURL(~readerPath, document)}
+          documentURL={Utils.makeDocumentURL(
+            ~readerPath,
+            ~documentDetail=true,
+            document,
+          )}
         />
       };
     let shouldContinueRendering = ref(true);
