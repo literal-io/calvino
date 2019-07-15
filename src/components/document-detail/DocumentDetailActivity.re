@@ -57,7 +57,7 @@ let make =
       firstDocumentOpenActivity
       |> Js.Option.map((. userReadActivity) =>
            userReadActivity
-           |> JavamonnBsLibrarian.UserReadActivityModel.createdAt
+           |> JavamonnBsLibrarian.UserReadActivityModel.DocumentOpen.createdAtGet
            |> DateFns.parseString
            |> DateFns.format("DD MMM YYYY")
          )
@@ -66,7 +66,7 @@ let make =
       lastDocumentOpenActivity
       |> Js.Option.map((. userReadActivity) =>
            userReadActivity
-           |> JavamonnBsLibrarian.UserReadActivityModel.createdAt
+           |> JavamonnBsLibrarian.UserReadActivityModel.DocumentOpen.createdAtGet
            |> DateFns.parseString
            |> DateFns.format("DD MMM YYYY")
          )

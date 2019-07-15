@@ -103,13 +103,16 @@ let shareDocumentAnnotation = (~userProfileId, documentAnnotation) =>
         ),
       ~creator=
         () =>
-          JavamonnBsLibrarian.UserReadActivityModel.make(
-            ~type_=`DocumentShare,
-            ~documentId,
-            ~userProfileId,
-            (),
-          )
-          |> Vow.Result.return,
+          JavamonnBsLibrarian.(
+            UserReadActivityModel.DocumentShare.make(
+              ~documentId,
+              ~owner=userProfileId |> LibrarianUtils.sha256,
+              ~createdAt=Js.Date.make() |> Js.Date.toISOString,
+              (),
+            )
+            |> UserReadActivityModel.documentShare
+            |> Vow.Result.return
+          ),
       (),
     )
     |> Vow.Result.map(_result => ());
