@@ -48,11 +48,13 @@ let documentAnnotation = () =>
   );
 
 let documentOpenUserReadActivity = () =>
-  JavamonnBsLibrarian.UserReadActivityModel.make(
-    ~type_=`DocumentOpen,
-    ~documentId=BsFaker.Random.uuid(),
-    ~userProfileId=BsFaker.Random.uuid(),
-    (),
+  JavamonnBsLibrarian.(
+    UserReadActivityModel.DocumentOpen.make(
+      ~documentId=BsFaker.Random.uuid(),
+      ~owner=BsFaker.Random.uuid() |> LibrarianUtils.sha256,
+      ~createdAt=Js.Date.make() |> Js.Date.toISOString,
+      (),
+    )
   );
 
 let userDocument = () =>

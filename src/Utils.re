@@ -14,6 +14,17 @@ let wrapBs = cb => (. a) => cb(a);
 let applyBs = (cb, ()) => cb(.);
 let applyBs1 = (cb, a) => cb(. a);
 
+let pathCombine = (p1, p2) => {
+  let lastCharP1 = Js.String.charAt(Js.String.length(p1) - 1, p1);
+  let firstCharP2 = Js.String.charAt(0, p2);
+  switch (lastCharP1, firstCharP2) {
+  | ("/", "/") => p1 ++ Js.String.substr(1, p2)
+  | ("/", _)
+  | (_, "/") => p1 ++ p2
+  | (_, _) => p1 ++ "/" ++ p2
+  };
+};
+
 let documentURLSource = document =>
   switch (JavamonnBsLibrarian.DocumentModel.ocrSource(document)) {
   | Some(ocrSource) =>
@@ -29,19 +40,28 @@ let documentURLSource = document =>
        )
   };
 
-let makeDocumentURL = (~readerPath, document) =>
+let makeDocumentURL = (~readerPath, ~documentDetail=false, document) => {
+  let basePath =
+    documentDetail ?
+      pathCombine(readerPath, "document-detail") ++ "?" : readerPath ++ "?";
+
   document
   |> documentURLSource
   |> JavamonnBsLibrarian.DocumentModel.UrlSource.encode
   |> Qs.stringify
-  |> (params => readerPath ++ "?" ++ params);
+  |> (params => basePath ++ params);
+};
 
-let makeDocumentAnnotationURL = (~readerPath, ~document, documentAnnotation) => {
+let makeDocumentAnnotationURL =
+    (~readerPath, ~documentDetail=false, ~document, documentAnnotation) => {
   let urlSource = documentURLSource(document);
   let documentAnnotationId =
     documentAnnotation
     |> JavamonnBsLibrarian.DocumentAnnotationModel.id
     |> Js.Option.getExn;
+  let basePath =
+    documentDetail ?
+      pathCombine(readerPath, "document-detail") ++ "?" : readerPath ++ "?";
   JavamonnBsLibrarian.DocumentModel.UrlSource.{
     ...urlSource,
     annotationId: Some(documentAnnotationId),
@@ -49,7 +69,7 @@ let makeDocumentAnnotationURL = (~readerPath, ~document, documentAnnotation) => 
   }
   |> JavamonnBsLibrarian.DocumentModel.UrlSource.encode
   |> Qs.stringify
-  |> (params => readerPath ++ "?" ++ params);
+  |> (params => basePath ++ params);
 };
 
 let shareDocumentAnnotation = (~userProfileId, documentAnnotation) =>
@@ -83,13 +103,16 @@ let shareDocumentAnnotation = (~userProfileId, documentAnnotation) =>
         ),
       ~creator=
         () =>
-          JavamonnBsLibrarian.UserReadActivityModel.make(
-            ~type_=`DocumentShare,
-            ~documentId,
-            ~userProfileId,
-            (),
-          )
-          |> Vow.Result.return,
+          JavamonnBsLibrarian.(
+            UserReadActivityModel.DocumentShare.make(
+              ~documentId,
+              ~owner=userProfileId |> LibrarianUtils.sha256,
+              ~createdAt=Js.Date.make() |> Js.Date.toISOString,
+              (),
+            )
+            |> UserReadActivityModel.documentShare
+            |> Vow.Result.return
+          ),
       (),
     )
     |> Vow.Result.map(_result => ());
